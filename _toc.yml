@@ -2,19 +2,18 @@
 format: jb-book
 root: intro
 chapters:
-- file: bayesian_inference.ipynb
-- file: data_structure_algorithm.ipynb
-- file: decision_tree.ipynb
-- file: ensemble_learning.ipynb
-- file: knn.ipynb
-- file: language_model.ipynb
-- file: logistic_regression.ipynb
-- file: markov-chain_mdp.ipynb
-- file: neural_networks.ipynb
-- file: non-param_bayesian.ipynb
-- file: normalization.ipynb
-- file: reinforcement_learning.ipynb
-- file: sampling.ipynb
-- file: search.ipynb
-- file: statistics.ipynb
-- file: svm.ipynb
+- file: bayesian_inference
+- file: sampling
+- file: non-param_bayesian
+- file: language_model
+- file: neural_networks
+- file: normalization
+- file: markov-chain_mdp
+- file: reinforcement_learning
+- file: data_structure
+- file: search_algorithm
+- file: logistic_regression
+- file: knn
+- file: svm
+- file: decision_tree
+- file: ensemble_learning
