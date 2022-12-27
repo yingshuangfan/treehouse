@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Language Model &#8212; TreeHouse</title>
+    <title>Probabilistic Language Model &#8212; TreeHouse</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -50,6 +50,9 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="_static/logo.webp"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Neural Networks" href="neural_networks.html" />
@@ -131,7 +134,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Language Model
+   Probabilistic Language Model
   </a>
  </li>
  <li class="toctree-l1">
@@ -346,23 +349,90 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#maximum-likelihood-estimate-mle">
+   Maximum Likelihood Estimate(MLE)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#n-gram-model">
+   N-gram Model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluation-metric">
+   Evaluation Metric
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#smoothing">
+   Smoothing
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Language Model</h1>
+                <h1>Probabilistic Language Model</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#maximum-likelihood-estimate-mle">
+   Maximum Likelihood Estimate(MLE)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#n-gram-model">
+   N-gram Model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluation-metric">
+   Evaluation Metric
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#smoothing">
+   Smoothing
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -370,9 +440,118 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="language-model">
-<h1>Language Model<a class="headerlink" href="#language-model" title="Permalink to this headline">#</a></h1>
-<p>to be continued..</p>
+  <section id="probabilistic-language-model">
+<h1>Probabilistic Language Model<a class="headerlink" href="#probabilistic-language-model" title="Permalink to this headline">#</a></h1>
+<p><strong>Def.1</strong> Probability of sentence: <span class="math notranslate nohighlight">\(W=(w_1,...,w_n)\)</span> as a sequence of words, by chain-rule we have</p>
+<p>\begin{align}
+P(W) = P(w_1,…,w_n) = \prod_{i=1}^n P(w_i|w_0,…,w_{i-1}).
+\end{align}</p>
+<ul class="simple">
+<li><p>Where is <span class="math notranslate nohighlight">\(w_0\)</span>? by definition, we ignore <span class="math notranslate nohighlight">\(P(w_0)\)</span> in the joint probability.</p></li>
+<li><p>How to estimate conditional probability <span class="math notranslate nohighlight">\(P(w_i|w_0,...,w_{i-1})\)</span>? Maximum likelihood estimate, where <span class="math notranslate nohighlight">\(cnt(w_0,...,w_i)\)</span> is defined as the number of counts for sequence <span class="math notranslate nohighlight">\(w_0,...,w_i\)</span> in the corpus.
+\begin{align}
+P(w_i|w_0,…,w_{i-1}) = \frac{cnt(w_0,…,w_i)}{cnt(w_0,…,w_{i-1})}.
+\end{align}</p></li>
+<li><p>To obtain a good estimation, the corpus needs to be sufficiently large, considering the great number of possible sequnces of words. (which is often NOT realistic!)</p></li>
+</ul>
+<section id="maximum-likelihood-estimate-mle">
+<h2>Maximum Likelihood Estimate(MLE)<a class="headerlink" href="#maximum-likelihood-estimate-mle" title="Permalink to this headline">#</a></h2>
+<p>Intuition: The method define the way to determine the parameters of a model, such that the likelihood of the process described by the model is maximized based on the data that we have oberserved.</p>
+</section>
+<section id="n-gram-model">
+<h2>N-gram Model<a class="headerlink" href="#n-gram-model" title="Permalink to this headline">#</a></h2>
+<p>Intuition: decrease the number of possible sequences of words, by adoption the Markov Assumption.</p>
+<p><strong>Assumption.1 Markov Assumption:</strong> the future word only depends on the previous K words.
+\begin{align}
+P(w_i|w_0,…,w_{i-1}) = P(w_i|w_{i-K},…,w_{i-1}).
+\end{align}</p>
+<p><strong>Def.2 N-gram model</strong> Given the assumption.1, now the probability of a sentence W in def.1 can be simplified as:
+\begin{align}
+P(W) = P(w_1,…,w_n) = \prod_{i=1}^n P(w_i|w_{i-K},…,w_{i-1}).
+\end{align}
+\begin{align}
+P(w_i|w_0,…,w_{i-1}) = \frac{cnt(w_{i-K},…,w_i)}{cnt(w_{i-K},…,w_{i-1})}.
+\end{align}</p>
+<p><strong>Corollary.1 Unigram model</strong> Let K=0, thus each word is independent(where total is the total number of sequences in the corpus). e.g. Bag-of-Words model.
+\begin{align}
+P(W) = P(w_1,…,w_n) = \prod_{i=1}^n P(w_i) = \prod_{i=1}^n \frac{cnt(w_i)}{total}.
+\end{align}</p>
+<p><strong>Corollary.2 Bigram model</strong> Let K=1, thus each word is only dependent to the previous word.
+\begin{align}
+P(W) = P(w_1,…,w_n) = \prod_{i=1}^n P(w_i|w_{i-1}) = \prod_{i=1}^n \frac{cnt(w_i,w_{i-1})}{cnt(w_{i-1})}.
+\end{align}</p>
+</section>
+<section id="evaluation-metric">
+<h2>Evaluation Metric<a class="headerlink" href="#evaluation-metric" title="Permalink to this headline">#</a></h2>
+<p>The fitted language model M is <strong>a set of conditional probabilities</strong>!
+This section we discuss few metrics to evaluate the performance of the fitted language model that could be used on a test dataset.</p>
+<p><strong>Def.3 Perplexity:</strong> Defined the sentence probability normalized by the number of words <span class="math notranslate nohighlight">\(n\)</span>.
+\begin{align}
+PP(W) = \sqrt[n]{P(w_1,…,w_n)} = \sqrt[n]{\prod_{i=1}^n P(w_i|w_{i-K},…,w_{i-1})}.
+\end{align}</p>
+<ul class="simple">
+<li><p>Perplexity is closely related to the sentence probability. In fact, <strong>maximize the sentence probability equals to minimize perplexity</strong>. When comparing different models on a given test dataset, the smaller perplexity yields the better model.</p></li>
+<li><p>We often use the log of perplexity to overcome the overflow problem:</p></li>
+</ul>
+<p>\begin{align}
+\log{PP(W)} = -\frac{1}{n} \sum_{i=1}^n \log{P(w_i|w_{i-K},…,w_{i-1})}.
+\end{align}</p>
+<p><strong>Def.4 Entropy:</strong> The entropy of a random variable X with the probability distribution p is defined as:</p>
+<p>\begin{align}
+H(p) = E_X[-\log_{2}{p(X)}] = -\sum_{x \in X}p(x)\log_{2}{p(x)}.
+\end{align}</p>
+<ul class="simple">
+<li><p>Entropy describe <strong>the average level of information(uncertainty)</strong> given the possible outcomes of a random variable. For example, the maximum entropy is obtained when X follows a uniformed distribution, while the minimum is obtained when X equals to a fixed value(pdf=single point mass).</p></li>
+<li><p>For a valid distribution p, the entropy would always be non-negative!</p></li>
+</ul>
+<p><strong>Assumption.2 Asymptotic Equipartition Property :</strong> Given a discrete-time ergodic stochastic process X:
+\begin{align}
+\lim_{n \to \infty}-\frac{1}{n}\log_{2}{P(X_1,X_2,…X_n)} \to H(X)
+\end{align}</p>
+<ul class="simple">
+<li><p>The property can be proved by Shannon-McMillan-Breiman Theorem. <a class="reference external" href="https://en.wikipedia.org/wiki/Asymptotic_equipartition_property#Discrete-time_finite-valued_stationary_ergodic_sources">wiki</a></p></li>
+<li><p>It states that although there are many possible results that could be produced by the random process, the one we actually observed is most probable from a set of outcomes where each one has the approximately same probability. Thus, the assumption proposes that the large deviation from mean(if exists) would decay exponentially with the increasing number of data samples.</p></li>
+</ul>
+<p><strong>Corollary.3 Entropy for language model:</strong> The probability distribution p is defined as the probability language model M. Therefore, the entropy of a sequence of words is defined as:</p>
+<p>\begin{align}
+H(M) = \lim_{n \to \infty}{H_n(W_{1:n})} = \lim_{n \to \infty}-\frac{1}{n}\sum_{W_{1:n}}P(W_{1:n})\log_{2}{P(W_{1:n})}.
+\end{align}</p>
+<p>Given the assumption.2, it could be simplified as:</p>
+<p>\begin{align}
+H(M) = \lim_{n \to \infty}-\frac{1}{n}\log_{2}{P(W_{1:n})}.
+\end{align}</p>
+<p><strong>Def.5 Cross-Entropy:</strong> The cross-entropy between two distributions p and q over the same random variable X is defined as:</p>
+<p>\begin{align}
+H(p,q) = E_{p(X)}[-\log_{2}{q(X)}] = -\sum_{x \in X}p(x)\log_{2}{q(x)}.
+\end{align}</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(H(p,q) \ge H(p,p)=H(p)\)</span></p></li>
+<li><p>It could measure the divergence between two distribution.</p></li>
+</ul>
+<p><strong>Corollary.4 Cross-Entropy for language model:</strong> Suppose M is the fitted language model from the training dataset, and L is the real language model that we pursue. The goal is to minimize the cross-entropy between M and L. Denote S as the sequence in corpus, the cross-entropy is defined as:</p>
+<p>\begin{align}
+H(L,M) = E_{L(S)}[-\log_{2}{M(S)}] = -\lim_{n \to \infty}\log_{2}{M(W_{1:n})}.
+\end{align}</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\log_{2}{PP(M)}=H(L,M).\)</span> The perplexity of a fitted language model could be computed with its cross-entropy(from the real language model).</p></li>
+<li><p>In a finite dataset T with N samples, the estimate of cross-entropy can be computed with:
+\begin{align}
+H(T,M) = E_{T(S)}[-\log_{2}{M(S)}] = -\frac{1}{N}\sum_{i=1}^N \frac{1}{|S_i|}\log_{2}{M(S_i)}.
+\end{align}</p></li>
+</ul>
+</section>
+<section id="smoothing">
+<h2>Smoothing<a class="headerlink" href="#smoothing" title="Permalink to this headline">#</a></h2>
+<p>Intuitive: the problem of zeros. It is very common that the sentence in a test dataset does NOT exist in the training dataset, however the N-gram language model would output zero probability! By definition, the zero in probability could result in failure when computing the perplexity or entropy for a given language model. Therefore, we introduce smoothing to eliminate zeros in the model.</p>
+<p><strong>Def.6 Laplace Smoothing:</strong> Add a fixed number <span class="math notranslate nohighlight">\(\lambda\)</span> when computing the conditional probability, where V is the size of vocabulary(unique words) for the corpus. The revised estimation of conditional probability is:</p>
+<p>\begin{align}
+P(w_i|w_{i-K},…,w_{i-1}) = \frac{cnt(w_{i-K},…,w_i)+\lambda}{cnt(w_{i-K},…,w_{i-1})+\lambda V}.
+\end{align}</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\lambda\)</span> can be float! e.g. <span class="math notranslate nohighlight">\(\lambda=\frac{1}{V}\)</span></p></li>
+<li><p>Add-one estimation(continuity correction): Let <span class="math notranslate nohighlight">\(\lambda=1\)</span>. However this approach is not recommended if V is too large.</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
