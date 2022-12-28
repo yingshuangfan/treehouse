@@ -372,6 +372,11 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#probability-of-sentence">
+   Probability of Sentence
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#maximum-likelihood-estimate-mle">
    Maximum Likelihood Estimate(MLE)
   </a>
@@ -426,6 +431,11 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#probability-of-sentence">
+   Probability of Sentence
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#maximum-likelihood-estimate-mle">
    Maximum Likelihood Estimate(MLE)
   </a>
@@ -470,20 +480,26 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="probabilistic-language-model">
+  <section class="tex2jax_ignore mathjax_ignore" id="probabilistic-language-model">
 <h1>Probabilistic Language Model<a class="headerlink" href="#probabilistic-language-model" title="Permalink to this headline">#</a></h1>
+<section id="probability-of-sentence">
+<h2>Probability of Sentence<a class="headerlink" href="#probability-of-sentence" title="Permalink to this headline">#</a></h2>
 <p><strong>Def.1</strong> Probability of sentence: <span class="math notranslate nohighlight">\(W=(w_1,...,w_n)\)</span> as a sequence of words, by chain-rule we have</p>
-<p>\begin{align}
-P(W) = P(w_1,…,w_n) = \prod_{i=1}^n P(w_i|w_0,…,w_{i-1})
-\end{align}</p>
-<ul class="simple">
+<div class="amsmath math notranslate nohighlight" id="equation-a7fadf35-d766-4c9c-9bee-adf81242ba3d">
+<span class="eqno">(16)<a class="headerlink" href="#equation-a7fadf35-d766-4c9c-9bee-adf81242ba3d" title="Permalink to this equation">#</a></span>\[\begin{align}
+P(W) = P(w_1,...,w_n) = \prod_{i=1}^n P(w_i|w_0,...,w_{i-1})
+\end{align}\]</div>
+<ul>
 <li><p>Where is <span class="math notranslate nohighlight">\(w_0\)</span>? by definition, we ignore <span class="math notranslate nohighlight">\(P(w_0)\)</span> in the joint probability.</p></li>
-<li><p>How to estimate conditional probability <span class="math notranslate nohighlight">\(P(w_i|w_0,...,w_{i-1})\)</span>? Maximum likelihood estimate, where <span class="math notranslate nohighlight">\(cnt_{seq}\)</span> is defined as the number of counts for sequence <span class="math notranslate nohighlight">\(w_0,...,w_i\)</span> in the corpus.
-\begin{align}
-P(w_i|w_0,…,w_{i-1}) = \frac{cnt_{seq}(w_0,…,w_i)}{cnt_{seq}(w_0,…,w_{i-1})}
-\end{align}</p></li>
+<li><p>How to estimate conditional probability <span class="math notranslate nohighlight">\(P(w_i|w_0,...,w_{i-1})\)</span>? Maximum likelihood estimate, where <span class="math notranslate nohighlight">\(cnt_{seq}\)</span> is defined as the number of counts for sequence <span class="math notranslate nohighlight">\(w_0,...,w_i\)</span> in the corpus.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-97e9cfb6-e507-4df1-aad9-50a4938301ae">
+<span class="eqno">(17)<a class="headerlink" href="#equation-97e9cfb6-e507-4df1-aad9-50a4938301ae" title="Permalink to this equation">#</a></span>\[\begin{align}
+    P(w_i|w_0,...,w_{i-1}) = \frac{cnt_{seq}(w_0,...,w_i)}{cnt_{seq}(w_0,...,w_{i-1})}
+    \end{align}\]</div>
+</li>
 <li><p>To obtain a good estimation, the corpus needs to be sufficiently large, considering the great number of possible sequnces of words. (which is often NOT realistic!)</p></li>
 </ul>
+</section>
 <section id="maximum-likelihood-estimate-mle">
 <h2>Maximum Likelihood Estimate(MLE)<a class="headerlink" href="#maximum-likelihood-estimate-mle" title="Permalink to this headline">#</a></h2>
 <p>Intuition: The method define the way to determine the parameters of a model, such that the likelihood of the process described by the model is maximized based on the data that we have oberserved.</p>
@@ -491,25 +507,30 @@ P(w_i|w_0,…,w_{i-1}) = \frac{cnt_{seq}(w_0,…,w_i)}{cnt_{seq}(w_0,…,w_{i-1}
 <section id="n-gram-model">
 <h2>N-gram Model<a class="headerlink" href="#n-gram-model" title="Permalink to this headline">#</a></h2>
 <p>Intuition: decrease the number of possible sequences of words, by adoption the Markov Assumption.</p>
-<p><strong>Assumption.1 Markov Assumption:</strong> the future word only depends on the previous K words.
-\begin{align}
-P(w_i|w_0,…,w_{i-1}) = P(w_i|w_{i-K},…,w_{i-1})
-\end{align}</p>
-<p><strong>Def.2 N-gram model</strong> Given the assumption.1, now the probability of a sentence W in def.1 can be simplified as:
-\begin{align}
-P(W) = P(w_1,…,w_n) = \prod_{i=1}^n P(w_i|w_{i-K},…,w_{i-1})
-\end{align}
-\begin{align}
-P(w_i|w_0,…,w_{i-1}) = \frac{cnt_{seq}(w_{i-K},…,w_i)}{cnt_{seq}(w_{i-K},…,w_{i-1})}
-\end{align}</p>
-<p><strong>Corollary.2-1 Unigram model</strong> Let K=0, thus each word is independent(where <span class="math notranslate nohighlight">\(total_{seq}\)</span> is the total number of sequences in the corpus). e.g. Bag-of-Words model.
-\begin{align}
-P(W) = P(w_1,…,w_n) = \prod_{i=1}^n P(w_i) = \prod_{i=1}^n \frac{cnt_{seq}(w_i)}{total_{seq}}
-\end{align}</p>
-<p><strong>Corollary.2-2 Bigram model</strong> Let K=1, thus each word is only dependent to the previous word.
-\begin{align}
-P(W) = P(w_1,…,w_n) = \prod_{i=1}^n P(w_i|w_{i-1}) = \prod_{i=1}^n \frac{cnt_{seq}(w_i,w_{i-1})}{cnt_{seq}(w_{i-1})}
-\end{align}</p>
+<p><strong>Assumption.1 Markov Assumption:</strong> the future word only depends on the previous K words.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-ddb7ef4e-aee6-4cfe-80c9-4890e4c63eb8">
+<span class="eqno">(18)<a class="headerlink" href="#equation-ddb7ef4e-aee6-4cfe-80c9-4890e4c63eb8" title="Permalink to this equation">#</a></span>\[\begin{align}
+P(w_i|w_0,...,w_{i-1}) = P(w_i|w_{i-K},...,w_{i-1})
+\end{align}\]</div>
+<p><strong>Def.2 N-gram model</strong> Given the assumption.1, now the probability of a sentence W in def.1 can be simplified as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-53cfc911-9672-4ad4-8918-9aa089fb7327">
+<span class="eqno">(19)<a class="headerlink" href="#equation-53cfc911-9672-4ad4-8918-9aa089fb7327" title="Permalink to this equation">#</a></span>\[\begin{align}
+P(W) = P(w_1,...,w_n) = \prod_{i=1}^n P(w_i|w_{i-K},...,w_{i-1})
+\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-b57b9e0f-cf88-4c41-a6e7-9abd81e15f44">
+<span class="eqno">(20)<a class="headerlink" href="#equation-b57b9e0f-cf88-4c41-a6e7-9abd81e15f44" title="Permalink to this equation">#</a></span>\[\begin{align}
+P(w_i|w_0,...,w_{i-1}) = \frac{cnt_{seq}(w_{i-K},...,w_i)}{cnt_{seq}(w_{i-K},...,w_{i-1})}
+\end{align}\]</div>
+<p><strong>Corollary.2-1 Unigram model</strong> Let K=0, thus each word is independent(where <span class="math notranslate nohighlight">\(total_{seq}\)</span> is the total number of sequences in the corpus). e.g. Bag-of-Words model.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-962f45b7-38a5-4ee1-8bc7-e8ad5b913dfd">
+<span class="eqno">(21)<a class="headerlink" href="#equation-962f45b7-38a5-4ee1-8bc7-e8ad5b913dfd" title="Permalink to this equation">#</a></span>\[\begin{align}
+P(W) = P(w_1,...,w_n) = \prod_{i=1}^n P(w_i) = \prod_{i=1}^n \frac{cnt_{seq}(w_i)}{total_{seq}}
+\end{align}\]</div>
+<p><strong>Corollary.2-2 Bigram model</strong> Let K=1, thus each word is only dependent to the previous word.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-9418a4f8-cab7-40e8-a728-68dcaec6a62a">
+<span class="eqno">(22)<a class="headerlink" href="#equation-9418a4f8-cab7-40e8-a728-68dcaec6a62a" title="Permalink to this equation">#</a></span>\[\begin{align}
+P(W) = P(w_1,...,w_n) = \prod_{i=1}^n P(w_i|w_{i-1}) = \prod_{i=1}^n \frac{cnt_{seq}(w_i,w_{i-1})}{cnt_{seq}(w_{i-1})}
+\end{align}\]</div>
 </section>
 <section id="text-classification">
 <h2>Text Classification<a class="headerlink" href="#text-classification" title="Permalink to this headline">#</a></h2>
@@ -519,13 +540,15 @@ P(W) = P(w_1,…,w_n) = \prod_{i=1}^n P(w_i|w_{i-1}) = \prod_{i=1}^n \frac{cnt_{
 <li><p>It is widely used in general text classification, where the occurency of words is the key feature.</p></li>
 </ul>
 <p><strong>Def.4 Text Classification:</strong> Given labeled pairs of docuemnt <span class="math notranslate nohighlight">\(d_i\)</span> and its class label <span class="math notranslate nohighlight">\(c_i\)</span> as the training data, learn a model which output a predicted class <span class="math notranslate nohighlight">\(c_p\)</span> for any input document <span class="math notranslate nohighlight">\(d_p\)</span>.</p>
-<ul class="simple">
-<li><p>The MAP estimator of Def.7, can be defined as:
-\begin{align}
-\DeclareMathOperator*{\argmax}{argmax}
-c_{MAP} = \argmax_{c}{P(c|d)} = \argmax_{c}{P(d|c)P(c)}
-\end{align}
-Notice that by bayes rule, the marginal probability <span class="math notranslate nohighlight">\(P(d)\)</span> is ignored as constant(regarding class c).</p></li>
+<ul>
+<li><p>The MAP estimator of Def.7, can be defined as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0a436bef-c13e-4ef2-ad92-d7a9035e23e4">
+<span class="eqno">(23)<a class="headerlink" href="#equation-0a436bef-c13e-4ef2-ad92-d7a9035e23e4" title="Permalink to this equation">#</a></span>\[\begin{align}
+    \DeclareMathOperator*{\argmax}{argmax}
+    c_{MAP} = \argmax_{c}{P(c|d)} = \argmax_{c}{P(d|c)P(c)}
+    \end{align}\]</div>
+<p>Notice that by bayes rule, the marginal probability <span class="math notranslate nohighlight">\(P(d)\)</span> is ignored as constant(regarding class c).</p>
+</li>
 </ul>
 </section>
 <section id="maximum-a-posterior-estimation-map">
@@ -534,81 +557,96 @@ Notice that by bayes rule, the marginal probability <span class="math notranslat
 </section>
 <section id="naive-bayes">
 <h2>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Permalink to this headline">#</a></h2>
-<p><strong>Def.5 Naive Bayes Estimator:</strong> Based on Bag-of-words assumption in Def.3, the MAP estimator is defined as:
-\begin{align}
+<p><strong>Def.5 Naive Bayes Estimator:</strong> Based on Bag-of-words assumption in Def.3, the MAP estimator is defined as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-7842d0e3-29cd-4895-a40b-68eec8461b30">
+<span class="eqno">(24)<a class="headerlink" href="#equation-7842d0e3-29cd-4895-a40b-68eec8461b30" title="Permalink to this equation">#</a></span>\[\begin{align}
 \DeclareMathOperator*{\argmax}{argmax}
 c_{NB} = \argmax_{c}{P(d|c)P(c)} = \argmax_{c}{P(c)\prod_{i}{P(w_i|c)}}
-\end{align}</p>
-<ul class="simple">
-<li><p>To prevent the underflow problem, we often use the log of probability. Thus the estimator can be rewritten as:
-\begin{align}
-\DeclareMathOperator*{\argmax}{argmax}
-c_{NB} = \argmax_{c}\log_{2}{P(d|c)P(c)} = \argmax_{c}{{\log_{2}{P(c)} + \sum_{i}{\log_{2}P(w_i|c)}}}
-\end{align}</p></li>
-<li><p>To estimate the <span class="math notranslate nohighlight">\(P(c)\)</span> and <span class="math notranslate nohighlight">\(P(w_i|c)\)</span>, we adopt the MLE method once again: where <span class="math notranslate nohighlight">\(cnt_{doc}\)</span> denotes the count of documents, <span class="math notranslate nohighlight">\(cnt_{word}\)</span> denotes the count of words, and <span class="math notranslate nohighlight">\(total_{doc}\)</span> denotes the total number of documents(size of corpus).
-\begin{align}
-P(c) = \frac{cnt_{doc}(c_i=c)}{total_{doc}} \
-P(w_i|c) = \frac{cnt_{word}(w_i, c_i=c)}{cnt_{word}(c_i=c)}
-\end{align}</p></li>
+\end{align}\]</div>
+<ul>
+<li><p>To prevent the underflow problem, we often use the log of probability. Thus the estimator can be rewritten as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-b9a220df-c424-4f4c-b457-98d36350fa60">
+<span class="eqno">(25)<a class="headerlink" href="#equation-b9a220df-c424-4f4c-b457-98d36350fa60" title="Permalink to this equation">#</a></span>\[\begin{align}
+    \DeclareMathOperator*{\argmax}{argmax}
+    c_{NB} = \argmax_{c}\log_{2}{P(d|c)P(c)} = \argmax_{c}{\{\log_{2}{P(c)} + \sum_{i}{\log_{2}P(w_i|c)}\}}
+    \end{align}\]</div>
+</li>
+<li><p>To estimate the <span class="math notranslate nohighlight">\(P(c)\)</span> and <span class="math notranslate nohighlight">\(P(w_i|c)\)</span>, we adopt the MLE method once again: where <span class="math notranslate nohighlight">\(cnt_{doc}\)</span> denotes the count of documents, <span class="math notranslate nohighlight">\(cnt_{word}\)</span> denotes the count of words, and <span class="math notranslate nohighlight">\(total_{doc}\)</span> denotes the total number of documents(size of corpus).</p>
+<div class="amsmath math notranslate nohighlight" id="equation-8adb871d-1e80-4e8a-92a0-9631990dd60b">
+<span class="eqno">(26)<a class="headerlink" href="#equation-8adb871d-1e80-4e8a-92a0-9631990dd60b" title="Permalink to this equation">#</a></span>\[\begin{align}
+    P(c) = \frac{cnt_{doc}(c_i=c)}{total_{doc}} \\
+    P(w_i|c) = \frac{cnt_{word}(w_i, c_i=c)}{cnt_{word}(c_i=c)}
+    \end{align}\]</div>
+</li>
 </ul>
 </section>
 <section id="evaluation-metric">
 <h2>Evaluation Metric<a class="headerlink" href="#evaluation-metric" title="Permalink to this headline">#</a></h2>
 <p>The fitted language model M is <strong>a set of conditional probabilities</strong>!
 This section we discuss few metrics to evaluate the performance of the fitted language model that could be used on a test dataset.</p>
-<p><strong>Def.6 Perplexity:</strong> Defined the sentence probability normalized by the number of words <span class="math notranslate nohighlight">\(n\)</span>.
-\begin{align}
-PP(W) = \sqrt[n]{P(w_1,…,w_n)} = \sqrt[n]{\prod_{i=1}^n P(w_i|w_{i-K},…,w_{i-1})}
-\end{align}</p>
+<p><strong>Def.6 Perplexity:</strong> Defined the sentence probability normalized by the number of words <span class="math notranslate nohighlight">\(n\)</span>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-e29ecf90-ac11-4a29-85b6-e4a0347a11b0">
+<span class="eqno">(27)<a class="headerlink" href="#equation-e29ecf90-ac11-4a29-85b6-e4a0347a11b0" title="Permalink to this equation">#</a></span>\[\begin{align}
+PP(W) = \sqrt[n]{P(w_1,...,w_n)} = \sqrt[n]{\prod_{i=1}^n P(w_i|w_{i-K},...,w_{i-1})}
+\end{align}\]</div>
 <ul class="simple">
 <li><p>Perplexity is closely related to the sentence probability. In fact, <strong>maximize the sentence probability equals to minimize perplexity</strong>. When comparing different models on a given test dataset, the smaller perplexity yields the better model.</p></li>
 <li><p>We often use the log of perplexity to overcome the overflow problem:</p></li>
 </ul>
-<p>\begin{align}
-\log{PP(W)} = -\frac{1}{n} \sum_{i=1}^n \log{P(w_i|w_{i-K},…,w_{i-1})}
-\end{align}</p>
+<div class="amsmath math notranslate nohighlight" id="equation-1479f128-2afb-4d86-9094-dd381e928ff7">
+<span class="eqno">(28)<a class="headerlink" href="#equation-1479f128-2afb-4d86-9094-dd381e928ff7" title="Permalink to this equation">#</a></span>\[\begin{align}
+\log{PP(W)} = -\frac{1}{n} \sum_{i=1}^n \log{P(w_i|w_{i-K},...,w_{i-1})}
+\end{align}\]</div>
 <p><strong>Def.7 Entropy:</strong> The entropy of a random variable X with the probability distribution p is defined as:</p>
-<p>\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9a6714f5-1c7b-4016-8de8-dd5030eceaf8">
+<span class="eqno">(29)<a class="headerlink" href="#equation-9a6714f5-1c7b-4016-8de8-dd5030eceaf8" title="Permalink to this equation">#</a></span>\[\begin{align}
 H(p) = E_X[-\log_{2}{p(X)}] = -\sum_{x \in X}p(x)\log_{2}{p(x)}.
-\end{align}</p>
+\end{align}\]</div>
 <ul class="simple">
 <li><p>Entropy describe <strong>the average level of information(uncertainty)</strong> given the possible outcomes of a random variable. For example, the maximum entropy is obtained when X follows a uniformed distribution, while the minimum is obtained when X equals to a fixed value(pdf=single point mass).</p></li>
 <li><p>For a valid distribution p, the entropy would always be non-negative!</p></li>
 </ul>
-<p><strong>Assumption.2 Asymptotic Equipartition Property :</strong> Given a discrete-time ergodic stochastic process X:
-\begin{align}
-\lim_{n \to \infty}-\frac{1}{n}\log_{2}{P(X_1,X_2,…X_n)} \to H(X)
-\end{align}</p>
+<p><strong>Assumption.2 Asymptotic Equipartition Property :</strong> Given a discrete-time ergodic stochastic process X:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-9f8388cd-6fab-41ab-972b-d540f927993a">
+<span class="eqno">(30)<a class="headerlink" href="#equation-9f8388cd-6fab-41ab-972b-d540f927993a" title="Permalink to this equation">#</a></span>\[\begin{align}
+\lim_{n \to \infty}-\frac{1}{n}\log_{2}{P(X_1,X_2,...X_n)} \to H(X)
+\end{align}\]</div>
 <ul class="simple">
 <li><p>The property can be proved by Shannon-McMillan-Breiman Theorem. <a class="reference external" href="https://en.wikipedia.org/wiki/Asymptotic_equipartition_property#Discrete-time_finite-valued_stationary_ergodic_sources">wiki</a></p></li>
 <li><p>It states that although there are many possible results that could be produced by the random process, the one we actually observed is most probable from a set of outcomes where each one has the approximately same probability. Thus, the assumption proposes that the large deviation from mean(if exists) would decay exponentially with the increasing number of data samples.</p></li>
 </ul>
 <p><strong>Corollary.7-1 Entropy for language model:</strong> The probability distribution p is defined as the probability language model M. Therefore, the entropy of a sequence of words is defined as:</p>
-<p>\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9d02fdf3-858b-4fdf-aa50-509239e8c585">
+<span class="eqno">(31)<a class="headerlink" href="#equation-9d02fdf3-858b-4fdf-aa50-509239e8c585" title="Permalink to this equation">#</a></span>\[\begin{align}
 H(M) = \lim_{n \to \infty}{H_n(W_{1:n})} = \lim_{n \to \infty}-\frac{1}{n}\sum_{W_{1:n}}P(W_{1:n})\log_{2}{P(W_{1:n})}
-\end{align}</p>
+\end{align}\]</div>
 <p>Given the assumption.2, it could be simplified as:</p>
-<p>\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-e2cf6952-b445-48d2-aa6b-32bcf8fc932f">
+<span class="eqno">(32)<a class="headerlink" href="#equation-e2cf6952-b445-48d2-aa6b-32bcf8fc932f" title="Permalink to this equation">#</a></span>\[\begin{align}
 H(M) = \lim_{n \to \infty}-\frac{1}{n}\log_{2}{P(W_{1:n})}
-\end{align}</p>
+\end{align}\]</div>
 <p><strong>Def.8 Cross-Entropy:</strong> The cross-entropy between two distributions p and q over the same random variable X is defined as:</p>
-<p>\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-55aa1541-e722-48e0-9bb5-060f439eb24b">
+<span class="eqno">(33)<a class="headerlink" href="#equation-55aa1541-e722-48e0-9bb5-060f439eb24b" title="Permalink to this equation">#</a></span>\[\begin{align}
 H(p,q) = E_{p(X)}[-\log_{2}{q(X)}] = -\sum_{x \in X}p(x)\log_{2}{q(x)}
-\end{align}</p>
+\end{align}\]</div>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(H(p,q) \ge H(p,p)=H(p)\)</span></p></li>
 <li><p>It could measure the divergence between two distribution.</p></li>
 </ul>
 <p><strong>Corollary.8-1 Cross-Entropy for language model:</strong> Suppose M is the fitted language model from the training dataset, and L is the real language model that we pursue. The goal is to minimize the cross-entropy between M and L. Denote S as the sequence in corpus, the cross-entropy is defined as:</p>
-<p>\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4dc443a2-76a4-43cf-aba8-adf9ad244ce3">
+<span class="eqno">(34)<a class="headerlink" href="#equation-4dc443a2-76a4-43cf-aba8-adf9ad244ce3" title="Permalink to this equation">#</a></span>\[\begin{align}
 H(L,M) = E_{L(S)}[-\log_{2}{M(S)}] = -\lim_{n \to \infty}\log_{2}{M(W_{1:n})}
-\end{align}</p>
-<ul class="simple">
+\end{align}\]</div>
+<ul>
 <li><p><span class="math notranslate nohighlight">\(\log_{2}{PP(M)}=H(L,M).\)</span> The perplexity of a fitted language model could be computed with its cross-entropy(from the real language model).</p></li>
-<li><p>In a finite dataset T with N samples, the estimate of cross-entropy can be computed with:
-\begin{align}
-H(T,M) = E_{T(S)}[-\log_{2}{M(S)}] = -\frac{1}{N}\sum_{i=1}^N \frac{1}{|S_i|}\log_{2}{M(S_i)}
-\end{align}</p></li>
+<li><p>In a finite dataset T with N samples, the estimate of cross-entropy can be computed with:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-de9941b9-5449-49fe-9bc8-5ba5e3c63ac1">
+<span class="eqno">(35)<a class="headerlink" href="#equation-de9941b9-5449-49fe-9bc8-5ba5e3c63ac1" title="Permalink to this equation">#</a></span>\[\begin{align}
+    H(T,M) = E_{T(S)}[-\log_{2}{M(S)}] = -\frac{1}{N}\sum_{i=1}^N \frac{1}{|S_i|}\log_{2}{M(S_i)}
+    \end{align}\]</div>
+</li>
 </ul>
 </section>
 <section id="smoothing">
@@ -619,14 +657,16 @@ H(T,M) = E_{T(S)}[-\log_{2}{M(S)}] = -\frac{1}{N}\sum_{i=1}^N \frac{1}{|S_i|}\lo
 <li><p><span class="math notranslate nohighlight">\(\lambda\)</span> can be float! e.g. <span class="math notranslate nohighlight">\(\lambda=\frac{1}{V}\)</span></p></li>
 <li><p>Add-one estimation(continuity correction): Let <span class="math notranslate nohighlight">\(\lambda=1\)</span>. However this approach is not recommended if V is too large.</p></li>
 </ul>
-<p><strong>Corollary.8-1 Laplace Smoothing for N-gram model:</strong>
-\begin{align}
-P(w_i|w_{i-K},…,w_{i-1}) = \frac{cnt_{seq}(w_{i-K},…,w_i)+\lambda}{cnt_{seq}(w_{i-K},…,w_{i-1})+\lambda V}
-\end{align}</p>
-<p><strong>Corollary.8-2 Laplace Smoothing for Naive Bayes model:</strong>
-\begin{align}
+<p><strong>Corollary.8-1 Laplace Smoothing for N-gram model:</strong></p>
+<div class="amsmath math notranslate nohighlight" id="equation-d3e748ce-42ff-4e59-bad0-255c0620505b">
+<span class="eqno">(36)<a class="headerlink" href="#equation-d3e748ce-42ff-4e59-bad0-255c0620505b" title="Permalink to this equation">#</a></span>\[\begin{align}
+P(w_i|w_{i-K},...,w_{i-1}) = \frac{cnt_{seq}(w_{i-K},...,w_i)+\lambda}{cnt_{seq}(w_{i-K},...,w_{i-1})+\lambda V}
+\end{align}\]</div>
+<p><strong>Corollary.8-2 Laplace Smoothing for Naive Bayes model:</strong></p>
+<div class="amsmath math notranslate nohighlight" id="equation-aa77813b-eeaf-4eb7-853e-bd5312955438">
+<span class="eqno">(37)<a class="headerlink" href="#equation-aa77813b-eeaf-4eb7-853e-bd5312955438" title="Permalink to this equation">#</a></span>\[\begin{align}
 P(w_i|c_i=c) = \frac{cnt_{word}(w_i, c_i=c)+\lambda}{cnt_{word}(c_i=c)+\lambda V}
-\end{align}</p>
+\end{align}\]</div>
 </section>
 </section>
 

@@ -20,3 +20,8 @@ repository:
   url: https://github.com/yingshuangfan/treehouse
   path_to_book: ""
   branch: master
+
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - dollarmath

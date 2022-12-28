@@ -8,10 +8,10 @@
 # **Def.1 Posterior Distribution:** The posterior distribution of parameter $\theta$, based on observations $D=\{x_1,...,x_n\}$, likelihood function $L(\theta|D)=P(D|\theta)=\prod_{i=1}^n{P(x_i|\theta)}$(assuming data samples are i.i.d), prior distribution $\pi(\theta)$, is defined as:
 # 
 # \begin{align}
-# \pi(\theta|D)=\frac{P(D|\theta)P(\theta)}{P(D)}=\frac{P(D|\theta)\pi(\theta)}{\int_{\theta}{P(D|\theta)\pi(\theta)}}
+# \pi(\theta|D)=\frac{P(D|\theta)\pi(\theta)}{P(D)}=\frac{P(D|\theta)\pi(\theta)}{\int_{\theta}{P(D|\theta)\pi(\theta)}}
 # \end{align}
 # 
-#  - To obtain the exact distribution(not the exact pdf) for $P(\theta|D)$, we could ignore the marginal probability $P(D)$ as constant(regarding $\theta$). Thus $P(\theta|D) \propto P(D|\theta)P(\theta)$. However, this case holds only if the form of such posterior resembles some well-known distributions, where we could find the kernel without considering the value of $P(D)$.
+#  - To obtain the exact distribution(not the exact pdf) for $P(\theta|D)$, we could ignore the marginal probability $P(D)$ as constant(regarding $\theta$). Thus $\pi(\theta|D) \propto P(D|\theta)\pi(\theta)$. However, this case holds only if the form of such posterior resembles some well-known distributions, where we could find the kernel without considering the value of $P(D)$.
 #  
 # **Corollary.1-1 Joint Posterior:** The posterior in Def.1 can be applied to multiple parameters $\theta_1,...\theta_m$, if given the joint prior:
 # 
@@ -64,3 +64,91 @@
 # | Posterior Distribution   | Regularized Loss Function       |
 # | Maximize a Posterior Estimation(MAP)   | Minimize Regularized Loss Function       |
 # | Maximize Likelihood Estimation(MLE)   | Minimize Loss Function       |
+
+# ## Laplace Approximation
+# 
+# Intuitive: Approximate the posterior distribution with a multivariate normal distribution centered at the mode of posterior. 
+# 
+# **Def.3 Laplace Approximation:** Given a MAP estimation $\theta_{MAP}=argmax_{\theta}\pi(\theta|D)$, the laplace approximation of posterior on MAP is defined as:
+# \begin{align}
+# & \ln{\pi(\theta|D)} \approx \ln{\pi(\theta_{MAP}|D)} - \frac{1}{2}(\theta-\theta_{MAP})^TA(\theta-\theta_{MAP}) \\
+# & A = -\{\nabla_{\theta}^2\ln{\pi(\theta|D)}\}|_{\theta_{MAP}}
+# \end{align}
+# In other words, the approximate k-dimensional multivariate normal distribution can be computed as:
+# \begin{align}
+# & \pi(\theta|D) \sim \mathcal{N}_k(\mu, \Sigma), \theta \in \mathbb{R}^k \\
+# & \mu=\theta_{MAP} \\
+# & \Sigma=A^{-1}
+# \end{align}
+# 
+#  - Since $\ln{\pi(\theta_{MAP}|D)}$ is a constant, we could skip the computation. The kernel is already sufficiently defined by the 2nd term.
+#  - Matrix $A$ is the minus of the posterior's Hessian at the MAP estimation. If dimension of parameter $\theta$ is k, then the dimension of $A$ is $k \times k$.
+#  - The approximate k-dimensional multivariate normal distribution has the mean of $\theta_{MAP}$, which is basically how the method is designed, and the covariance matrix is the inverse of $A$. Considering the cost of computing inverse matrix is high($O(k^3)$), the dimension of parameters k should be limited.
+#  
+
+# ## Multivariate Normal Distribution
+# 
+# Multivariate normal distribution is the generalization of normal distribution to higher dimension. Suppose the dimension is k, then we denote the k dimension multivariate normal distribuion as $\mathcal{N}_k(\mu, \Sigma)$, where $\Sigma$ is semi-positive definite. In addition, the distribution is non-degenerate, if $\Sigma$ is positive definite. For simplicity we assume that a distribution is always non-degenerate.
+# 
+# Properties:
+#  - mean: $\mu$
+#  - mode: $\mu$
+#  - variance: $\Sigma$
+# 
+# Probability density function(non-degenerate):
+# \begin{align}
+# f(X) = \frac{exp\left(-\frac{1}{2}(X-\mu)^T\Sigma^{-1}(X-\mu)\right)}{(2\pi)^{\frac{k}{2}}det(\Sigma)^{\frac{1}{2}}}
+# \end{align}
+# 
+
+# ## Bayesian Information Criterion
+# 
+# Based on laplace approximation of the posterior distribution we have:
+# 
+# \begin{align}
+# & P(D) = \int_{\theta} P(D|\theta)\pi(\theta)\,d{\theta} \\
+# & \pi(\theta|D) \propto P(D|\theta)\pi(\theta) \\
+# & \pi(\theta|D) \approx \pi(\theta_{MAP}|D) exp\left(-\frac{1}{2}(\theta-\theta_{MAP})^TA(\theta-\theta_{MAP})\right) \\
+# \end{align}
+# 
+# Thus we could approximate the marginal distribution $P(D)$ as the following:
+# 
+# \begin{align}
+# P(D) & \approx \int_{\theta} \pi(\theta_{MAP}|D) exp\left(-\frac{1}{2}(\theta-\theta_{MAP})^TA(\theta-\theta_{MAP})\right) \,d{\theta} \\
+# & \approx P(D|\theta_{MAP})\pi(\theta_{MAP}) \int_{\theta} exp\left(-\frac{1}{2}(\theta-\theta_{MAP})^TA(\theta-\theta_{MAP})\right) \,d{\theta} \\
+# & = P(D|\theta_{MAP})\pi(\theta_{MAP}) (2\pi)^{\frac{k}{2}}det(A^{-1})^{\frac{1}{2}}
+# \end{align}
+# 
+# \begin{align}
+# \ln{P(D)} \approx \ln{P(D|\theta_{MAP})} + \ln\pi(\theta_{MAP}) + \frac{k}{2}\ln(2\pi) - \frac{1}{2}\ln(det(A))
+# \end{align}
+# 
+# When the sample size N is sufficiently large, $det(A)$ could be simplified as:
+# 
+# \begin{align}
+# det(A) \approx det(I(D, \theta_{MAP})) = N^k det(I_{unit}(D, \theta_{MAP}))
+# \end{align}
+# 
+# Based on such assumption, $P(D)$ could be further simplified as:
+# 
+# \begin{align}
+# \ln{P(D)} & \approx \ln{P(D|\theta_{MAP})} + \ln\pi(\theta_{MAP}) + \frac{k}{2}\ln(2\pi) - \frac{k\ln N}{2} - \frac{1}{2}\ln(det(I_{unit}(D, \theta_{MAP}))) \\
+# & \approx \ln{P(D|\theta_{MAP})} - \frac{k\ln N}{2} \\
+# \end{align}
+# 
+# \begin{align}
+# P(D) \approx \exp\left(\ln P(D|\theta_{MAP}) -\frac{k\ln N}{2} \right) \approx exp(-\frac{BIC}{2})
+# \end{align}
+# 
+# Therefore, we derive the closed form for Bayesian Information Criterion(BIC):
+# \begin{align}
+# BIC & = k\ln N - 2\ln P(D|\theta_{MLE}) \\
+# & = k\ln N - 2\ln L(\theta_{MLE})
+# \end{align}
+# 
+#  - BIC, a.k.a Schwarz Information Criterion, is a metric for model selection based on finite training dataset with N data samples. Generally we prefer a model with smaller BIC.
+#  - The intuitiion is to prevent overfitting by adding the penalty term for high dimensional parameters.
+
+# ## Mean Field Approximation
+# 
+# 

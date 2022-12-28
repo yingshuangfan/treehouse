@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# ### Probabilistic Language Model
+# # Probabilistic Language Model
+# 
+# ## Probability of Sentence
 # 
 # **Def.1** Probability of sentence: $W=(w_1,...,w_n)$ as a sequence of words, by chain-rule we have 
 # 
@@ -16,11 +18,11 @@
 #     \end{align}
 #  - To obtain a good estimation, the corpus needs to be sufficiently large, considering the great number of possible sequnces of words. (which is often NOT realistic!)
 
-# #### Maximum Likelihood Estimate(MLE)
+# ## Maximum Likelihood Estimate(MLE)
 # 
 # Intuition: The method define the way to determine the parameters of a model, such that the likelihood of the process described by the model is maximized based on the data that we have oberserved.
 
-# #### N-gram Model
+# ## N-gram Model
 # 
 # Intuition: decrease the number of possible sequences of words, by adoption the Markov Assumption.
 #     
@@ -47,7 +49,7 @@
 # P(W) = P(w_1,...,w_n) = \prod_{i=1}^n P(w_i|w_{i-1}) = \prod_{i=1}^n \frac{cnt_{seq}(w_i,w_{i-1})}{cnt_{seq}(w_{i-1})}
 # \end{align}
 
-# #### Text Classification
+# ## Text Classification
 # 
 # **Def.3 Bag-of-words model:** In this model, any text is represented as a set of its (unique)words, ignoring its grammar or sequence ordering. Represent document $D \to \{w_i, cnt_i\}_{i=1}^V$, where $w_i$ is the i-th unique word, $cnt_i$ is the number of occurence of $w_i$, $V$ is the total size of vocabulary.
 #  - By this method, we can easily represent text documents into vectors.
@@ -61,12 +63,12 @@
 #     \end{align}
 #    Notice that by bayes rule, the marginal probability $P(d)$ is ignored as constant(regarding class c).
 
-# #### Maximum a Posterior Estimation(MAP)
+# ## Maximum a Posterior Estimation(MAP)
 # 
 # Intuition: In bayesian statistics, MAP method is an estimate that equals the mode of the posterior distribution. Compared to MLE, MAP method introduces the prior distribution into the estimation which represents our former knowledge of the data samples. Therefore, MAP can be viewed as a regularization of MLE.
 # 
 
-# #### Naive Bayes
+# ## Naive Bayes
 # 
 # **Def.5 Naive Bayes Estimator:** Based on Bag-of-words assumption in Def.3, the MAP estimator is defined as:
 # \begin{align}
@@ -87,7 +89,7 @@
 #     \end{align}
 #     
 
-# #### Evaluation Metric
+# ## Evaluation Metric
 # 
 # The fitted language model M is **a set of conditional probabilities**!
 # This section we discuss few metrics to evaluate the performance of the fitted language model that could be used on a test dataset.
@@ -156,7 +158,7 @@
 #     H(T,M) = E_{T(S)}[-\log_{2}{M(S)}] = -\frac{1}{N}\sum_{i=1}^N \frac{1}{|S_i|}\log_{2}{M(S_i)}
 #     \end{align}
 
-# #### Smoothing
+# ## Smoothing
 # 
 # Intuitive: the problem of zeros. It is very common that the sentence in a test dataset does NOT exist in the training dataset, however the N-gram language model would output zero probability! By definition, the zero in probability could result in failure when computing the perplexity or entropy for a given language model. Therefore, we introduce smoothing to eliminate zeros in the model.
 # 
