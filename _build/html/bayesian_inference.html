@@ -390,21 +390,40 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#laplace-approximation">
    Laplace Approximation
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multivariate-normal-distribution">
+     Multivariate Normal Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bayesian-information-criterion">
+     Bayesian Information Criterion
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#multivariate-normal-distribution">
-   Multivariate Normal Distribution
+  <a class="reference internal nav-link" href="#mean-field-approximation-variational-inference">
+   Mean Field Approximation(Variational Inference)
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-information-criterion">
-   Bayesian Information Criterion
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#mean-field-approximation">
-   Mean Field Approximation
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#jensen-s-inequality">
+     Jensen’s Inequality
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kullbackleibler-divergence">
+     Kullback–Leibler Divergence
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mean-field-approximation">
+     Mean Field Approximation
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -444,21 +463,40 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#laplace-approximation">
    Laplace Approximation
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multivariate-normal-distribution">
+     Multivariate Normal Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bayesian-information-criterion">
+     Bayesian Information Criterion
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#multivariate-normal-distribution">
-   Multivariate Normal Distribution
+  <a class="reference internal nav-link" href="#mean-field-approximation-variational-inference">
+   Mean Field Approximation(Variational Inference)
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-information-criterion">
-   Bayesian Information Criterion
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#mean-field-approximation">
-   Mean Field Approximation
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#jensen-s-inequality">
+     Jensen’s Inequality
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kullbackleibler-divergence">
+     Kullback–Leibler Divergence
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mean-field-approximation">
+     Mean Field Approximation
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -475,37 +513,37 @@ title="Print to PDF"
 <section id="posterior">
 <h2>Posterior<a class="headerlink" href="#posterior" title="Permalink to this headline">#</a></h2>
 <p><strong>Def.1 Posterior Distribution:</strong> The posterior distribution of parameter <span class="math notranslate nohighlight">\(\theta\)</span>, based on observations <span class="math notranslate nohighlight">\(D=\{x_1,...,x_n\}\)</span>, likelihood function <span class="math notranslate nohighlight">\(L(\theta|D)=P(D|\theta)=\prod_{i=1}^n{P(x_i|\theta)}\)</span>(assuming data samples are i.i.d), prior distribution <span class="math notranslate nohighlight">\(\pi(\theta)\)</span>, is defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c15802bb-e50b-4cf2-83ae-f972fee6d0a9">
-<span class="eqno">(1)<a class="headerlink" href="#equation-c15802bb-e50b-4cf2-83ae-f972fee6d0a9" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 \pi(\theta|D)=\frac{P(D|\theta)\pi(\theta)}{P(D)}=\frac{P(D|\theta)\pi(\theta)}{\int_{\theta}{P(D|\theta)\pi(\theta)}}
-\end{align}\]</div>
+\end{align*}\]</div>
 <ul class="simple">
 <li><p>To obtain the exact distribution(not the exact pdf) for <span class="math notranslate nohighlight">\(P(\theta|D)\)</span>, we could ignore the marginal probability <span class="math notranslate nohighlight">\(P(D)\)</span> as constant(regarding <span class="math notranslate nohighlight">\(\theta\)</span>). Thus <span class="math notranslate nohighlight">\(\pi(\theta|D) \propto P(D|\theta)\pi(\theta)\)</span>. However, this case holds only if the form of such posterior resembles some well-known distributions, where we could find the kernel without considering the value of <span class="math notranslate nohighlight">\(P(D)\)</span>.</p></li>
 </ul>
 <p><strong>Corollary.1-1 Joint Posterior:</strong> The posterior in Def.1 can be applied to multiple parameters <span class="math notranslate nohighlight">\(\theta_1,...\theta_m\)</span>, if given the joint prior:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bde1ff40-0193-4be6-9f01-b692d36d6ad9">
-<span class="eqno">(2)<a class="headerlink" href="#equation-bde1ff40-0193-4be6-9f01-b692d36d6ad9" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 \pi(\theta_1,...\theta_m|D)=\frac{P(D|\theta_1,...\theta_m)\pi(\theta_1,...\theta_m)}{P(D)}
-\end{align}\]</div>
+\end{align*}\]</div>
 <p><strong>Corollary.1-2 Full Conditional Posterior:</strong> For multiple parameters <span class="math notranslate nohighlight">\(\theta_1,...\theta_m\)</span>, the conditional posterior for i-th parameter <span class="math notranslate nohighlight">\(\theta_i\)</span>, if given values <span class="math notranslate nohighlight">\(\theta_{-i}\)</span> for other parameters and data samples, is defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c065f6ae-d380-4448-9947-e79dcd53576c">
-<span class="eqno">(3)<a class="headerlink" href="#equation-c065f6ae-d380-4448-9947-e79dcd53576c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 \pi(\theta_i|D,\theta_{-i})&amp;=P(\theta_i|D,\theta_1,...,\theta_{i-1},\theta_{i+1},...\theta_m) \\
 &amp;=\frac{\pi(\theta_1,...\theta_m|D)}{P(\theta_1,...,\theta_{i-1},\theta_{i+1},...\theta_m|D)} \\
 &amp;=\frac{\pi(\theta_1,...\theta_m|D)}{\int_{\theta_i}{\pi(\theta_1,...\theta_m|D)\,d\theta_i}}
-\end{align}\]</div>
+\end{align*}\]</div>
 <ul class="simple">
 <li><p>The full conditional posterior relies on computing the joint posterior first.</p></li>
 <li><p>In common practice, it is extremely complicated to compute the integral for each parameter <span class="math notranslate nohighlight">\(\theta_i\)</span>. One possible approach is to <strong>derive the full conditional posteroir directly from the joint posterior</strong>, by ignoring the other parameters as constants. Thus <span class="math notranslate nohighlight">\(P(\theta_i|D,\theta_{-i}) \propto P(\theta_1,...\theta_m|D)|_{\theta_{-i}}\)</span> However, this case holds only for well-known distributions.</p></li>
 <li><p>The concept of full conditional is very important for Gibbs sampling method.</p></li>
 </ul>
 <p><strong>Corollary.1-3 Marginal Posterior:</strong> For multiple parameters <span class="math notranslate nohighlight">\(\theta_1,...\theta_m\)</span>, the marginal posterior for i-th parameter <span class="math notranslate nohighlight">\(\theta_i\)</span>, if given values <span class="math notranslate nohighlight">\(\theta_{-i}\)</span> for other parameters and data samples, is defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9e496d96-b22a-456d-8019-bcf40fc20213">
-<span class="eqno">(4)<a class="headerlink" href="#equation-9e496d96-b22a-456d-8019-bcf40fc20213" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 \pi(\theta_i|D)&amp;=\int_{\theta_{-i}}{\pi(\theta_1,...\theta_m|D)\,d\theta_{-i}} \\
 &amp;=\int_{\theta_{-i}}{\pi(\theta_i,\theta_{-i}|D)\,d\theta_{-i}} \\
 &amp;=\int_{\theta_{-i}}{\pi(\theta_i|D,\theta_{-i})P(\theta_{-i}|D)\,d\theta_{-i}} \\
-\end{align}\]</div>
+\end{align*}\]</div>
 <ul class="simple">
 <li><p>The marginal posterior relies on computing the joint posterior first, or the full conditional posterior first.</p></li>
 <li><p>To obtain the exact distribution of marginal posterior, the integration might be simplified by ignoring some constants. Be aware that all parameters other than <span class="math notranslate nohighlight">\(\theta_i\)</span> should be integrated out. However, the case holds only for well-known distributions.</p></li>
@@ -514,10 +552,10 @@ title="Print to PDF"
 <section id="posterior-predictive">
 <h2>Posterior Predictive<a class="headerlink" href="#posterior-predictive" title="Permalink to this headline">#</a></h2>
 <p><strong>Def.2 Posterior Predictive Distribution:</strong> The posterior predictive distribution of parameter <span class="math notranslate nohighlight">\(\theta\)</span> is defined as(based on conditions given in Def.1):</p>
-<div class="amsmath math notranslate nohighlight" id="equation-17554ab4-ab6a-4e2d-9015-56983d329124">
-<span class="eqno">(5)<a class="headerlink" href="#equation-17554ab4-ab6a-4e2d-9015-56983d329124" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 P(x_{n+1}|D)=\int_{\theta}{P(x_{n+1},\theta|D)\,d\theta}=\int_{\theta}{P(x_{n+1}|D,\theta)P(\theta|D)\,d\theta}=\int_{\theta}{P(x_{n+1}|\theta)P(\theta|D)\,d\theta}
-\end{align}\]</div>
+\end{align*}\]</div>
 <ul class="simple">
 <li><p>The posterior preditive relies on computing the posterior first.</p></li>
 </ul>
@@ -554,26 +592,25 @@ P(x_{n+1}|D)=\int_{\theta}{P(x_{n+1},\theta|D)\,d\theta}=\int_{\theta}{P(x_{n+1}
 <h2>Laplace Approximation<a class="headerlink" href="#laplace-approximation" title="Permalink to this headline">#</a></h2>
 <p>Intuitive: Approximate the posterior distribution with a multivariate normal distribution centered at the mode of posterior.</p>
 <p><strong>Def.3 Laplace Approximation:</strong> Given a MAP estimation <span class="math notranslate nohighlight">\(\theta_{MAP}=argmax_{\theta}\pi(\theta|D)\)</span>, the laplace approximation of posterior on MAP is defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c2312590-4cf9-4648-98f2-97e1e986941e">
-<span class="eqno">(6)<a class="headerlink" href="#equation-c2312590-4cf9-4648-98f2-97e1e986941e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 &amp; \ln{\pi(\theta|D)} \approx \ln{\pi(\theta_{MAP}|D)} - \frac{1}{2}(\theta-\theta_{MAP})^TA(\theta-\theta_{MAP}) \\
 &amp; A = -\{\nabla_{\theta}^2\ln{\pi(\theta|D)}\}|_{\theta_{MAP}}
-\end{align}\]</div>
+\end{align*}\]</div>
 <p>In other words, the approximate k-dimensional multivariate normal distribution can be computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ad2e252d-6b18-4b2a-8e0c-9b089688887c">
-<span class="eqno">(7)<a class="headerlink" href="#equation-ad2e252d-6b18-4b2a-8e0c-9b089688887c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 &amp; \pi(\theta|D) \sim \mathcal{N}_k(\mu, \Sigma), \theta \in \mathbb{R}^k \\
 &amp; \mu=\theta_{MAP} \\
 &amp; \Sigma=A^{-1}
-\end{align}\]</div>
+\end{align*}\]</div>
 <ul class="simple">
 <li><p>Since <span class="math notranslate nohighlight">\(\ln{\pi(\theta_{MAP}|D)}\)</span> is a constant, we could skip the computation. The kernel is already sufficiently defined by the 2nd term.</p></li>
 <li><p>Matrix <span class="math notranslate nohighlight">\(A\)</span> is the minus of the posterior’s Hessian at the MAP estimation. If dimension of parameter <span class="math notranslate nohighlight">\(\theta\)</span> is k, then the dimension of <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(k \times k\)</span>.</p></li>
 <li><p>The approximate k-dimensional multivariate normal distribution has the mean of <span class="math notranslate nohighlight">\(\theta_{MAP}\)</span>, which is basically how the method is designed, and the covariance matrix is the inverse of <span class="math notranslate nohighlight">\(A\)</span>. Considering the cost of computing inverse matrix is high(<span class="math notranslate nohighlight">\(O(k^3)\)</span>), the dimension of parameters k should be limited.</p></li>
 </ul>
-</section>
 <section id="multivariate-normal-distribution">
-<h2>Multivariate Normal Distribution<a class="headerlink" href="#multivariate-normal-distribution" title="Permalink to this headline">#</a></h2>
+<h3>Multivariate Normal Distribution<a class="headerlink" href="#multivariate-normal-distribution" title="Permalink to this headline">#</a></h3>
 <p>Multivariate normal distribution is the generalization of normal distribution to higher dimension. Suppose the dimension is k, then we denote the k dimension multivariate normal distribuion as <span class="math notranslate nohighlight">\(\mathcal{N}_k(\mu, \Sigma)\)</span>, where <span class="math notranslate nohighlight">\(\Sigma\)</span> is semi-positive definite. In addition, the distribution is non-degenerate, if <span class="math notranslate nohighlight">\(\Sigma\)</span> is positive definite. For simplicity we assume that a distribution is always non-degenerate.</p>
 <p>Properties:</p>
 <ul class="simple">
@@ -582,59 +619,132 @@ P(x_{n+1}|D)=\int_{\theta}{P(x_{n+1},\theta|D)\,d\theta}=\int_{\theta}{P(x_{n+1}
 <li><p>variance: <span class="math notranslate nohighlight">\(\Sigma\)</span></p></li>
 </ul>
 <p>Probability density function(non-degenerate):</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7e7b4654-cfdc-4c1a-8864-7c0a36476cfb">
-<span class="eqno">(8)<a class="headerlink" href="#equation-7e7b4654-cfdc-4c1a-8864-7c0a36476cfb" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 f(X) = \frac{exp\left(-\frac{1}{2}(X-\mu)^T\Sigma^{-1}(X-\mu)\right)}{(2\pi)^{\frac{k}{2}}det(\Sigma)^{\frac{1}{2}}}
-\end{align}\]</div>
+\end{align*}\]</div>
 </section>
 <section id="bayesian-information-criterion">
-<h2>Bayesian Information Criterion<a class="headerlink" href="#bayesian-information-criterion" title="Permalink to this headline">#</a></h2>
+<h3>Bayesian Information Criterion<a class="headerlink" href="#bayesian-information-criterion" title="Permalink to this headline">#</a></h3>
 <p>Based on laplace approximation of the posterior distribution we have:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-19738597-3f5b-4d95-835f-0c3de9bd7dd2">
-<span class="eqno">(9)<a class="headerlink" href="#equation-19738597-3f5b-4d95-835f-0c3de9bd7dd2" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 &amp; P(D) = \int_{\theta} P(D|\theta)\pi(\theta)\,d{\theta} \\
 &amp; \pi(\theta|D) \propto P(D|\theta)\pi(\theta) \\
 &amp; \pi(\theta|D) \approx \pi(\theta_{MAP}|D) exp\left(-\frac{1}{2}(\theta-\theta_{MAP})^TA(\theta-\theta_{MAP})\right) \\
-\end{align}\]</div>
+\end{align*}\]</div>
 <p>Thus we could approximate the marginal distribution <span class="math notranslate nohighlight">\(P(D)\)</span> as the following:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-86cf192a-7ce9-4f7b-aa69-4bb548342b75">
-<span class="eqno">(10)<a class="headerlink" href="#equation-86cf192a-7ce9-4f7b-aa69-4bb548342b75" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 P(D) &amp; \approx \int_{\theta} \pi(\theta_{MAP}|D) exp\left(-\frac{1}{2}(\theta-\theta_{MAP})^TA(\theta-\theta_{MAP})\right) \,d{\theta} \\
 &amp; \approx P(D|\theta_{MAP})\pi(\theta_{MAP}) \int_{\theta} exp\left(-\frac{1}{2}(\theta-\theta_{MAP})^TA(\theta-\theta_{MAP})\right) \,d{\theta} \\
 &amp; = P(D|\theta_{MAP})\pi(\theta_{MAP}) (2\pi)^{\frac{k}{2}}det(A^{-1})^{\frac{1}{2}}
-\end{align}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-9e281ad8-21a3-4831-a5c7-f7df0c48e4b9">
-<span class="eqno">(11)<a class="headerlink" href="#equation-9e281ad8-21a3-4831-a5c7-f7df0c48e4b9" title="Permalink to this equation">#</a></span>\[\begin{align}
+\end{align*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 \ln{P(D)} \approx \ln{P(D|\theta_{MAP})} + \ln\pi(\theta_{MAP}) + \frac{k}{2}\ln(2\pi) - \frac{1}{2}\ln(det(A))
-\end{align}\]</div>
+\end{align*}\]</div>
 <p>When the sample size N is sufficiently large, <span class="math notranslate nohighlight">\(det(A)\)</span> could be simplified as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b56416ad-97e1-43d0-9f49-9e2d77e97668">
-<span class="eqno">(12)<a class="headerlink" href="#equation-b56416ad-97e1-43d0-9f49-9e2d77e97668" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 det(A) \approx det(I(D, \theta_{MAP})) = N^k det(I_{unit}(D, \theta_{MAP}))
-\end{align}\]</div>
+\end{align*}\]</div>
 <p>Based on such assumption, <span class="math notranslate nohighlight">\(P(D)\)</span> could be further simplified as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a8906cea-2f6f-451b-99a2-1c66a2b5b6d0">
-<span class="eqno">(13)<a class="headerlink" href="#equation-a8906cea-2f6f-451b-99a2-1c66a2b5b6d0" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 \ln{P(D)} &amp; \approx \ln{P(D|\theta_{MAP})} + \ln\pi(\theta_{MAP}) + \frac{k}{2}\ln(2\pi) - \frac{k\ln N}{2} - \frac{1}{2}\ln(det(I_{unit}(D, \theta_{MAP}))) \\
 &amp; \approx \ln{P(D|\theta_{MAP})} - \frac{k\ln N}{2} \\
-\end{align}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-84979614-15eb-4a4e-b177-eadaffcba013">
-<span class="eqno">(14)<a class="headerlink" href="#equation-84979614-15eb-4a4e-b177-eadaffcba013" title="Permalink to this equation">#</a></span>\[\begin{align}
+\end{align*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 P(D) \approx \exp\left(\ln P(D|\theta_{MAP}) -\frac{k\ln N}{2} \right) \approx exp(-\frac{BIC}{2})
-\end{align}\]</div>
+\end{align*}\]</div>
 <p>Therefore, we derive the closed form for Bayesian Information Criterion(BIC):</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cedcb2ff-ac29-4cca-ac28-ac9186e780d3">
-<span class="eqno">(15)<a class="headerlink" href="#equation-cedcb2ff-ac29-4cca-ac28-ac9186e780d3" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 BIC &amp; = k\ln N - 2\ln P(D|\theta_{MLE}) \\
 &amp; = k\ln N - 2\ln L(\theta_{MLE})
-\end{align}\]</div>
+\end{align*}\]</div>
 <ul class="simple">
 <li><p>BIC, a.k.a Schwarz Information Criterion, is a metric for model selection based on finite training dataset with N data samples. Generally we prefer a model with smaller BIC.</p></li>
 <li><p>The intuitiion is to prevent overfitting by adding the penalty term for high dimensional parameters.</p></li>
 </ul>
 </section>
+</section>
+<section id="mean-field-approximation-variational-inference">
+<h2>Mean Field Approximation(Variational Inference)<a class="headerlink" href="#mean-field-approximation-variational-inference" title="Permalink to this headline">#</a></h2>
+<p>Intuitive: Approximate the posterior distribution <span class="math notranslate nohighlight">\(\pi(\theta|D)\)</span> with a fully factorized distribution <span class="math notranslate nohighlight">\(q(\theta)\)</span>. The basic idea is to treat each component of parameter <span class="math notranslate nohighlight">\(\theta_i\)</span> as they are independent, such that the joint distribution is simple and tractable. Since the goal is to find the approximate distribution for each <span class="math notranslate nohighlight">\(\theta_i\)</span>, we are changing the form of such distributions during the training process as if they are variables, thus the method is also called Variational Inference.</p>
+<section id="jensen-s-inequality">
+<h3>Jensen’s Inequality<a class="headerlink" href="#jensen-s-inequality" title="Permalink to this headline">#</a></h3>
+<p><strong>Def.4 Jensen’s Inequality:</strong> If X is a randome variable and <span class="math notranslate nohighlight">\(\varphi\)</span> is a convex function on its domain, then we have:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\varphi(E[X]) \le E[\varphi(X)]
+\end{align*}\]</div>
+<ul class="simple">
+<li><p>Def.4 could be proved by the properties of convex function. left <span class="math notranslate nohighlight">\( = \varphi(\int{x}\,dP(x)) \le \int{\varphi(x)}\,dP(x) = \)</span> right.</p></li>
+<li><p>Intuitively, we could view the integration as sum(with infinite terms), thus the real value(left) is upper bounded by the interpolation(right), because the interpolation of convex function is always over-estimated.</p></li>
+</ul>
+</section>
+<section id="kullbackleibler-divergence">
+<h3>Kullback–Leibler Divergence<a class="headerlink" href="#kullbackleibler-divergence" title="Permalink to this headline">#</a></h3>
+<p><strong>Def.5 KL Divergence:</strong> A method to measure the distance between two distributions P &amp; Q on the same random variable X, is defined as:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+D_{KL}(P||Q) = \int_{x}{P(x)\ln{\frac{P(x)}{Q(x)}}}\,dx
+\end{align*}\]</div>
+<ul class="simple">
+<li><p>There are other choices to measure the difference, to be continued…</p></li>
+</ul>
+</section>
 <section id="mean-field-approximation">
-<h2>Mean Field Approximation<a class="headerlink" href="#mean-field-approximation" title="Permalink to this headline">#</a></h2>
+<h3>Mean Field Approximation<a class="headerlink" href="#mean-field-approximation" title="Permalink to this headline">#</a></h3>
+<p>For simplicity, we let <span class="math notranslate nohighlight">\(q(\theta)\)</span> be a fully factorized distribution, such that:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+q(\theta) = \prod_{i=1}^m{q_i(\theta_i)}
+\end{align*}\]</div>
+<p>The goal is to minimize the KL divergence between <span class="math notranslate nohighlight">\(q(\theta)\)</span> and <span class="math notranslate nohighlight">\(\pi(\theta|D)\)</span>, so that the approximate distribution is a better estimation of the posterior. First we derive a lower bound of <span class="math notranslate nohighlight">\(\ln{P(D)}\)</span>:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\ln{P(D)} &amp; = \ln \int_{\theta}{P(D,\theta)}\,d\theta = \ln_{\theta} \int_{\theta} q(\theta)\frac{P(D,\theta)}{q(\theta)} \,d\theta \\
+&amp; = \ln E_{q(\theta)}[\frac{P(D,\theta)}{q(\theta)}] \\
+&amp; \ge E_{q(\theta)}[\ln\frac{P(D,\theta)}{q(\theta)}] \\
+&amp; = \int_{\theta} q(\theta) \ln\frac{P(D,\theta)}{q(\theta)} \,d\theta \\
+&amp; = \int_{\theta} q(\theta) \ln\frac{\pi(\theta|D)P(D)}{q(\theta)} \,d\theta \\
+&amp; = \ln P(D) + \int_{\theta} q(\theta) \ln\frac{\pi(\theta|D)}{q(\theta)} \,d\theta \\
+&amp; = \ln P(D) - D_{KL}(q(\theta) || \pi(\theta|D))
+\end{align*}\]</div>
+<p>We denote the lower bound as <span class="math notranslate nohighlight">\(L(q)\)</span>, where distribution <span class="math notranslate nohighlight">\(q\)</span> is the variable in the training process. Now recall that the distribution <span class="math notranslate nohighlight">\(q\)</span> can be fully factorized:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+L(q) &amp;= \int_{\theta} q(\theta) \ln\frac{P(D,\theta)}{q(\theta)} \,d\theta \\
+&amp;= \int_{\theta} q(\theta) \ln P(D,\theta) \,d\theta - \int_{\theta} q(\theta) \ln q(\theta) \,d\theta \\
+&amp;= \int_{\theta_i} q_i(\theta_i) \left\{\int_{\theta_{j \neq i}} \ln P(D,\theta) \prod_{j \neq i}{q_j(\theta_{j})} \,d{\theta_{j \neq i}} \right\} \,d\theta_i - \sum_{j}{\int_{\theta_j} q_j(\theta_j) \ln q_j(\theta_j) \,d\theta_j} \\
+&amp;= \int_{\theta_i} q_i(\theta_i) E_{q(\theta_{j \neq i})}[\ln P(D,\theta)] \,d{\theta_i} + const
+\end{align*}\]</div>
+<p>We denote the distribution un-related to <span class="math notranslate nohighlight">\(\theta_i\)</span> as <span class="math notranslate nohighlight">\(\ln P_{j \neq i}(D,\theta)= E_{q(\theta_{j \neq i})}[\ln P(D,\theta)] + const\)</span>. If we only focus on terms related to the i-th component <span class="math notranslate nohighlight">\(q_i(\theta_i)\)</span>:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+L_i(q_i) &amp;= \int_{\theta_i} q_i(\theta_i) \ln P_{j \neq i}(D,\theta) \,d{\theta_i} - \int_{\theta_i} q_i(\theta_i) \ln q_i(\theta_i) \,d\theta_i \\
+&amp;= \int_{\theta_i} q_i(\theta_i) [\ln \frac{P_{j \neq i}(D,\theta)}{q_i(\theta_i)}] \,d{\theta_i} \\
+&amp;= - D_{KL} (q_i(\theta_i)||P_{j \neq i})
+\end{align*}\]</div>
+<p><strong>Def.6 Mean Field Appoximation:</strong> if we minimize the KL divergence as shown above, distribution <span class="math notranslate nohighlight">\(q_i(\theta_i)\)</span> should have the form of:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+q_i(\theta_i) &amp;= P_{j \neq i}(D,\theta) \\
+&amp;= exp\{E_{q(\theta_{j \neq i})}[\ln P(D,\theta)] + const\} \\
+&amp;\propto exp\{E_{q(\theta_{j \neq i})}[\ln P(D,\theta)]\}
+\end{align*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+q_i(\theta_i) = \frac{exp\{E_{q(\theta_{j \neq i})}[\ln P(D,\theta)]\}}{\int_{\theta_i} exp\{E_{q(\theta_{j \neq i})}[\ln P(D,\theta)]\} \,d\theta_i}
+\end{align*}\]</div>
+<ul class="simple">
+<li><p>The key concept for mean-field is that <span class="math notranslate nohighlight">\(q_i \propto E_{q(\theta_{j \neq i})}[\ln P(D,\theta)]\)</span>, where all parameters other than <span class="math notranslate nohighlight">\(\theta_i\)</span> will be integrated out by computing the expectation. The denominator is a normalizing constant, and can be ignored if <span class="math notranslate nohighlight">\(q_i\)</span> takes the form of well-known distributions.</p></li>
+</ul>
+</section>
 </section>
 </section>
 
