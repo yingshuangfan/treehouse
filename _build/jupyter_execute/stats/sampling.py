@@ -16,8 +16,54 @@
 
 # ## Markov Chain Monte Carlo(MCMC)
 # 
-
-# ## Gibbs Sampler
+# **Def. Metropolis-Hasting Algorithm:** Given target function $f(X)$(e.g. posterior), candidate function $q(x, y)$(e.g. joint posterior) or $q(y|x)$(e.g. full conditional), the procedure of drawing data samples is:
+# 1. Iinitialize $x^{(0)}$.
+# 2. At the k-th iteration, simulate $y \sim q(x^{(k-1)}, y)$.
+# 3. Calcuate the current acceptance rate:
+# \begin{align*}
+# \alpha(x^{(k-1)}, y) = min\left\{ \frac{f(y)q(y, x^{(k-1)})}{f(x^{(k-1)}) q(x^{(k-1)}, y)}, 1 \right\}
+# \end{align*}
+# 4. Simulate $u \sim Unif(0, 1)$. Update $x$ as follows:
+# 
+# \begin{align*}
+# x^{(k)} = \left\{
+# \begin{array}{ll}
+#       y & u \le \alpha(x^{(k-1)}, y) \\
+#       x^{(k-1)} & otherwise \\
+# \end{array} 
+# \right. 
+# \end{align*}
+# 
+# **Corollary. Random Walk Metropolis:** The special case of Metropolis-Hasting Algorithm where $q(x, y) = q(y, x)$. 
+#  - The probability of moving from x to y and y to x are identical. Thus we have the property of symmetric, and the acceptence rate could be simplified to:
+#  \begin{align*}
+# \alpha(x^{(k-1)}, y) = min\left\{ \frac{f(y)}{f(x^{(k-1)})}, 1 \right\}
+# \end{align*}
+# 
+# **Corollary. Independent Metropolis:** The special case of Metropolis-Hasting Algorithm where $q(x, y) = p(y)$.
+#  - The probability of moving from x to y is indepentent to x, in other words the probability of transfering to a certain state is independent to its previous states. The acceptence rate could be simplified to:
+# \begin{align*}
+# \alpha(x^{(k-1)}, y) = min\left\{ \frac{f(y)p(x^{(k-1)})}{f(x^{(k-1)})p(y)}, 1 \right\}
+# \end{align*}
+# 
+# ### Gibbs Sampler
+# 
+# **Def. Gibbs Sampler:** Draw data samples from the joint distribution $p(\theta_1,\theta_2,...,\theta_m)$ by sampling $\theta_i$ iteratively from the full conditional distribution $p(\theta_i|\theta_{-i}) = p(\theta_i|\theta_1,\theta_2,...,\theta_{i-1},\theta_{i+1},...,\theta_m)$, with the procedure as follows:
+# 1. Initialize $\theta_1^{(0)},\theta_2^{(0)},...,\theta_m^{(0)}$.
+# 2. At the k-th iteration, for $i = 1,2,...m$, sample $\theta_i$ from:
+# \begin{align*}
+# \theta_i^{(k)} \sim p(\theta_i|\theta_1^{(k)},\theta_2^{(k)},...,\theta_{i-1}^{(k)},\theta_{i+1}^{(k-1)},...,\theta_m^{(k-1)})
+# \end{align*}
+# 
+# Comments:
+#  - Gibbs sampler is a special case of Metropolis-Hasting Algorithm where the acceptence rate is always 1. Proof: let $x=(\theta_i,\theta_{-i})$ and $y=(\theta_i^*,\theta_{-i})$, the transition probability $q(x,y)=p(\theta_i^*|\theta_{-i})$(e.g. full conditional), thus the acceptence rate can be derived as:
+# \begin{align*}
+# \alpha(x, y) &= min\left\{ \frac{f(y)q(y, x)}{f(x) q(x, y)}, 1 \right\} \\
+# &= min\left\{ \frac{p(\theta_i^*,\theta_{-i})p(\theta_i|\theta_{-i})}{p(\theta_i,\theta_{-i}) p(\theta_i^*|\theta_{-i})}, 1 \right\} \\
+# &= min\left\{ \frac{p(\theta_i^*,\theta_{-i})p(\theta_i,\theta_{-i})p(\theta_{-i})}{p(\theta_i,\theta_{-i}) p(\theta_i^*,\theta_{-i})p(\theta_{-i})}, 1 \right\} \\
+# &= 1
+# \end{align*} 
+# 
 
 # ## Monte Carlo Estimation (Application of Sampling)
 # 
