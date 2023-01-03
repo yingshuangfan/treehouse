@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="_static/logo.webp"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -399,6 +401,11 @@ title="Print to PDF"
    Gibbs Sampler
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#monte-carlo-estimation-application-of-sampling">
+   Monte Carlo Estimation (Application of Sampling)
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -448,6 +455,11 @@ title="Print to PDF"
    Gibbs Sampler
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#monte-carlo-estimation-application-of-sampling">
+   Monte Carlo Estimation (Application of Sampling)
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -458,7 +470,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="sampling">
+  <section class="tex2jax_ignore mathjax_ignore" id="sampling">
 <h1>Sampling<a class="headerlink" href="#sampling" title="Permalink to this headline">#</a></h1>
 <section id="direct-sampling">
 <h2>Direct Sampling<a class="headerlink" href="#direct-sampling" title="Permalink to this headline">#</a></h2>
@@ -477,7 +489,32 @@ title="Print to PDF"
 </section>
 <section id="gibbs-sampler">
 <h2>Gibbs Sampler<a class="headerlink" href="#gibbs-sampler" title="Permalink to this headline">#</a></h2>
-<p>to be continued..</p>
+</section>
+<section id="monte-carlo-estimation-application-of-sampling">
+<h2>Monte Carlo Estimation (Application of Sampling)<a class="headerlink" href="#monte-carlo-estimation-application-of-sampling" title="Permalink to this headline">#</a></h2>
+<p>Intuition: Estimatation based on random sampling, a.k.a Monte Carlo Method. The methodology includes various implementations, a common adoption in statistics is estimating the integration(e.g. marginal probability) with complicated closed-form expression.</p>
+<p><strong>Def. Monte-Carlo Estimation:</strong> The approximate expectation of <span class="math notranslate nohighlight">\(f(X)\)</span>, where random variable X follows distribution <span class="math notranslate nohighlight">\(P\)</span>, is the average of i.i.d sampled data <span class="math notranslate nohighlight">\(z_1,z_2,...,z_N\)</span>.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+E_{x \sim p(x)}[f(x)] = \int p(x)f(x) \,dx \approx \frac{1}{N} \sum_{i=1}^N f(z_i)
+\end{align*}\]</div>
+<p><strong>Corollary. Estimation of Posterior Predictive with Monte Carlo Method:</strong> The posterior predictive (integration of posterior over possible parameters <span class="math notranslate nohighlight">\(\theta\)</span>) can be estimated by:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(x_{n+1}|D) &amp;=\int_{\theta}{P(x_{n+1}|\theta)P(\theta|D)\,d\theta} \\
+&amp; \approx \frac{1}{N} \sum_{i=1}^N P(x_{n+1}|\theta_i) \\
+&amp; \theta_i \sim P(\theta|D)
+\end{align*}\]</div>
+<p>The estimation can be described as:</p>
+<ol class="simple">
+<li><p>Draw a sampled parameter <span class="math notranslate nohighlight">\(\theta_i\)</span> from the posterior <span class="math notranslate nohighlight">\(P(\theta|D)\)</span> with a sampler(e.g. Gibbs Sampler).</p></li>
+<li><p>Given the <span class="math notranslate nohighlight">\(\theta_i\)</span> in last step, draw a sampled new data <span class="math notranslate nohighlight">\(z_i\)</span> from the likelihood <span class="math notranslate nohighlight">\(P(x_{n+1}|\theta_i)\)</span>.</p></li>
+<li><p>Repeat step 1&amp;2 in order to generate the i.i.d sampled data <span class="math notranslate nohighlight">\(z_1,z_2,...,z_N\)</span>, giving the size of such dataset(N) is sufficiently large, then the average of sampled data is an Monte Carlo Estimation of new data point <span class="math notranslate nohighlight">\(x_{new}\)</span>.</p></li>
+</ol>
+<p>Comments:</p>
+<ul class="simple">
+<li><p>Notice that we only sample exactly ONE <span class="math notranslate nohighlight">\(z_i\)</span> from any given <span class="math notranslate nohighlight">\(\theta_i\)</span> sampled from the posterior. The point here is that the size of <span class="math notranslate nohighlight">\(z_i\)</span> doesn’t matter, as long as we have sufficent samples of <span class="math notranslate nohighlight">\(\theta_i\)</span>. In other words, the estimation here relies on taking the “average” over <span class="math notranslate nohighlight">\(\,d\theta\)</span>. For instance, a sampled data of 10k with 5k <span class="math notranslate nohighlight">\(\theta\)</span> is much more reliable than a sampled data of 100k with 500 <span class="math notranslate nohighlight">\(\theta\)</span>.</p></li>
+</ul>
 </section>
 </section>
 
