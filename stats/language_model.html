@@ -1,0 +1,793 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Probabilistic Language Model &#8212; TreeHouse</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../_static/logo.webp"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Normalization" href="normalization.html" />
+    <link rel="prev" title="Non-Parametric Bayesian" href="non-param_bayesian.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.webp" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">TreeHouse</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Statistics
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="bayesian_inference.html">
+   Bayesian Inference
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="sampling.html">
+   Sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="non-param_bayesian.html">
+   Non-Parametric Bayesian
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Probabilistic Language Model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="normalization.html">
+   Normalization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="markov-chain_mdp.html">
+   Markov Chain &amp; Markov Decision Process
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="reinforcement_learning.html">
+   Reinforcement Learning
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Mathematics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../math/multivariate_calculus.html">
+   Multivariate Calculus
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../math/matrix_calculus.html">
+   Matrix Calculus
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../math/integer_programming.html">
+   Integer Programming
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../math/linear_programming.html">
+   Linear Programming
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../math/non_linear_unscontrained.html">
+   Non-linear Programming (Part-II Unconstrained)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../math/non_linear_constrained.html">
+   Non-linear Programming (Part-I Unconstrained)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../math/stochastic_method.html">
+   Stochastic Method
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Computation
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../comp/data_structure.html">
+   Data Structure &amp; Algorithm
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../comp/search_algorithm.html">
+   Search
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../comp/neural_networks.html">
+   Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../comp/logistic_regression.html">
+   Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../comp/knn.html">
+   K Nearest Neighbor
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../comp/svm.html">
+   Supported Vector Machine
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../comp/decision_tree.html">
+   Decision Tree
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../comp/ensemble_learning.html">
+   Ensemble Learning
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/yingshuangfan/treehouse/master?urlpath=lab/tree/stats/language_model.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/yingshuangfan/treehouse/blob/master/stats/language_model.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/stats/language_model.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#probability-of-sentence">
+   Probability of Sentence
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#maximum-likelihood-estimate-mle">
+   Maximum Likelihood Estimate(MLE)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#n-gram-model">
+   N-gram Model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#text-classification">
+   Text Classification
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#maximum-a-posterior-estimation-map">
+   Maximum a Posterior Estimation(MAP)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#naive-bayes">
+   Naive Bayes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluation-metric">
+   Evaluation Metric
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#smoothing">
+   Smoothing
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Probabilistic Language Model</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#probability-of-sentence">
+   Probability of Sentence
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#maximum-likelihood-estimate-mle">
+   Maximum Likelihood Estimate(MLE)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#n-gram-model">
+   N-gram Model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#text-classification">
+   Text Classification
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#maximum-a-posterior-estimation-map">
+   Maximum a Posterior Estimation(MAP)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#naive-bayes">
+   Naive Bayes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluation-metric">
+   Evaluation Metric
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#smoothing">
+   Smoothing
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="probabilistic-language-model">
+<h1>Probabilistic Language Model<a class="headerlink" href="#probabilistic-language-model" title="Permalink to this headline">#</a></h1>
+<section id="probability-of-sentence">
+<h2>Probability of Sentence<a class="headerlink" href="#probability-of-sentence" title="Permalink to this headline">#</a></h2>
+<p><strong>Def.1</strong> Probability of sentence: <span class="math notranslate nohighlight">\(W=(w_1,...,w_n)\)</span> as a sequence of words, by chain-rule we have</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(W) = P(w_1,...,w_n) = \prod_{i=1}^n P(w_i|w_0,...,w_{i-1})
+\end{align*}\]</div>
+<ul>
+<li><p>Where is <span class="math notranslate nohighlight">\(w_0\)</span>? by definition, we ignore <span class="math notranslate nohighlight">\(P(w_0)\)</span> in the joint probability.</p></li>
+<li><p>How to estimate conditional probability <span class="math notranslate nohighlight">\(P(w_i|w_0,...,w_{i-1})\)</span>? Maximum likelihood estimate, where <span class="math notranslate nohighlight">\(cnt_{seq}\)</span> is defined as the number of counts for sequence <span class="math notranslate nohighlight">\(w_0,...,w_i\)</span> in the corpus.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+    P(w_i|w_0,...,w_{i-1}) = \frac{cnt_{seq}(w_0,...,w_i)}{cnt_{seq}(w_0,...,w_{i-1})}
+    \end{align*}\]</div>
+</li>
+<li><p>To obtain a good estimation, the corpus needs to be sufficiently large, considering the great number of possible sequnces of words. (which is often NOT realistic!)</p></li>
+</ul>
+</section>
+<section id="maximum-likelihood-estimate-mle">
+<h2>Maximum Likelihood Estimate(MLE)<a class="headerlink" href="#maximum-likelihood-estimate-mle" title="Permalink to this headline">#</a></h2>
+<p>Intuition: The method define the way to determine the parameters of a model, such that the likelihood of the process described by the model is maximized based on the data that we have oberserved.</p>
+</section>
+<section id="n-gram-model">
+<h2>N-gram Model<a class="headerlink" href="#n-gram-model" title="Permalink to this headline">#</a></h2>
+<p>Intuition: decrease the number of possible sequences of words, by adoption the Markov Assumption.</p>
+<p><strong>Assumption.1 Markov Assumption:</strong> the future word only depends on the previous K words.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(w_i|w_0,...,w_{i-1}) = P(w_i|w_{i-K},...,w_{i-1})
+\end{align*}\]</div>
+<p><strong>Def.2 N-gram model</strong> Given the assumption.1, now the probability of a sentence W in def.1 can be simplified as:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(W) = P(w_1,...,w_n) = \prod_{i=1}^n P(w_i|w_{i-K},...,w_{i-1})
+\end{align*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(w_i|w_0,...,w_{i-1}) = \frac{cnt_{seq}(w_{i-K},...,w_i)}{cnt_{seq}(w_{i-K},...,w_{i-1})}
+\end{align*}\]</div>
+<p><strong>Corollary.2-1 Unigram model</strong> Let K=0, thus each word is independent(where <span class="math notranslate nohighlight">\(total_{seq}\)</span> is the total number of sequences in the corpus). e.g. Bag-of-Words model.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(W) = P(w_1,...,w_n) = \prod_{i=1}^n P(w_i) = \prod_{i=1}^n \frac{cnt_{seq}(w_i)}{total_{seq}}
+\end{align*}\]</div>
+<p><strong>Corollary.2-2 Bigram model</strong> Let K=1, thus each word is only dependent to the previous word.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(W) = P(w_1,...,w_n) = \prod_{i=1}^n P(w_i|w_{i-1}) = \prod_{i=1}^n \frac{cnt_{seq}(w_i,w_{i-1})}{cnt_{seq}(w_{i-1})}
+\end{align*}\]</div>
+</section>
+<section id="text-classification">
+<h2>Text Classification<a class="headerlink" href="#text-classification" title="Permalink to this headline">#</a></h2>
+<p><strong>Def.3 Bag-of-words model:</strong> In this model, any text is represented as a set of its (unique)words, ignoring its grammar or sequence ordering. Represent document <span class="math notranslate nohighlight">\(D \to \{w_i, cnt_i\}_{i=1}^V\)</span>, where <span class="math notranslate nohighlight">\(w_i\)</span> is the i-th unique word, <span class="math notranslate nohighlight">\(cnt_i\)</span> is the number of occurence of <span class="math notranslate nohighlight">\(w_i\)</span>, <span class="math notranslate nohighlight">\(V\)</span> is the total size of vocabulary.</p>
+<ul class="simple">
+<li><p>By this method, we can easily represent text documents into vectors.</p></li>
+<li><p>It is widely used in general text classification, where the occurency of words is the key feature.</p></li>
+</ul>
+<p><strong>Def.4 Text Classification:</strong> Given labeled pairs of docuemnt <span class="math notranslate nohighlight">\(d_i\)</span> and its class label <span class="math notranslate nohighlight">\(c_i\)</span> as the training data, learn a model which output a predicted class <span class="math notranslate nohighlight">\(c_p\)</span> for any input document <span class="math notranslate nohighlight">\(d_p\)</span>.</p>
+<ul>
+<li><p>The MAP estimator of Def.7, can be defined as:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+    \DeclareMathOperator*{\argmax}{argmax}
+    c_{MAP} = \argmax_{c}{P(c|d)} = \argmax_{c}{P(d|c)P(c)}
+    \end{align*}\]</div>
+<p>Notice that by bayes rule, the marginal probability <span class="math notranslate nohighlight">\(P(d)\)</span> is ignored as constant(regarding class c).</p>
+</li>
+</ul>
+</section>
+<section id="maximum-a-posterior-estimation-map">
+<h2>Maximum a Posterior Estimation(MAP)<a class="headerlink" href="#maximum-a-posterior-estimation-map" title="Permalink to this headline">#</a></h2>
+<p>Intuition: In bayesian statistics, MAP method is an estimate that equals the mode of the posterior distribution. Compared to MLE, MAP method introduces the prior distribution into the estimation which represents our former knowledge of the data samples. Therefore, MAP can be viewed as a regularization of MLE.</p>
+</section>
+<section id="naive-bayes">
+<h2>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Permalink to this headline">#</a></h2>
+<p><strong>Def.5 Naive Bayes Estimator:</strong> Based on Bag-of-words assumption in Def.3, the MAP estimator is defined as:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\DeclareMathOperator*{\argmax}{argmax}
+c_{NB} = \argmax_{c}{P(d|c)P(c)} = \argmax_{c}{P(c)\prod_{i}{P(w_i|c)}}
+\end{align*}\]</div>
+<ul>
+<li><p>To prevent the underflow problem, we often use the log of probability. Thus the estimator can be rewritten as:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+    \DeclareMathOperator*{\argmax}{argmax}
+    c_{NB} = \argmax_{c}\log_{2}{P(d|c)P(c)} = \argmax_{c}{\{\log_{2}{P(c)} + \sum_{i}{\log_{2}P(w_i|c)}\}}
+    \end{align*}\]</div>
+</li>
+<li><p>To estimate the <span class="math notranslate nohighlight">\(P(c)\)</span> and <span class="math notranslate nohighlight">\(P(w_i|c)\)</span>, we adopt the MLE method once again: where <span class="math notranslate nohighlight">\(cnt_{doc}\)</span> denotes the count of documents, <span class="math notranslate nohighlight">\(cnt_{word}\)</span> denotes the count of words, and <span class="math notranslate nohighlight">\(total_{doc}\)</span> denotes the total number of documents(size of corpus).</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+    P(c) = \frac{cnt_{doc}(c_i=c)}{total_{doc}} \\
+    P(w_i|c) = \frac{cnt_{word}(w_i, c_i=c)}{cnt_{word}(c_i=c)}
+    \end{align*}\]</div>
+</li>
+</ul>
+</section>
+<section id="evaluation-metric">
+<h2>Evaluation Metric<a class="headerlink" href="#evaluation-metric" title="Permalink to this headline">#</a></h2>
+<p>The fitted language model M is <strong>a set of conditional probabilities</strong>!
+This section we discuss few metrics to evaluate the performance of the fitted language model that could be used on a test dataset.</p>
+<p><strong>Def.6 Perplexity:</strong> Defined the sentence probability normalized by the number of words <span class="math notranslate nohighlight">\(n\)</span>.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+PP(W) = \sqrt[n]{P(w_1,...,w_n)} = \sqrt[n]{\prod_{i=1}^n P(w_i|w_{i-K},...,w_{i-1})}
+\end{align*}\]</div>
+<ul class="simple">
+<li><p>Perplexity is closely related to the sentence probability. In fact, <strong>maximize the sentence probability equals to minimize perplexity</strong>. When comparing different models on a given test dataset, the smaller perplexity yields the better model.</p></li>
+<li><p>We often use the log of perplexity to overcome the overflow problem:</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\log{PP(W)} = -\frac{1}{n} \sum_{i=1}^n \log{P(w_i|w_{i-K},...,w_{i-1})}
+\end{align*}\]</div>
+<p><strong>Def.7 Entropy:</strong> The entropy of a random variable X with the probability distribution p is defined as:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+H(p) = E_X[-\log_{2}{p(X)}] = -\sum_{x \in X}p(x)\log_{2}{p(x)}.
+\end{align*}\]</div>
+<ul class="simple">
+<li><p>Entropy describe <strong>the average level of information(uncertainty)</strong> given the possible outcomes of a random variable. For example, the maximum entropy is obtained when X follows a uniformed distribution, while the minimum is obtained when X equals to a fixed value(pdf=single point mass).</p></li>
+<li><p>For a valid distribution p, the entropy would always be non-negative!</p></li>
+</ul>
+<p><strong>Assumption.2 Asymptotic Equipartition Property :</strong> Given a discrete-time ergodic stochastic process X:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\lim_{n \to \infty}-\frac{1}{n}\log_{2}{P(X_1,X_2,...X_n)} \to H(X)
+\end{align*}\]</div>
+<ul class="simple">
+<li><p>The property can be proved by Shannon-McMillan-Breiman Theorem. <a class="reference external" href="https://en.wikipedia.org/wiki/Asymptotic_equipartition_property#Discrete-time_finite-valued_stationary_ergodic_sources">wiki</a></p></li>
+<li><p>It states that although there are many possible results that could be produced by the random process, the one we actually observed is most probable from a set of outcomes where each one has the approximately same probability. Thus, the assumption proposes that the large deviation from mean(if exists) would decay exponentially with the increasing number of data samples.</p></li>
+</ul>
+<p><strong>Corollary.7-1 Entropy for language model:</strong> The probability distribution p is defined as the probability language model M. Therefore, the entropy of a sequence of words is defined as:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+H(M) = \lim_{n \to \infty}{H_n(W_{1:n})} = \lim_{n \to \infty}-\frac{1}{n}\sum_{W_{1:n}}P(W_{1:n})\log_{2}{P(W_{1:n})}
+\end{align*}\]</div>
+<p>Given the assumption.2, it could be simplified as:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+H(M) = \lim_{n \to \infty}-\frac{1}{n}\log_{2}{P(W_{1:n})}
+\end{align*}\]</div>
+<p><strong>Def.8 Cross-Entropy:</strong> The cross-entropy between two distributions p and q over the same random variable X is defined as:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+H(p,q) = E_{p(X)}[-\log_{2}{q(X)}] = -\sum_{x \in X}p(x)\log_{2}{q(x)}
+\end{align*}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(H(p,q) \ge H(p,p)=H(p)\)</span></p></li>
+<li><p>It could measure the divergence between two distribution.</p></li>
+</ul>
+<p><strong>Corollary.8-1 Cross-Entropy for language model:</strong> Suppose M is the fitted language model from the training dataset, and L is the real language model that we pursue. The goal is to minimize the cross-entropy between M and L. Denote S as the sequence in corpus, the cross-entropy is defined as:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+H(L,M) = E_{L(S)}[-\log_{2}{M(S)}] = -\lim_{n \to \infty}\log_{2}{M(W_{1:n})}
+\end{align*}\]</div>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\log_{2}{PP(M)}=H(L,M).\)</span> The perplexity of a fitted language model could be computed with its cross-entropy(from the real language model).</p></li>
+<li><p>In a finite dataset T with N samples, the estimate of cross-entropy can be computed with:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+    H(T,M) = E_{T(S)}[-\log_{2}{M(S)}] = -\frac{1}{N}\sum_{i=1}^N \frac{1}{|S_i|}\log_{2}{M(S_i)}
+    \end{align*}\]</div>
+</li>
+</ul>
+</section>
+<section id="smoothing">
+<h2>Smoothing<a class="headerlink" href="#smoothing" title="Permalink to this headline">#</a></h2>
+<p>Intuitive: the problem of zeros. It is very common that the sentence in a test dataset does NOT exist in the training dataset, however the N-gram language model would output zero probability! By definition, the zero in probability could result in failure when computing the perplexity or entropy for a given language model. Therefore, we introduce smoothing to eliminate zeros in the model.</p>
+<p><strong>Def.9 Laplace Smoothing:</strong> Add a fixed number <span class="math notranslate nohighlight">\(\lambda\)</span> when computing the conditional probability, where V is the size of vocabulary(unique words) for the corpus.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\lambda\)</span> can be float! e.g. <span class="math notranslate nohighlight">\(\lambda=\frac{1}{V}\)</span></p></li>
+<li><p>Add-one estimation(continuity correction): Let <span class="math notranslate nohighlight">\(\lambda=1\)</span>. However this approach is not recommended if V is too large.</p></li>
+</ul>
+<p><strong>Corollary.8-1 Laplace Smoothing for N-gram model:</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(w_i|w_{i-K},...,w_{i-1}) = \frac{cnt_{seq}(w_{i-K},...,w_i)+\lambda}{cnt_{seq}(w_{i-K},...,w_{i-1})+\lambda V}
+\end{align*}\]</div>
+<p><strong>Corollary.8-2 Laplace Smoothing for Naive Bayes model:</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(w_i|c_i=c) = \frac{cnt_{word}(w_i, c_i=c)+\lambda}{cnt_{word}(c_i=c)+\lambda V}
+\end{align*}\]</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./stats"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="non-param_bayesian.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Non-Parametric Bayesian</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="normalization.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Normalization</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Yingshuang Fan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
