@@ -1,18 +1,37 @@
 format: jb-book
 root: intro
-chapters:
-- file: bayesian_inference
-- file: sampling
-- file: non-param_bayesian
-- file: language_model
-- file: neural_networks
-- file: normalization
-- file: markov-chain_mdp
-- file: reinforcement_learning
-- file: data_structure
-- file: search_algorithm
-- file: logistic_regression
-- file: knn
-- file: svm
-- file: decision_tree
-- file: ensemble_learning
+
+parts:
+  - caption: Statistics
+    numbered: False
+    chapters:
+    - file: stats/bayesian_inference
+    - file: stats/sampling
+    - file: stats/non-param_bayesian
+    - file: stats/language_model
+    - file: stats/normalization
+    - file: stats/markov-chain_mdp
+    - file: stats/reinforcement_learning
+
+  - caption: Mathematics
+    numbered: False
+    chapters:
+    - file: math/multivariate_calculus
+    - file: math/matrix_calculus
+    - file: math/integer_programming
+    - file: math/linear_programming
+    - file: math/non_linear_unscontrained
+    - file: math/non_linear_constrained
+    - file: math/stochastic_method
+
+  - caption: Computation
+    numbered: False
+    chapters:
+    - file: comp/data_structure
+    - file: comp/search_algorithm
+    - file: comp/neural_networks
+    - file: comp/logistic_regression
+    - file: comp/knn
+    - file: comp/svm
+    - file: comp/decision_tree
+    - file: comp/ensemble_learning
