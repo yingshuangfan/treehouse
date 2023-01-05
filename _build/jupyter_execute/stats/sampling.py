@@ -22,7 +22,7 @@
 # 3. Repeat steps 1&2 until sufficient data samples are obtained.
 # 
 # Comments:
-#  - The computation efficiency is highly related to the choice of candidate distribution $Q$. If the $Q$ is very different from the target distribution $P$, then Rejection Sampling method is not recommended, since majorith of the data samples would be discarded. 
+#  - The computation efficiency is highly related to the choice of candidate distribution $Q$. If the $Q$ is very different from the target distribution $P$, then Rejection Sampling method is not recommended, since majority of the data samples would be discarded. 
 #  - The Acceptance Rate:
 # \begin{align*}
 # P(accept) &= P\left(u \le \frac{p(x)}{Cq(x)}\right) \\
@@ -32,7 +32,7 @@
 # &= \int \frac{p(x)}{Cq(x)} q(x) \,dx \\
 # &= \frac{1}{C}
 # \end{align*}
-#  - In common practice, the procedure to find candidate distribution and calcuate the constant $C$ is complicated, not to mention the accepance rate is extremely low for bad estimation. Thus Gibbs Sampler is recommended in general.
+#  - In common practice, the procedure to find candidate distribution and calcuate the constant $C$ is complicated, not to mention the accepance rate is extremely low for a bad estimation. Thus Gibbs Sampler is recommended in general.
 # 
 
 # ## Importance Sampling

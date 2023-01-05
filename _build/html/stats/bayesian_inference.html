@@ -446,11 +446,6 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#multivariate-normal-distribution">
-     Multivariate Normal Distribution
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#bayesian-information-criterion">
      Bayesian Information Criterion
     </a>
@@ -518,11 +513,6 @@ title="Print to PDF"
    Laplace Approximation
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#multivariate-normal-distribution">
-     Multivariate Normal Distribution
-    </a>
-   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#bayesian-information-criterion">
      Bayesian Information Criterion
@@ -663,21 +653,6 @@ P(x_{n+1}|D)=\int_{\theta}{P(x_{n+1},\theta|D)\,d\theta}=\int_{\theta}{P(x_{n+1}
 <li><p>Matrix <span class="math notranslate nohighlight">\(A\)</span> is the minus of the posterior’s Hessian at the MAP estimation. If dimension of parameter <span class="math notranslate nohighlight">\(\theta\)</span> is k, then the dimension of <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(k \times k\)</span>.</p></li>
 <li><p>The approximate k-dimensional multivariate normal distribution has the mean of <span class="math notranslate nohighlight">\(\theta_{MAP}\)</span>, which is basically how the method is designed, and the covariance matrix is the inverse of <span class="math notranslate nohighlight">\(A\)</span>. Considering the cost of computing inverse matrix is high(<span class="math notranslate nohighlight">\(O(k^3)\)</span>), the dimension of parameters k should be limited.</p></li>
 </ul>
-<section id="multivariate-normal-distribution">
-<h3>Multivariate Normal Distribution<a class="headerlink" href="#multivariate-normal-distribution" title="Permalink to this headline">#</a></h3>
-<p>Multivariate normal distribution is the generalization of normal distribution to higher dimension. Suppose the dimension is k, then we denote the k dimension multivariate normal distribuion as <span class="math notranslate nohighlight">\(\mathcal{N}_k(\mu, \Sigma)\)</span>, where <span class="math notranslate nohighlight">\(\Sigma\)</span> is semi-positive definite. In addition, the distribution is non-degenerate, if <span class="math notranslate nohighlight">\(\Sigma\)</span> is positive definite. For simplicity we assume that a distribution is always non-degenerate.</p>
-<p>Properties:</p>
-<ul class="simple">
-<li><p>mean: <span class="math notranslate nohighlight">\(\mu\)</span></p></li>
-<li><p>mode: <span class="math notranslate nohighlight">\(\mu\)</span></p></li>
-<li><p>variance: <span class="math notranslate nohighlight">\(\Sigma\)</span></p></li>
-</ul>
-<p>Probability density function(non-degenerate):</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{align*}
-f(X) = \frac{exp\left(-\frac{1}{2}(X-\mu)^T\Sigma^{-1}(X-\mu)\right)}{(2\pi)^{\frac{k}{2}}det(\Sigma)^{\frac{1}{2}}}
-\end{align*}\]</div>
-</section>
 <section id="bayesian-information-criterion">
 <h3>Bayesian Information Criterion<a class="headerlink" href="#bayesian-information-criterion" title="Permalink to this headline">#</a></h3>
 <p>Based on laplace approximation of the posterior distribution we have:</p>

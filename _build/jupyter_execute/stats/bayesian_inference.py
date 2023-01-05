@@ -86,21 +86,6 @@
 #  - The approximate k-dimensional multivariate normal distribution has the mean of $\theta_{MAP}$, which is basically how the method is designed, and the covariance matrix is the inverse of $A$. Considering the cost of computing inverse matrix is high($O(k^3)$), the dimension of parameters k should be limited.
 #  
 
-# ### Multivariate Normal Distribution
-# 
-# Multivariate normal distribution is the generalization of normal distribution to higher dimension. Suppose the dimension is k, then we denote the k dimension multivariate normal distribuion as $\mathcal{N}_k(\mu, \Sigma)$, where $\Sigma$ is semi-positive definite. In addition, the distribution is non-degenerate, if $\Sigma$ is positive definite. For simplicity we assume that a distribution is always non-degenerate.
-# 
-# Properties:
-#  - mean: $\mu$
-#  - mode: $\mu$
-#  - variance: $\Sigma$
-# 
-# Probability density function(non-degenerate):
-# \begin{align*}
-# f(X) = \frac{exp\left(-\frac{1}{2}(X-\mu)^T\Sigma^{-1}(X-\mu)\right)}{(2\pi)^{\frac{k}{2}}det(\Sigma)^{\frac{1}{2}}}
-# \end{align*}
-# 
-
 # ### Bayesian Information Criterion
 # 
 # Based on laplace approximation of the posterior distribution we have:
