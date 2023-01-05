@@ -538,9 +538,53 @@ title="Print to PDF"
 </section>
 <section id="rejection-sampling">
 <h2>Rejection Sampling<a class="headerlink" href="#rejection-sampling" title="Permalink to this headline">#</a></h2>
+<p>Intuitive: A method to draw data samples from the target distribution <span class="math notranslate nohighlight">\(P\)</span>(e.g. posterior), by suggesting a easy-to-simulate distribution <span class="math notranslate nohighlight">\(Q\)</span>, such that generating data samples from <span class="math notranslate nohighlight">\(Q\)</span> is much easier.</p>
+<p><strong>Def. Rejection Sampling:</strong> Given target distribution <span class="math notranslate nohighlight">\(P\)</span> and candidate distribution <span class="math notranslate nohighlight">\(Q\)</span>, if we could find a constant <span class="math notranslate nohighlight">\(C\)</span> such that it upper bounds the importance ratio <span class="math notranslate nohighlight">\(\frac{p(x)}{q(x)}\)</span>, such that:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+C = \sup_x \frac{p(x)}{q(x)} \lt \infty
+\end{align*}\]</div>
+<p>Then procedure of Rejection Sampling is defined as follows:</p>
+<ol class="simple">
+<li><p>Simulate <span class="math notranslate nohighlight">\(x \sim Q\)</span>.</p></li>
+<li><p>Simulate <span class="math notranslate nohighlight">\(u \sim Unif(0, 1)\)</span>, if <span class="math notranslate nohighlight">\(u \le \frac{p(x)}{Cq(x)} \)</span> then accept it, otherwise discard it.</p></li>
+<li><p>Repeat steps 1&amp;2 until sufficient data samples are obtained.</p></li>
+</ol>
+<p>Comments:</p>
+<ul class="simple">
+<li><p>The computation efficiency is highly related to the choice of candidate distribution <span class="math notranslate nohighlight">\(Q\)</span>. If the <span class="math notranslate nohighlight">\(Q\)</span> is very different from the target distribution <span class="math notranslate nohighlight">\(P\)</span>, then Rejection Sampling method is not recommended, since majorith of the data samples would be discarded.</p></li>
+<li><p>The Acceptance Rate:</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(accept) &amp;= P\left(u \le \frac{p(x)}{Cq(x)}\right) \\
+&amp;= E_u\left[I\left(u \le \frac{p(x)}{Cq(x)}\right)\right] \\
+&amp;= E_q\left[E_u\left[I\left(u \le \frac{p(x)}{Cq(x)}\right)\mid x \right]\right] \\
+&amp;= E_q\left[P\left(u \le \frac{p(x)}{Cq(x)}\mid x \right)\right] \\
+&amp;= \int \frac{p(x)}{Cq(x)} q(x) \,dx \\
+&amp;= \frac{1}{C}
+\end{align*}\]</div>
+<ul class="simple">
+<li><p>In common practice, the procedure to find candidate distribution and calcuate the constant <span class="math notranslate nohighlight">\(C\)</span> is complicated, not to mention the accepance rate is extremely low for bad estimation. Thus Gibbs Sampler is recommended in general.</p></li>
+</ul>
 </section>
 <section id="importance-sampling">
 <h2>Importance Sampling<a class="headerlink" href="#importance-sampling" title="Permalink to this headline">#</a></h2>
+<p>Intuitive: A method to estimate the expectation of a target function <span class="math notranslate nohighlight">\(f(X)\)</span>(e.g. posterior pdf), where random variable <span class="math notranslate nohighlight">\(X\)</span> follows distribution <span class="math notranslate nohighlight">\(P\)</span>. Generally speaking, if we could draw enough data samples of <span class="math notranslate nohighlight">\(X\)</span> from <span class="math notranslate nohighlight">\(P\)</span>, we could estimate <span class="math notranslate nohighlight">\(E_p[f]\)</span> with the average of <span class="math notranslate nohighlight">\(f(z)\)</span>. However, <strong>when it’s rather difficult to simulate such data samples(the common case), Importance Sampling method provides a general methodology to estimate the expectation</strong>. Notice that even though the name is related to sampling, but the goal here is to calculate the integration of <span class="math notranslate nohighlight">\(\int f(x)p(x) \,dx\)</span>.</p>
+<p><strong>Def. Importance Sampling:</strong> Find an easy-to-simulate candidate distribution <span class="math notranslate nohighlight">\(Q\)</span> instead of <span class="math notranslate nohighlight">\(P\)</span> to generate sufficient data samples from, and the expectation of the target function <span class="math notranslate nohighlight">\(f(X)\)</span> could be estimated as:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+E_p[f] &amp;= \int f(x)p(x) \,dx \\
+&amp;= \int f(x)\frac{p(x)}{q(x)}q(x) \,dx \\
+&amp;= \frac{1}{N} \sum_{i=1}^N f(z_i) \frac{p(z_i)}{q(z_i)} \\
+&amp;z_i \sim Q \\
+\end{align*}\]</div>
+<p>Comments:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(w_i = \frac{p(z_i)}{q(z_i)}\)</span> is also called the Importance Weights.</p></li>
+<li><p>Compared to Rejection Sampling, we notice that all data samples <span class="math notranslate nohighlight">\(z_i\)</span> are accepted no matter how. In fact, if <span class="math notranslate nohighlight">\(z_i\)</span> is located where the candidate distribution <span class="math notranslate nohighlight">\(Q\)</span> diverges siginificantly from the original <span class="math notranslate nohighlight">\(P\)</span>, the sample value will be punished with a small weight instead.</p></li>
+<li><p>In common practice, the candidate distribution <span class="math notranslate nohighlight">\(Q\)</span> should have lower variance than original distribution <span class="math notranslate nohighlight">\(P\)</span>. ?? Is it necessary for Q to be an envelope of P?</p></li>
+</ul>
 </section>
 <section id="markov-chain-monte-carlo-mcmc">
 <h2>Markov Chain Monte Carlo(MCMC)<a class="headerlink" href="#markov-chain-monte-carlo-mcmc" title="Permalink to this headline">#</a></h2>
@@ -625,7 +669,7 @@ P(x_{n+1}|D) &amp;=\int_{\theta}{P(x_{n+1}|\theta)P(\theta|D)\,d\theta} \\
 <ol class="simple">
 <li><p>Draw a sampled parameter <span class="math notranslate nohighlight">\(\theta_i\)</span> from the posterior <span class="math notranslate nohighlight">\(P(\theta|D)\)</span> with a sampler(e.g. Gibbs Sampler).</p></li>
 <li><p>Given the <span class="math notranslate nohighlight">\(\theta_i\)</span> in last step, draw a sampled new data <span class="math notranslate nohighlight">\(z_i\)</span> from the likelihood <span class="math notranslate nohighlight">\(P(x_{n+1}|\theta_i)\)</span>.</p></li>
-<li><p>Repeat step 1&amp;2 in order to generate the i.i.d sampled data <span class="math notranslate nohighlight">\(z_1,z_2,...,z_N\)</span>, giving the size of such dataset(N) is sufficiently large, then the average of sampled data is an Monte Carlo Estimation of new data point <span class="math notranslate nohighlight">\(x_{new}\)</span>.</p></li>
+<li><p>Repeat steps 1&amp;2 in order to generate the i.i.d sampled data <span class="math notranslate nohighlight">\(z_1,z_2,...,z_N\)</span>, giving the size of such dataset(N) is sufficiently large, then the average of sampled data is an Monte Carlo Estimation of new data point <span class="math notranslate nohighlight">\(x_{new}\)</span>.</p></li>
 </ol>
 <p>Comments:</p>
 <ul class="simple">
