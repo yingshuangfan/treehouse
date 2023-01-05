@@ -552,7 +552,7 @@ C = \sup_x \frac{p(x)}{q(x)} \lt \infty
 </ol>
 <p>Comments:</p>
 <ul class="simple">
-<li><p>The computation efficiency is highly related to the choice of candidate distribution <span class="math notranslate nohighlight">\(Q\)</span>. If the <span class="math notranslate nohighlight">\(Q\)</span> is very different from the target distribution <span class="math notranslate nohighlight">\(P\)</span>, then Rejection Sampling method is not recommended, since majorith of the data samples would be discarded.</p></li>
+<li><p>The computation efficiency is highly related to the choice of candidate distribution <span class="math notranslate nohighlight">\(Q\)</span>. If the <span class="math notranslate nohighlight">\(Q\)</span> is very different from the target distribution <span class="math notranslate nohighlight">\(P\)</span>, then Rejection Sampling method is not recommended, since majority of the data samples would be discarded.</p></li>
 <li><p>The Acceptance Rate:</p></li>
 </ul>
 <div class="amsmath math notranslate nohighlight">
@@ -565,7 +565,7 @@ P(accept) &amp;= P\left(u \le \frac{p(x)}{Cq(x)}\right) \\
 &amp;= \frac{1}{C}
 \end{align*}\]</div>
 <ul class="simple">
-<li><p>In common practice, the procedure to find candidate distribution and calcuate the constant <span class="math notranslate nohighlight">\(C\)</span> is complicated, not to mention the accepance rate is extremely low for bad estimation. Thus Gibbs Sampler is recommended in general.</p></li>
+<li><p>In common practice, the procedure to find candidate distribution and calcuate the constant <span class="math notranslate nohighlight">\(C\)</span> is complicated, not to mention the accepance rate is extremely low for a bad estimation. Thus Gibbs Sampler is recommended in general.</p></li>
 </ul>
 </section>
 <section id="importance-sampling">
