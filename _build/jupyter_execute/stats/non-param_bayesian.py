@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Non-Parametric Bayesian
+# # Bayesian Inference (Part-II Non-Parametric)
 # 
 # ## Gaussian Process
 # 

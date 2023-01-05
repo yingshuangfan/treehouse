@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Bayesian Inference &#8212; TreeHouse</title>
+    <title>Bayesian Inference (Part-I Parametric) &#8212; TreeHouse</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -55,8 +55,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/logo.webp"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Sampling" href="sampling.html" />
-    <link rel="prev" title="Welcome!" href="../intro.html" />
+    <link rel="next" title="Bayesian Inference (Part-II Non-Parametric)" href="non-param_bayesian.html" />
+    <link rel="prev" title="Sampling" href="sampling.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -122,9 +122,9 @@ const thebe_selector_output = ".output, .cell_output"
  </span>
 </p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Bayesian Inference
+ <li class="toctree-l1">
+  <a class="reference internal" href="language_model.html">
+   Probabilistic Language Model
   </a>
  </li>
  <li class="toctree-l1">
@@ -132,14 +132,14 @@ const thebe_selector_output = ".output, .cell_output"
    Sampling
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="non-param_bayesian.html">
-   Non-Parametric Bayesian
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Bayesian Inference (Part-I Parametric)
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="language_model.html">
-   Probabilistic Language Model
+  <a class="reference internal" href="non-param_bayesian.html">
+   Bayesian Inference (Part-II Non-Parametric)
   </a>
  </li>
  <li class="toctree-l1">
@@ -483,7 +483,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Bayesian Inference</h1>
+                <h1>Bayesian Inference (Part-I Parametric)</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -552,8 +552,8 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="bayesian-inference">
-<h1>Bayesian Inference<a class="headerlink" href="#bayesian-inference" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="bayesian-inference-part-i-parametric">
+<h1>Bayesian Inference (Part-I Parametric)<a class="headerlink" href="#bayesian-inference-part-i-parametric" title="Permalink to this headline">#</a></h1>
 <section id="posterior">
 <h2>Posterior<a class="headerlink" href="#posterior" title="Permalink to this headline">#</a></h2>
 <p><strong>Def.1 Posterior Distribution:</strong> The posterior distribution of parameter <span class="math notranslate nohighlight">\(\theta\)</span>, based on observations <span class="math notranslate nohighlight">\(D=\{x_1,...,x_n\}\)</span>, likelihood function <span class="math notranslate nohighlight">\(L(\theta|D)=P(D|\theta)=\prod_{i=1}^n{P(x_i|\theta)}\)</span>(assuming data samples are i.i.d), prior distribution <span class="math notranslate nohighlight">\(\pi(\theta)\)</span>, is defined as:</p>
@@ -804,17 +804,17 @@ q_i(\theta_i) = \frac{exp\{E_{q(\theta_{j \neq i})}[\ln P(D,\theta)]\}}{\int_{\t
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="sampling.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Welcome!</p>
+            <p class="prev-next-title">Sampling</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="sampling.html" title="next page">
+    <a class='right-next' id="next-link" href="non-param_bayesian.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Sampling</p>
+        <p class="prev-next-title">Bayesian Inference (Part-II Non-Parametric)</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

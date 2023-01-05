@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Bayesian Inference
+# # Bayesian Inference (Part-I Parametric)
 # 
 # ## Posterior
 # 
