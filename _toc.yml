@@ -5,10 +5,10 @@ parts:
   - caption: Statistics
     numbered: False
     chapters:
-    - file: stats/bayesian_inference
-    - file: stats/sampling
-    - file: stats/non-param_bayesian
     - file: stats/language_model
+    - file: stats/sampling
+    - file: stats/bayesian_inference
+    - file: stats/non-param_bayesian
     - file: stats/normalization
     - file: stats/markov-chain_mdp
     - file: stats/reinforcement_learning
