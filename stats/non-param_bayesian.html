@@ -447,6 +447,33 @@ title="Print to PDF"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dirichlet-process">
+   Dirichlet Process
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multinomial-distribution">
+     Multinomial Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#beta-distribution">
+     Beta Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dirichlet-distribution">
+     Dirichlet Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Dirichlet Process
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
     </nav>
@@ -484,6 +511,33 @@ title="Print to PDF"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#gaussian-process-for-regression-gpr">
      Gaussian Process for Regression (GPR)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dirichlet-process">
+   Dirichlet Process
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multinomial-distribution">
+     Multinomial Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#beta-distribution">
+     Beta Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dirichlet-distribution">
+     Dirichlet Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Dirichlet Process
     </a>
    </li>
   </ul>
@@ -670,6 +724,94 @@ y^*|y \sim \mathcal{N}_{n^*}(\mu_{2|1}', \Sigma_{2|1}')
 \Sigma_{2|1}' &amp;= \Sigma_{22}' - \Sigma_{21}'\Sigma_{11}'^{-1}\Sigma_{12}' \\
 &amp;= (k(X^*, X^*)+\sigma^2I_{n^*}) - k(X^*,X)(k(X,X)+\sigma^2I_n)^{-1}k(X,X^*)
 \end{align*}\]</div>
+</section>
+</section>
+<section id="dirichlet-process">
+<h2>Dirichlet Process<a class="headerlink" href="#dirichlet-process" title="Permalink to this headline">#</a></h2>
+<p>Intuition: A general methodology for clustering, with unlimited number of clusters.</p>
+<section id="multinomial-distribution">
+<h3>Multinomial Distribution<a class="headerlink" href="#multinomial-distribution" title="Permalink to this headline">#</a></h3>
+<p>Multinomial distribution is the generalization of binomial distribution to higher dimension. Suppose we have some observations distributed to <span class="math notranslate nohighlight">\(K\)</span> categories <span class="math notranslate nohighlight">\(p = (p_1,p_2,...p_K)\)</span> given <span class="math notranslate nohighlight">\(\sum_{i=1}^K p_i = 1\)</span>, the number of occurence for category <span class="math notranslate nohighlight">\(i\)</span> is denoted as <span class="math notranslate nohighlight">\(n_i\)</span>, thus the total observations <span class="math notranslate nohighlight">\(n = \sum_{i=1}^K n_i\)</span>. For instance, the experiment resembles tossing a K-side coin n times.</p>
+<p>Probability mass function(pdf in discrete form): giving <span class="math notranslate nohighlight">\(\Gamma(n) = (n-1)!\)</span></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(n_1,n_2,...,n_K \mid p_1,p_2,...p_K) &amp;= \frac{n!}{n_1!n_2!...n_K!} p_1^{n_1}p_2^{n_2}...p_K^{n_K} \\
+&amp; = \frac{\Gamma(n+1)}{\prod_{i=1}^K \Gamma(n_i+1)} \prod_{i=1}^K p_i^{n_i}
+\end{align*}\]</div>
+</section>
+<section id="beta-distribution">
+<h3>Beta Distribution<a class="headerlink" href="#beta-distribution" title="Permalink to this headline">#</a></h3>
+<p>Beta Distribution is a continuous distribution defined on <span class="math notranslate nohighlight">\([0, 1]\)</span>, with two positive parameters <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>. The distribution is widely used as the prior for Bernoulli, (Negative)Binomial and Geometric distributed data because of conjugacy.</p>
+<p>Probability density function:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(x \mid \alpha,\beta) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1}(1-x)^{\beta-1}
+\end{align*}\]</div>
+</section>
+<section id="dirichlet-distribution">
+<h3>Dirichlet Distribution<a class="headerlink" href="#dirichlet-distribution" title="Permalink to this headline">#</a></h3>
+<p>Dirichlet distribution is the generalization of beta distribution to higher dimension. Likewise, suppose we have some observations distributed to <span class="math notranslate nohighlight">\(K\)</span> categorites, the concentration parameters is defined as <span class="math notranslate nohighlight">\(Dir (\alpha_1,\alpha_2,...\alpha_K)\)</span>. Note that the sum of <span class="math notranslate nohighlight">\(\alpha_i\)</span> is not required to be 1, e.g. <span class="math notranslate nohighlight">\(Dir(0.1,0.1)\)</span> is a valid distribution.</p>
+<p>Probability density function:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(x_1,x_2,...,x_k \mid \alpha_1,\alpha_2,...\alpha_K) = \frac{\Gamma(\sum_{i=1}^K \alpha_i)}{\prod_{i=1}^K \Gamma(\alpha_i)} \prod_{i=1}^K x_i^{\alpha_i-1}
+\end{align*}\]</div>
+<p>Similarly, dirichlet distribution is conjugate over multinomial distributed data. If we define the prior with a dirichlet distribution <span class="math notranslate nohighlight">\(p = (p_1,p_2,...,p_K) \sim Dir(\alpha_1,\alpha_2,...,\alpha_K)\)</span>, and the observed multinomial distributed data is denoted as <span class="math notranslate nohighlight">\((n_1,n_2,...,n_K)\)</span>, then the likelihood is just the probability mass function of multinomial distribution:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(n_1,n_2,...,n_K \mid p_1,p_2,...p_K) = \frac{\Gamma(n+1)}{\prod_{i=1}^K \Gamma(n_i+1)} \prod_{i=1}^K p_i^{n_i}
+\end{align*}\]</div>
+<p>And the updated posterior is also dirichlet distribution(because of conjugacy):</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\pi(p_1,p_2,...p_K \mid n_1,n_2,...,n_K) &amp;\propto P(n_1,n_2,...,n_K \mid p_1,p_2,...p_K)\pi(p_1,p_2,...p_K) \\
+&amp;\propto \frac{\Gamma(n+1)}{\prod_{i=1}^K \Gamma(n_i+1)} \prod_{i=1}^K p_i^{n_i} \frac{\Gamma(\sum_{i=1}^K \alpha_i)}{\prod_{i=1}^K \Gamma(\alpha_i)} \prod_{i=1}^K p_i^{\alpha_i-1} \\
+&amp;\propto \prod_{i=1}^K p_i^{\alpha_i+n_i-1} \\
+&amp;\sim Dir(\alpha_1+n_1,\alpha_2+n_2,...,\alpha_K+n_K)
+\end{align*}\]</div>
+<p>Comments:</p>
+<ul class="simple">
+<li><p>We could see that the update of posterior with giving training data is quite straight forward: add-in the number of occurence for each category on the prior.</p></li>
+</ul>
+<p>Properties:
+… to be continued.</p>
+</section>
+<section id="id1">
+<h3>Dirichlet Process<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<p><strong>Def. Dirichlet Process:</strong> Let <span class="math notranslate nohighlight">\(S\)</span> be a measuable set, <span class="math notranslate nohighlight">\(\alpha\)</span> is a positive real number(NOT vector), and <span class="math notranslate nohighlight">\(G\)</span> is a base distribution. We define Dirichlet Process(DP) with parameter <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(G\)</span> as the random measure, where with any possible partition of <span class="math notranslate nohighlight">\(S = \{S_1,S_1,...S_K\}\)</span>, it would follow a dirichlet distribution with parameter <span class="math notranslate nohighlight">\(Dir(\alpha G(S_1),\alpha G(S_2),...,\alpha G(S_K))\)</span>.</p>
+<p>Comments:</p>
+<ul class="simple">
+<li><p>DP is the infinite-dimensional generalization of dirichlet distribution.</p></li>
+<li><p>By definition, we could see that the output of DP is a new distribution.</p></li>
+<li><p>Parameter <span class="math notranslate nohighlight">\(G\)</span> is the base, or “mean” of distributions generated by DP. In other words, DP draws various distribution around <span class="math notranslate nohighlight">\(G\)</span>, and <span class="math notranslate nohighlight">\(G\)</span> is the expected value of the process.</p></li>
+<li><p>Parameter <span class="math notranslate nohighlight">\(\alpha\)</span> is called the concentration parameter on two aspects:</p>
+<ul>
+<li><p>Concentration: describe how close the distributions are drawn aroun <span class="math notranslate nohighlight">\(G\)</span>.</p></li>
+<li><p>Discretization: describe how discrete the output distributions are.</p></li>
+</ul>
+</li>
+</ul>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p><span class="math notranslate nohighlight">\(\alpha\)</span> value</p></th>
+<th class="text-align:center head"><p>Concentration</p></th>
+<th class="text-align:center head"><p>Discretization</p></th>
+<th class="text-align:center head"><p>Expectation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>small</p></td>
+<td class="text-align:center"><p>far away from <span class="math notranslate nohighlight">\(G\)</span></p></td>
+<td class="text-align:center"><p>discrete, degenerate to point masses</p></td>
+<td class="text-align:center"><p>highly influenced by training data</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>large</p></td>
+<td class="text-align:center"><p>close around <span class="math notranslate nohighlight">\(G\)</span></p></td>
+<td class="text-align:center"><p>(nearly) continuous</p></td>
+<td class="text-align:center"><p>highly influenced by the prior</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 </section>
