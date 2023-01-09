@@ -18,26 +18,27 @@
 # Sim(A, B) = \frac{|A \cap B|}{|A \cup B|}
 # \end{align*}
 # 
-# **Def. Account Similarity in SynchroTrap:** The similarity between two accounts is based on the Jaccard Similarity. Let a time-stamped user action be denoted as a tuple $(U_i, T_i, C_i)$, representing the user-id, action timestamp and the constraint object. Note that the constraint is defined by the its application, such as ip, fingerprint and even a combination of these entities. Then we define that two actions "match"($approx$) if they share the exact same constraint and fall into the same time window with a pre-defined length $T_{sim}$:
-# $$
+# **Def. Account Similarity in SynchroTrap:** The similarity between two accounts is based on the Jaccard Similarity. Let a time-stamped user action be denoted as a tuple $(U_i, T_i, C_i)$, representing the user-id, action timestamp and the constraint object. Note that the constraint is defined by the its application, such as ip, fingerprint and even a combination of these entities. Then we define that two actions "match"($\approx$) if they share the exact same constraint and fall into the same time window with a pre-defined length $T_{sim}$:
+# \begin{align*}
 # (U_i, T_i, C_i) \approx (U_j, T_j, C_j)
-# $$
+# \end{align*}
 # if $C_i = C_j$ and $|T_i - T_j| \le T_{sim}$.
 # 
 #  - Per-constraint Similarity: the similarity between users i & j on constraint k is defined as
-#  $$
+#  \begin{align*}
 #  Sim(Ui, Uj, C_k) = \frac{|A_i^k \cap A_j^k|}{|A_i^k \cup A_j^k|}
-#  $$
+#  \end{align*}
 #  where set $A_i^k = \{(U, T, C) \mid U=U_i, C=C_k\}$, and the intersection and union is caculated by the operation of "match" we defined previously.
 #  
 #  - Overall Similarity: the overall similarity between users i & j is defined as
-#  $$
+#  \begin{align*}
 #  Sim(Ui, Uj) = \frac{\sum_k |A_i^k \cap A_j^k|}{\sum_k |A_i^k \cup A_j^k|}
-#  $$
+#  \end{align*}
 #  Note that the overall similarity is NOT based on per-constraint similarity. It applies to applications where each constraint could be used only once(such as app-install).
 # 
 # 
-# **Def. Single-linkage:** Single-linkage clustering is one of several methods of hierarchical clustering. It is based on grouping clusters in bottom-up fashion, at each step combining two clusters that contain the closest pair of elements not yet belonging to the same cluster as each other.
+# **Def. Single-linkage:** Single-linkage clustering is one of several methods of hierarchical clustering. It is based on grouping clusters in **bottom-up fashion**, at each step combining two clusters that contain the closest pair of elements not yet belonging to the same cluster as each other.
 # 
 # 
+# **Def. Scalable User Clustering:** The user clustering algorithm is based on the bottom-up fashion single-linkage clustering. The algorithm uses an agglomerative approach which begins with each user as a different cluster, and iterately merge clusters with high similarity to produce large clusters. In addition, to make the algorithm scalable for parallel implementation, the algorithm is simplified as the connected components in the pruned user similarity graph filtered with a given similarity threshold. 
 # 

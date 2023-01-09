@@ -499,24 +499,30 @@ title="Print to PDF"
 \[\begin{align*}
 Sim(A, B) = \frac{|A \cap B|}{|A \cup B|}
 \end{align*}\]</div>
-<p><strong>Def. Account Similarity in SynchroTrap:</strong> The similarity between two accounts is based on the Jaccard Similarity. Let a time-stamped user action be denoted as a tuple <span class="math notranslate nohighlight">\((U_i, T_i, C_i)\)</span>, representing the user-id, action timestamp and the constraint object. Note that the constraint is defined by the its application, such as ip, fingerprint and even a combination of these entities. Then we define that two actions “match”(<span class="math notranslate nohighlight">\(approx\)</span>) if they share the exact same constraint and fall into the same time window with a pre-defined length <span class="math notranslate nohighlight">\(T_{sim}\)</span>:
-$<span class="math notranslate nohighlight">\(
+<p><strong>Def. Account Similarity in SynchroTrap:</strong> The similarity between two accounts is based on the Jaccard Similarity. Let a time-stamped user action be denoted as a tuple <span class="math notranslate nohighlight">\((U_i, T_i, C_i)\)</span>, representing the user-id, action timestamp and the constraint object. Note that the constraint is defined by the its application, such as ip, fingerprint and even a combination of these entities. Then we define that two actions “match”(<span class="math notranslate nohighlight">\(\approx\)</span>) if they share the exact same constraint and fall into the same time window with a pre-defined length <span class="math notranslate nohighlight">\(T_{sim}\)</span>:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 (U_i, T_i, C_i) \approx (U_j, T_j, C_j)
-\)</span><span class="math notranslate nohighlight">\(
-if \)</span>C_i = C_j<span class="math notranslate nohighlight">\( and \)</span>|T_i - T_j| \le T_{sim}$.</p>
+\end{align*}\]</div>
+<p>if <span class="math notranslate nohighlight">\(C_i = C_j\)</span> and <span class="math notranslate nohighlight">\(|T_i - T_j| \le T_{sim}\)</span>.</p>
 <ul class="simple">
-<li><p>Per-constraint Similarity: the similarity between users i &amp; j on constraint k is defined as
-$<span class="math notranslate nohighlight">\(
-Sim(Ui, Uj, C_k) = \frac{|A_i^k \cap A_j^k|}{|A_i^k \cup A_j^k|}
-\)</span><span class="math notranslate nohighlight">\(
-where set \)</span>A_i^k = {(U, T, C) \mid U=U_i, C=C_k}$, and the intersection and union is caculated by the operation of “match” we defined previously.</p></li>
-<li><p>Overall Similarity: the overall similarity between users i &amp; j is defined as
-$<span class="math notranslate nohighlight">\(
-Sim(Ui, Uj) = \frac{\sum_k |A_i^k \cap A_j^k|}{\sum_k |A_i^k \cup A_j^k|}
-\)</span>$
-Note that the overall similarity is NOT based on per-constraint similarity. It applies to applications where each constraint could be used only once(such as app-install).</p></li>
+<li><p>Per-constraint Similarity: the similarity between users i &amp; j on constraint k is defined as</p></li>
 </ul>
-<p><strong>Def. Single-linkage:</strong> Single-linkage clustering is one of several methods of hierarchical clustering. It is based on grouping clusters in bottom-up fashion, at each step combining two clusters that contain the closest pair of elements not yet belonging to the same cluster as each other.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+ Sim(Ui, Uj, C_k) = \frac{|A_i^k \cap A_j^k|}{|A_i^k \cup A_j^k|}
+ \end{align*}\]</div>
+<p>where set <span class="math notranslate nohighlight">\(A_i^k = \{(U, T, C) \mid U=U_i, C=C_k\}\)</span>, and the intersection and union is caculated by the operation of “match” we defined previously.</p>
+<ul class="simple">
+<li><p>Overall Similarity: the overall similarity between users i &amp; j is defined as</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+ Sim(Ui, Uj) = \frac{\sum_k |A_i^k \cap A_j^k|}{\sum_k |A_i^k \cup A_j^k|}
+ \end{align*}\]</div>
+<p>Note that the overall similarity is NOT based on per-constraint similarity. It applies to applications where each constraint could be used only once(such as app-install).</p>
+<p><strong>Def. Single-linkage:</strong> Single-linkage clustering is one of several methods of hierarchical clustering. It is based on grouping clusters in <strong>bottom-up fashion</strong>, at each step combining two clusters that contain the closest pair of elements not yet belonging to the same cluster as each other.</p>
+<p><strong>Def. Scalable User Clustering:</strong> The user clustering algorithm is based on the bottom-up fashion single-linkage clustering. The algorithm uses an agglomerative approach which begins with each user as a different cluster, and iterately merge clusters with high similarity to produce large clusters. In addition, to make the algorithm scalable for parallel implementation, the algorithm is simplified as the connected components in the pruned user similarity graph filtered with a given similarity threshold.</p>
 </section>
 </section>
 
