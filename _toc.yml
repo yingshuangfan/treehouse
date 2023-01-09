@@ -35,3 +35,9 @@ parts:
     - file: comp/svm
     - file: comp/decision_tree
     - file: comp/ensemble_learning
+
+  - caption: Topic
+    numbered: False
+    chapters:
+    - file: topic/GCN
+    

@@ -22,6 +22,6 @@ repository:
   branch: master
 
 parse:
-  myst_enable_extensions:
+  myst_enable_extensions: # https://myst-parser.readthedocs.io/en/latest/syntax/optional.html
     - amsmath
     - dollarmath
