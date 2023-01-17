@@ -23,6 +23,7 @@ parts:
     - file: math/non_linear_unscontrained
     - file: math/non_linear_constrained
     - file: math/stochastic_method
+    - file: math/numerical_method
 
   - caption: Computation
     numbered: False
