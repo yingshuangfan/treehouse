@@ -452,6 +452,11 @@ title="Print to PDF"
      Convolution Operators
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kernel-methods">
+     Kernel Methods
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -481,6 +486,11 @@ title="Print to PDF"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#convolution-operators">
      Convolution Operators
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kernel-methods">
+     Kernel Methods
     </a>
    </li>
   </ul>
@@ -603,6 +613,40 @@ S^* = T I^*
 <ul class="simple">
 <li><p>The definition we mentioned in Def.1-2 and Def.1-4 are element-wise. However, for those indices which are invalid in the original matrix or sequence, we could assume the values are zeros.</p></li>
 <li><p>Even though the result of convolution has much higher dimension by definition, it is usually very sparse and could be represented by low dimensional vector(s) instead.</p></li>
+</ul>
+</section>
+<section id="kernel-methods">
+<h3>Kernel Methods<a class="headerlink" href="#kernel-methods" title="Permalink to this headline">#</a></h3>
+<p><strong>Def.2-1 Positive Definitive(PD) Kernels:</strong> A positive kernel defined on set <span class="math notranslate nohighlight">\(\mathcal{X}\)</span> should satisfied:</p>
+<ul>
+<li><p>symmetric: <span class="math notranslate nohighlight">\(K(x,x') = K(x,x')\)</span>.</p></li>
+<li><p>positive definite: for any co-efficients <span class="math notranslate nohighlight">\((a_1,a_2,...,a_N) \in \mathcal{R}^N\)</span>,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+    \sum_{i=1}^N \sum_{j=1}^N a_i a_j K(x^{(i)},x^{(j)}) \ge 0
+    \end{align*}\]</div>
+</li>
+</ul>
+<p>Example:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{X} = \mathcal{R}\)</span>, <span class="math notranslate nohighlight">\(K(x,x')=xx'\)</span>. Proof:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+    \sum_{i=1}^N \sum_{j=1}^N a_i a_j x^{(i)}x^{(j)} = \sum_{i=1}^N a_i x^{(i)} (\sum_{j=1}^N  a_j x^{(j)})= (\sum_{i=1}^N a_i x^{(i)})^2 \ge 0
+    \end{align*}\]</div>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{X} = \mathcal{R}^d\)</span>, <span class="math notranslate nohighlight">\(K(x,x')=\langle x,x'\rangle \)</span>. Proof:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+    \sum_{i=1}^N \sum_{j=1}^N a_i a_j \langle x^{(i)},x^{(j)} \rangle = \sum_{i=1}^N \sum_{j=1}^N a_i a_j \sum_{k=1}^d x_k^{(i)}x_k^{(j)} = \sum_{k=1}^d \sum_{i=1}^N a_i x_k^{(i)}(\sum_{j=1}^N a_j x_k^{(j)}) = \sum_{k=1}^d (\sum_{i=1}^N a_i x_k^{(i)})^2 \ge 0
+    \end{align*}\]</div>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{X}\)</span> ia ANY set, <span class="math notranslate nohighlight">\(\phi: \mathcal{X}^2 \to \mathcal{R}^d\)</span>, <span class="math notranslate nohighlight">\(K(x,x')=\langle \phi(x),\phi(x')\rangle\)</span>. Proof:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+    \sum_{i=1}^N \sum_{j=1}^N a_i a_j \langle \phi(x^{(i)}),\phi(x^{(j)}) \rangle = \sum_{i=1}^N \sum_{j=1}^N a_i a_j \sum_{k=1}^d \phi(x^{(i)})_k \phi(x^{(j)})_k = \sum_{k=1}^d \sum_{i=1}^N a_i \phi(x^{(i)})_k(\sum_{j=1}^N a_j \phi(x^{(j)})_k )= \sum_{k=1}^d (\sum_{i=1}^N a_i \phi(x^{(i)})_k)^2 \ge 0
+    \end{align*}\]</div>
+</li>
 </ul>
 </section>
 </section>

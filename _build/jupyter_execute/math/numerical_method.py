@@ -114,6 +114,28 @@
 # Comments:
 #  - The definition we mentioned in Def.1-2 and Def.1-4 are element-wise. However, for those indices which are invalid in the original matrix or sequence, we could assume the values are zeros.
 #  - Even though the result of convolution has much higher dimension by definition, it is usually very sparse and could be represented by low dimensional vector(s) instead. 
-#  
 # 
 # 
+
+# ### Kernel Methods
+# 
+# **Def.2-1 Positive Definitive(PD) Kernels:** A positive kernel defined on set $\mathcal{X}$ should satisfied: 
+#  - symmetric: $K(x,x') = K(x,x')$.
+#  - positive definite: for any co-efficients $(a_1,a_2,...,a_N) \in \mathcal{R}^N$, 
+#     \begin{align*}
+#     \sum_{i=1}^N \sum_{j=1}^N a_i a_j K(x^{(i)},x^{(j)}) \ge 0
+#     \end{align*}
+#     
+# Example:
+#  - $\mathcal{X} = \mathcal{R}$, $K(x,x')=xx'$. Proof:
+#     \begin{align*}
+#     \sum_{i=1}^N \sum_{j=1}^N a_i a_j x^{(i)}x^{(j)} = \sum_{i=1}^N a_i x^{(i)} (\sum_{j=1}^N  a_j x^{(j)})= (\sum_{i=1}^N a_i x^{(i)})^2 \ge 0
+#     \end{align*}
+#  - $\mathcal{X} = \mathcal{R}^d$, $K(x,x')=\langle x,x'\rangle $. Proof:
+#     \begin{align*}
+#     \sum_{i=1}^N \sum_{j=1}^N a_i a_j \langle x^{(i)},x^{(j)} \rangle = \sum_{i=1}^N \sum_{j=1}^N a_i a_j \sum_{k=1}^d x_k^{(i)}x_k^{(j)} = \sum_{k=1}^d \sum_{i=1}^N a_i x_k^{(i)}(\sum_{j=1}^N a_j x_k^{(j)}) = \sum_{k=1}^d (\sum_{i=1}^N a_i x_k^{(i)})^2 \ge 0
+#     \end{align*}
+#  - $\mathcal{X}$ ia ANY set, $\phi: \mathcal{X}^2 \to \mathcal{R}^d$, $K(x,x')=\langle \phi(x),\phi(x')\rangle$. Proof:
+#     \begin{align*}
+#     \sum_{i=1}^N \sum_{j=1}^N a_i a_j \langle \phi(x^{(i)}),\phi(x^{(j)}) \rangle = \sum_{i=1}^N \sum_{j=1}^N a_i a_j \sum_{k=1}^d \phi(x^{(i)})_k \phi(x^{(j)})_k = \sum_{k=1}^d \sum_{i=1}^N a_i \phi(x^{(i)})_k(\sum_{j=1}^N a_j \phi(x^{(j)})_k )= \sum_{k=1}^d (\sum_{i=1}^N a_i \phi(x^{(i)})_k)^2 \ge 0
+#     \end{align*}
