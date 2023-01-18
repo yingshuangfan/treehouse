@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Graphic Convolutional Network &#8212; TreeHouse</title>
+    <title>Fraud Detection &#8212; TreeHouse</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -259,7 +259,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Graphic Convolutional Network
+   Fraud Detection
   </a>
  </li>
 </ul>
@@ -447,6 +447,11 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applying-support-vector-data-description-for-fraud-detection">
+   Applying support vector data description for fraud detection
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#synchrotrap-uncovering-large-groups-of-active-malicious-accounts-in-online-social-networks">
    SynchroTrap: Uncovering Large Groups of Active Malicious Accounts in Online Social Networks
   </a>
@@ -460,7 +465,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Graphic Convolutional Network</h1>
+                <h1>Fraud Detection</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -473,6 +478,11 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#node2vec-scalable-feature-learning-for-networks">
    node2vec: Scalable Feature Learning for Networks
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applying-support-vector-data-description-for-fraud-detection">
+   Applying support vector data description for fraud detection
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -490,12 +500,43 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="graphic-convolutional-network">
-<h1>Graphic Convolutional Network<a class="headerlink" href="#graphic-convolutional-network" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="fraud-detection">
+<h1>Fraud Detection<a class="headerlink" href="#fraud-detection" title="Permalink to this headline">#</a></h1>
 <section id="node2vec-scalable-feature-learning-for-networks">
 <h2>node2vec: Scalable Feature Learning for Networks<a class="headerlink" href="#node2vec-scalable-feature-learning-for-networks" title="Permalink to this headline">#</a></h2>
 <p>GOAL: node2vec, a semi-supervised algorithm for scalable feature learning in networks.</p>
 <p><strong>Def. Link Prediction:</strong> Predict whether a pair of nodes in a network should have an edge connecting them.</p>
+</section>
+<section id="applying-support-vector-data-description-for-fraud-detection">
+<h2>Applying support vector data description for fraud detection<a class="headerlink" href="#applying-support-vector-data-description-for-fraud-detection" title="Permalink to this headline">#</a></h2>
+<p>Khedmati, Mohamad, Masoud Erfani, and Mohammad GhasemiGol. “Applying support vector data description for fraud detection.” arXiv preprint arXiv:2006.00618 (2020).</p>
+<p><strong>One-class Classification(OCC):</strong> Identify objects of <strong>a specific class amongst all objects</strong>, by primarily learning from a training set containing <strong>only the objects of that class</strong>(not necessarily). It is more difficult than the traditional classification problem, which tries to distinguish between two or more classes with the training set containing objects from all the classes. <a class="reference external" href="https://en.wikipedia.org/wiki/One-class_classification">wiki</a></p>
+<p><strong>Support Vector Data Description(SVDD):</strong> SVM based one-class classification, which relies on identifying the smallest hypersphere (with radius <span class="math notranslate nohighlight">\(r\)</span>, and center <span class="math notranslate nohighlight">\(c\)</span>) consisting of all the data points <span class="math notranslate nohighlight">\(x = (x_1,x_2,...,x_n)\)</span>. The problem can be defined as:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+ &amp; \min_{r,c} r^2 \\
+ &amp; s.t. \|\Phi(x_i) - c\| \le r^2, \forall i=1,2,...,n
+ \end{align*}\]</div>
+<p>However, the optimization problem given is highly restrictive and sensitive to outliers, since all the data points should be included in the hypersphere. To overcome the problem, we introduce slack variables <span class="math notranslate nohighlight">\(\zeta = (\zeta_1,\zeta_2,...,\zeta_n)\)</span>:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+ &amp; \min_{r,c} r^2  + \frac{1}{n \nu} \sum_{i=1}^n \zeta_i \\
+ &amp; s.t. \|\Phi(x_i) - c\| \le r^2 + \zeta_i, \forall i=1,2,...,n
+ \end{align*}\]</div>
+<p>Noted that the objective function should be penalized to restrict the slack variables. For the relaxed optimization problem, we apply the KKT conditions.</p>
+<p><strong>Density-based spatial clustering of applications with noise(DBSCAN):</strong>
+The DBSCAN algorithm can be abstracted into the following steps: <a class="reference external" href="https://en.wikipedia.org/wiki/DBSCAN">wiki</a></p>
+<ul class="simple">
+<li><p>Find the points in the <span class="math notranslate nohighlight">\(\epsilon\)</span>-neighborhood of every point, and identify the core points with more than minPts neighbors.</p></li>
+<li><p>Find the connected components of core points on the neighbor graph, ignoring all non-core points.</p></li>
+<li><p>Assign each non-core point to a nearby cluster if the cluster is an <span class="math notranslate nohighlight">\(\epsilon\)</span>-neighbor, otherwise assign it to noise.</p></li>
+</ul>
+<p>Proposed Algorithm:</p>
+<ol class="simple">
+<li><p>One-class Classification: we ONLY need non-fraud data to train a SVDD model!</p></li>
+<li><p>Sample Reduction(REDBSCAN): since SVDD is based on boundaries, the data samples could be reduced as long as the “shape” remains the same.</p></li>
+<li><p>Tune hyper-parameter based on Genectic Algorithm: NOT required, other method such as NN is also suitable.</p></li>
+</ol>
 </section>
 <section id="synchrotrap-uncovering-large-groups-of-active-malicious-accounts-in-online-social-networks">
 <h2>SynchroTrap: Uncovering Large Groups of Active Malicious Accounts in Online Social Networks<a class="headerlink" href="#synchrotrap-uncovering-large-groups-of-active-malicious-accounts-in-online-social-networks" title="Permalink to this headline">#</a></h2>

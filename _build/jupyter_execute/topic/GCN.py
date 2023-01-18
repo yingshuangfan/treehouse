@@ -1,13 +1,46 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Graphic Convolutional Network
+# # Fraud Detection
 # 
 # ## node2vec: Scalable Feature Learning for Networks
 # 
 # GOAL: node2vec, a semi-supervised algorithm for scalable feature learning in networks.
 # 
 # **Def. Link Prediction:** Predict whether a pair of nodes in a network should have an edge connecting them.
+# 
+
+# ## Applying support vector data description for fraud detection
+# 
+# Khedmati, Mohamad, Masoud Erfani, and Mohammad GhasemiGol. "Applying support vector data description for fraud detection." arXiv preprint arXiv:2006.00618 (2020).
+# 
+# **One-class Classification(OCC):** Identify objects of **a specific class amongst all objects**, by primarily learning from a training set containing **only the objects of that class**(not necessarily). It is more difficult than the traditional classification problem, which tries to distinguish between two or more classes with the training set containing objects from all the classes. [wiki](https://en.wikipedia.org/wiki/One-class_classification) 
+# 
+# **Support Vector Data Description(SVDD):** SVM based one-class classification, which relies on identifying the smallest hypersphere (with radius $r$, and center $c$) consisting of all the data points $x = (x_1,x_2,...,x_n)$. The problem can be defined as:
+#  \begin{align*}
+#  & \min_{r,c} r^2 \\
+#  & s.t. \|\Phi(x_i) - c\| \le r^2, \forall i=1,2,...,n
+#  \end{align*}
+# However, the optimization problem given is highly restrictive and sensitive to outliers, since all the data points should be included in the hypersphere. To overcome the problem, we introduce slack variables $\zeta = (\zeta_1,\zeta_2,...,\zeta_n)$:
+#  \begin{align*}
+#  & \min_{r,c} r^2  + \frac{1}{n \nu} \sum_{i=1}^n \zeta_i \\
+#  & s.t. \|\Phi(x_i) - c\| \le r^2 + \zeta_i, \forall i=1,2,...,n
+#  \end{align*}
+# Noted that the objective function should be penalized to restrict the slack variables. For the relaxed optimization problem, we apply the KKT conditions.
+# 
+# **Density-based spatial clustering of applications with noise(DBSCAN):**
+# The DBSCAN algorithm can be abstracted into the following steps: [wiki](https://en.wikipedia.org/wiki/DBSCAN)
+#  - Find the points in the $\epsilon$-neighborhood of every point, and identify the core points with more than minPts neighbors.
+#  - Find the connected components of core points on the neighbor graph, ignoring all non-core points.
+#  - Assign each non-core point to a nearby cluster if the cluster is an $\epsilon$-neighbor, otherwise assign it to noise.
+# 
+# Proposed Algorithm:
+#  1. One-class Classification: we ONLY need non-fraud data to train a SVDD model! 
+#  2. Sample Reduction(REDBSCAN): since SVDD is based on boundaries, the data samples could be reduced as long as the "shape" remains the same. 
+#  3. Tune hyper-parameter based on Genectic Algorithm: NOT required, other method such as NN is also suitable.
+#  
+#  
+# 
 # 
 
 # ## SynchroTrap: Uncovering Large Groups of Active Malicious Accounts in Online Social Networks
