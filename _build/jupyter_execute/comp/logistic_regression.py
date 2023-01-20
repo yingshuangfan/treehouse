@@ -1,6 +1,17 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Logistic Regression
+# # Machine Learning
 # 
-# to be continued..
+# ## Linear Model
+# 
+# ### SVM
+# 
+# ### Logistic Regression
+# 
+# 
+# ## Non-Linear Model
+# 
+# ### KNN
+# 
+# ### Decision Tree

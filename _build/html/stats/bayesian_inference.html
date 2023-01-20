@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Bayesian Inference (Part-I Parametric) &#8212; TreeHouse</title>
+    <title>Bayesian Inference &#8212; TreeHouse</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -55,7 +55,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/logo.webp"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Bayesian Inference (Part-II Non-Parametric)" href="non-param_bayesian.html" />
+    <link rel="next" title="Normalization" href="normalization.html" />
     <link rel="prev" title="Sampling" href="sampling.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -134,12 +134,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Bayesian Inference (Part-I Parametric)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="non-param_bayesian.html">
-   Bayesian Inference (Part-II Non-Parametric)
+   Bayesian Inference
   </a>
  </li>
  <li class="toctree-l1">
@@ -150,11 +145,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="markov-chain_mdp.html">
    Markov Chain &amp; Markov Decision Process
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="reinforcement_learning.html">
-   Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -170,28 +160,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../math/matrix_calculus.html">
-   Matrix Calculus
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../math/integer_programming.html">
-   Integer Programming
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="../math/linear_programming.html">
    Linear Programming
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../math/non_linear_unscontrained.html">
-   Non-linear Programming (Part-II Unconstrained)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../math/non_linear_constrained.html">
-   Non-linear Programming (Part-I Unconstrained)
+   Non-linear Programming
   </a>
  </li>
  <li class="toctree-l1">
@@ -222,28 +197,18 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../comp/reinforcement_learning.html">
+   Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../comp/neural_networks.html">
    Neural Networks
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../comp/logistic_regression.html">
-   Logistic Regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../comp/knn.html">
-   K Nearest Neighbor
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../comp/svm.html">
-   Supported Vector Machine
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../comp/decision_tree.html">
-   Decision Tree
+   Machine Learning
   </a>
  </li>
  <li class="toctree-l1">
@@ -260,7 +225,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../topic/GCN.html">
-   Graphic Convolutional Network
+   Fraud Detection
   </a>
  </li>
 </ul>
@@ -443,51 +408,114 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#posterior">
-   Posterior
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#posterior-predictive">
-   Posterior Predictive
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-prospective-of-mlp">
-   Bayesian Prospective of MLP
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#laplace-approximation">
-   Laplace Approximation
+  <a class="reference internal nav-link" href="#bayesian-inference-part-i-parametric">
+   Bayesian Inference (Part-I Parametric)
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bayesian-information-criterion">
-     Bayesian Information Criterion
+    <a class="reference internal nav-link" href="#posterior">
+     Posterior
     </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#posterior-predictive">
+     Posterior Predictive
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bayesian-prospective-of-mlp">
+     Bayesian Prospective of MLP
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#laplace-approximation">
+     Laplace Approximation
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#bayesian-information-criterion">
+       Bayesian Information Criterion
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mean-field-approximation-variational-inference">
+     Mean Field Approximation(Variational Inference)
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#jensen-s-inequality">
+       Jensen’s Inequality
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#kullbackleibler-divergence">
+       Kullback–Leibler Divergence
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mean-field-approximation">
+       Mean Field Approximation
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#mean-field-approximation-variational-inference">
-   Mean Field Approximation(Variational Inference)
+  <a class="reference internal nav-link" href="#bayesian-inference-part-ii-non-parametric">
+   Bayesian Inference (Part-II Non-Parametric)
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#jensen-s-inequality">
-     Jensen’s Inequality
+    <a class="reference internal nav-link" href="#gaussian-process">
+     Gaussian Process
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#multivariate-normal-distribution">
+       Multivariate Normal Distribution
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#covariance-function-kernel-function">
+       Covariance Function(Kernel Function)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#gaussian-process-for-regression-gpr">
+       Gaussian Process for Regression (GPR)
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#kullbackleibler-divergence">
-     Kullback–Leibler Divergence
+    <a class="reference internal nav-link" href="#dirichlet-process">
+     Dirichlet Process
     </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#mean-field-approximation">
-     Mean Field Approximation
-    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#multinomial-distribution">
+       Multinomial Distribution
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#beta-distribution">
+       Beta Distribution
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#dirichlet-distribution">
+       Dirichlet Distribution
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Dirichlet Process
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -500,7 +528,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Bayesian Inference (Part-I Parametric)</h1>
+                <h1>Bayesian Inference</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -511,51 +539,114 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#posterior">
-   Posterior
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#posterior-predictive">
-   Posterior Predictive
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-prospective-of-mlp">
-   Bayesian Prospective of MLP
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#laplace-approximation">
-   Laplace Approximation
+  <a class="reference internal nav-link" href="#bayesian-inference-part-i-parametric">
+   Bayesian Inference (Part-I Parametric)
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bayesian-information-criterion">
-     Bayesian Information Criterion
+    <a class="reference internal nav-link" href="#posterior">
+     Posterior
     </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#posterior-predictive">
+     Posterior Predictive
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bayesian-prospective-of-mlp">
+     Bayesian Prospective of MLP
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#laplace-approximation">
+     Laplace Approximation
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#bayesian-information-criterion">
+       Bayesian Information Criterion
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mean-field-approximation-variational-inference">
+     Mean Field Approximation(Variational Inference)
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#jensen-s-inequality">
+       Jensen’s Inequality
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#kullbackleibler-divergence">
+       Kullback–Leibler Divergence
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mean-field-approximation">
+       Mean Field Approximation
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#mean-field-approximation-variational-inference">
-   Mean Field Approximation(Variational Inference)
+  <a class="reference internal nav-link" href="#bayesian-inference-part-ii-non-parametric">
+   Bayesian Inference (Part-II Non-Parametric)
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#jensen-s-inequality">
-     Jensen’s Inequality
+    <a class="reference internal nav-link" href="#gaussian-process">
+     Gaussian Process
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#multivariate-normal-distribution">
+       Multivariate Normal Distribution
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#covariance-function-kernel-function">
+       Covariance Function(Kernel Function)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#gaussian-process-for-regression-gpr">
+       Gaussian Process for Regression (GPR)
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#kullbackleibler-divergence">
-     Kullback–Leibler Divergence
+    <a class="reference internal nav-link" href="#dirichlet-process">
+     Dirichlet Process
     </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#mean-field-approximation">
-     Mean Field Approximation
-    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#multinomial-distribution">
+       Multinomial Distribution
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#beta-distribution">
+       Beta Distribution
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#dirichlet-distribution">
+       Dirichlet Distribution
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Dirichlet Process
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -569,10 +660,12 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="bayesian-inference-part-i-parametric">
-<h1>Bayesian Inference (Part-I Parametric)<a class="headerlink" href="#bayesian-inference-part-i-parametric" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="bayesian-inference">
+<h1>Bayesian Inference<a class="headerlink" href="#bayesian-inference" title="Permalink to this headline">#</a></h1>
+<section id="bayesian-inference-part-i-parametric">
+<h2>Bayesian Inference (Part-I Parametric)<a class="headerlink" href="#bayesian-inference-part-i-parametric" title="Permalink to this headline">#</a></h2>
 <section id="posterior">
-<h2>Posterior<a class="headerlink" href="#posterior" title="Permalink to this headline">#</a></h2>
+<h3>Posterior<a class="headerlink" href="#posterior" title="Permalink to this headline">#</a></h3>
 <p><strong>Def.1 Posterior Distribution:</strong> The posterior distribution of parameter <span class="math notranslate nohighlight">\(\theta\)</span>, based on observations <span class="math notranslate nohighlight">\(D=\{x_1,...,x_n\}\)</span>, likelihood function <span class="math notranslate nohighlight">\(L(\theta|D)=P(D|\theta)=\prod_{i=1}^n{P(x_i|\theta)}\)</span>(assuming data samples are i.i.d), prior distribution <span class="math notranslate nohighlight">\(\pi(\theta)\)</span>, is defined as:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
@@ -611,7 +704,7 @@ title="Print to PDF"
 </ul>
 </section>
 <section id="posterior-predictive">
-<h2>Posterior Predictive<a class="headerlink" href="#posterior-predictive" title="Permalink to this headline">#</a></h2>
+<h3>Posterior Predictive<a class="headerlink" href="#posterior-predictive" title="Permalink to this headline">#</a></h3>
 <p><strong>Def.2 Posterior Predictive Distribution:</strong> The posterior predictive distribution of parameter <span class="math notranslate nohighlight">\(\theta\)</span> is defined as(based on conditions given in Def.1):</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
@@ -622,7 +715,7 @@ P(x_{n+1}|D)=\int_{\theta}{P(x_{n+1},\theta|D)\,d\theta}=\int_{\theta}{P(x_{n+1}
 </ul>
 </section>
 <section id="bayesian-prospective-of-mlp">
-<h2>Bayesian Prospective of MLP<a class="headerlink" href="#bayesian-prospective-of-mlp" title="Permalink to this headline">#</a></h2>
+<h3>Bayesian Prospective of MLP<a class="headerlink" href="#bayesian-prospective-of-mlp" title="Permalink to this headline">#</a></h3>
 <p>In general, a machine learning problem could also be viewed from the bayesian inference prospective. The relationship could be described as:</p>
 <table class="colwidths-auto table">
 <thead>
@@ -650,7 +743,7 @@ P(x_{n+1}|D)=\int_{\theta}{P(x_{n+1},\theta|D)\,d\theta}=\int_{\theta}{P(x_{n+1}
 </table>
 </section>
 <section id="laplace-approximation">
-<h2>Laplace Approximation<a class="headerlink" href="#laplace-approximation" title="Permalink to this headline">#</a></h2>
+<h3>Laplace Approximation<a class="headerlink" href="#laplace-approximation" title="Permalink to this headline">#</a></h3>
 <p>Intuitive: Approximate the posterior distribution with a multivariate normal distribution centered at the mode of posterior.</p>
 <p><strong>Def.3 Laplace Approximation:</strong> Given a MAP estimation <span class="math notranslate nohighlight">\(\theta_{MAP}=argmax_{\theta}\pi(\theta|D)\)</span>, the laplace approximation of posterior on MAP is defined as:</p>
 <div class="amsmath math notranslate nohighlight">
@@ -671,7 +764,7 @@ P(x_{n+1}|D)=\int_{\theta}{P(x_{n+1},\theta|D)\,d\theta}=\int_{\theta}{P(x_{n+1}
 <li><p>The approximate k-dimensional multivariate normal distribution has the mean of <span class="math notranslate nohighlight">\(\theta_{MAP}\)</span>, which is basically how the method is designed, and the covariance matrix is the inverse of <span class="math notranslate nohighlight">\(A\)</span>. Considering the cost of computing inverse matrix is high(<span class="math notranslate nohighlight">\(O(k^3)\)</span>), the dimension of parameters k should be limited.</p></li>
 </ul>
 <section id="bayesian-information-criterion">
-<h3>Bayesian Information Criterion<a class="headerlink" href="#bayesian-information-criterion" title="Permalink to this headline">#</a></h3>
+<h4>Bayesian Information Criterion<a class="headerlink" href="#bayesian-information-criterion" title="Permalink to this headline">#</a></h4>
 <p>Based on laplace approximation of the posterior distribution we have:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
@@ -718,10 +811,10 @@ BIC &amp; = k\ln N - 2\ln P(D|\theta_{MLE}) \\
 </section>
 </section>
 <section id="mean-field-approximation-variational-inference">
-<h2>Mean Field Approximation(Variational Inference)<a class="headerlink" href="#mean-field-approximation-variational-inference" title="Permalink to this headline">#</a></h2>
+<h3>Mean Field Approximation(Variational Inference)<a class="headerlink" href="#mean-field-approximation-variational-inference" title="Permalink to this headline">#</a></h3>
 <p>Intuitive: Approximate the posterior distribution <span class="math notranslate nohighlight">\(\pi(\theta|D)\)</span> with a fully factorized distribution <span class="math notranslate nohighlight">\(q(\theta)\)</span>. The basic idea is to treat each component of parameter <span class="math notranslate nohighlight">\(\theta_i\)</span> as they are independent, such that the joint distribution is simple and tractable. Since the goal is to find the approximate distribution for each <span class="math notranslate nohighlight">\(\theta_i\)</span>, we are changing the form of such distributions during the training process as if they are variables, thus the method is also called Variational Inference.</p>
 <section id="jensen-s-inequality">
-<h3>Jensen’s Inequality<a class="headerlink" href="#jensen-s-inequality" title="Permalink to this headline">#</a></h3>
+<h4>Jensen’s Inequality<a class="headerlink" href="#jensen-s-inequality" title="Permalink to this headline">#</a></h4>
 <p><strong>Def.4 Jensen’s Inequality:</strong> If X is a randome variable and <span class="math notranslate nohighlight">\(\varphi\)</span> is a convex function on its domain, then we have:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
@@ -733,7 +826,7 @@ BIC &amp; = k\ln N - 2\ln P(D|\theta_{MLE}) \\
 </ul>
 </section>
 <section id="kullbackleibler-divergence">
-<h3>Kullback–Leibler Divergence<a class="headerlink" href="#kullbackleibler-divergence" title="Permalink to this headline">#</a></h3>
+<h4>Kullback–Leibler Divergence<a class="headerlink" href="#kullbackleibler-divergence" title="Permalink to this headline">#</a></h4>
 <p><strong>Def.5 KL Divergence:</strong> A method to measure the distance between two distributions P &amp; Q on the same random variable X, is defined as:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
@@ -744,7 +837,7 @@ D_{KL}(P||Q) = \int_{x}{P(x)\ln{\frac{P(x)}{Q(x)}}}\,dx
 </ul>
 </section>
 <section id="mean-field-approximation">
-<h3>Mean Field Approximation<a class="headerlink" href="#mean-field-approximation" title="Permalink to this headline">#</a></h3>
+<h4>Mean Field Approximation<a class="headerlink" href="#mean-field-approximation" title="Permalink to this headline">#</a></h4>
 <p>For simplicity, we let <span class="math notranslate nohighlight">\(q(\theta)\)</span> be a fully factorized distribution, such that:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
@@ -793,6 +886,270 @@ q_i(\theta_i) = \frac{exp\{E_{q(\theta_{j \neq i})}[\ln P(D,\theta)]\}}{\int_{\t
 </section>
 </section>
 </section>
+<section id="bayesian-inference-part-ii-non-parametric">
+<h2>Bayesian Inference (Part-II Non-Parametric)<a class="headerlink" href="#bayesian-inference-part-ii-non-parametric" title="Permalink to this headline">#</a></h2>
+<section id="gaussian-process">
+<h3>Gaussian Process<a class="headerlink" href="#gaussian-process" title="Permalink to this headline">#</a></h3>
+<section id="multivariate-normal-distribution">
+<h4>Multivariate Normal Distribution<a class="headerlink" href="#multivariate-normal-distribution" title="Permalink to this headline">#</a></h4>
+<p>Multivariate normal distribution is the generalization of normal distribution to higher dimension. Suppose the dimension is <span class="math notranslate nohighlight">\(d\)</span>, then we denote the <span class="math notranslate nohighlight">\(d\)</span> dimension multivariate normal distribuion as <span class="math notranslate nohighlight">\(\mathcal{N}_d(\mu, \Sigma)\)</span>, where <span class="math notranslate nohighlight">\(\Sigma\)</span> is semi-positive definite. In addition, the distribution is non-degenerate, if <span class="math notranslate nohighlight">\(\Sigma\)</span> is positive definite. For simplicity we assume that a distribution is always non-degenerate.</p>
+<p><strong>Def. Multivariate Normal Distribution:</strong> <span class="math notranslate nohighlight">\(X \sim \mathcal{N}_d(\mu, \Sigma)\)</span>, with mean vector <span class="math notranslate nohighlight">\(\mu \in \mathbb{R}^d\)</span> and covariance matrix <span class="math notranslate nohighlight">\(\mu \in \mathbb{R}^{d \times d}\)</span></p>
+<p>Properties:</p>
+<ul class="simple">
+<li><p>mean: <span class="math notranslate nohighlight">\(\mu\)</span></p></li>
+<li><p>mode: <span class="math notranslate nohighlight">\(\mu\)</span></p></li>
+<li><p>variance: <span class="math notranslate nohighlight">\(\Sigma\)</span></p></li>
+</ul>
+<p>Probability density function(non-degenerate):</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+f(X) = \frac{exp\left(-\frac{1}{2}(X-\mu)^T\Sigma^{-1}(X-\mu)\right)}{(2\pi)^{\frac{d}{2}}det(\Sigma)^{\frac{1}{2}}}
+\end{align*}\]</div>
+<p>Comments:</p>
+<ul class="simple">
+<li><p>If we fit training data with a multivariate normal distribution model, then the parameters are mean vector and covariance matrix as shown in the definition. In other words, if we want to generalize the model into unlimited(infinite) number of parameters, ont possible approach is to extend the dimension <span class="math notranslate nohighlight">\(d\)</span> to infinite, thus we introduce the method of Gaussian Process.</p></li>
+</ul>
+<p><strong>Def. Gaussian Process:</strong> The Gaussian process is a stochastic process, a collection of random variables <span class="math notranslate nohighlight">\(\{x_1, x_2,...\}\)</span> indexed by time or space, such that every finite collection of these random variables follows a multivariate normal distribution. We denote <span class="math notranslate nohighlight">\(y = \{y(x), x \in \mathcal{X}\} \sim GP(m(\cdot), k(\cdot,\cdot))\)</span>, with mean function <span class="math notranslate nohighlight">\(m(\cdot)\)</span> and covariance function <span class="math notranslate nohighlight">\(k(\cdot,\cdot))\)</span>. By definition, any finite subset of <span class="math notranslate nohighlight">\(X = \{x_1,x_2,...x_n\}\)</span> should follow a multivariate distribution <span class="math notranslate nohighlight">\(y(X) \sim \mathcal{N}(m(X), k(X, X))\)</span>.</p>
+<p>Comments:</p>
+<ul class="simple">
+<li><p>Compared to other parametric model, GP is different because it doesn’t output new data point(prediction) directly, instead it outputs a function that fits the data. Thus, the GP is also called <strong>the distribution over functions</strong>.</p></li>
+<li><p>Given a certain training data, the fitted GP model could produce infinite numbers of possible function that fit the training data, thus the parameters are unlimited, or so-called non-parametric. The idea make sense, because there are unlimited ways to fit a certain dataset in general.</p></li>
+</ul>
+</section>
+<section id="covariance-function-kernel-function">
+<h4>Covariance Function(Kernel Function)<a class="headerlink" href="#covariance-function-kernel-function" title="Permalink to this headline">#</a></h4>
+<p>Gaussian Process is defined by a mean function <span class="math notranslate nohighlight">\(m(\cdot)\)</span> and a covariance function(a.k.a kernel) <span class="math notranslate nohighlight">\(k(\cdot,\cdot))\)</span>. For simplicity, the mean function can be ignored if we assumed the training data is already scaled to mean zero. Thus the main focus of GP is the choice of covariance function. In other words, the covariance function completely defines the GP’s behavior.</p>
+<p>Properties:</p>
+<ul class="simple">
+<li><p>Stationary: <span class="math notranslate nohighlight">\(k(X, X')\)</span> depends only on <span class="math notranslate nohighlight">\(X - X'\)</span>.</p></li>
+<li><p>Isotropic: <span class="math notranslate nohighlight">\(k(X, X')\)</span> depends only on <span class="math notranslate nohighlight">\(|X - X'|\)</span>. (Ignore the directions)</p></li>
+</ul>
+<p>Common choices:</p>
+<ul class="simple">
+<li><p>Constant:</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+k(X, X') = C
+\end{align*}\]</div>
+<ul class="simple">
+<li><p>Linear:</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+k(X, X') = X^TX'
+\end{align*}\]</div>
+<ul class="simple">
+<li><p>Squared Exponential(RBF):</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+k(X, X') = exp\left(-\frac{|X-X'|^2}{2l^2} \right)
+\end{align*}\]</div>
+<ul class="simple">
+<li><p>Ornstein-Uhlenbeck:</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+k(X, X') = exp\left(-\frac{|X-X'|}{l} \right)
+\end{align*}\]</div>
+<ul class="simple">
+<li><p>White Noice:</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+&amp;k(X, X') = \sigma^2 \delta_{X,X'} \\
+&amp;\delta_{X,X'} = \left\{
+\begin{array}{ll}
+      1 &amp; X \neq X' \\
+      0 &amp; X = X' \\
+\end{array} 
+\right. 
+\end{align*}\]</div>
+<p>Comments: The covariance function clearly resembles a measure of distance between two dataset <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(X'\)</span>, it describes our prior knowledge on the correlations bewteen observed data points, or in other words, their similarites.</p>
+</section>
+<section id="gaussian-process-for-regression-gpr">
+<h4>Gaussian Process for Regression (GPR)<a class="headerlink" href="#gaussian-process-for-regression-gpr" title="Permalink to this headline">#</a></h4>
+<p>Intuition: We choose Gaussian Process as prior and define the covariance function, and update the GP with training data to generate a posterior.</p>
+<p>Suppose the prior <span class="math notranslate nohighlight">\(f \sim GP(m(\cdot), k(\cdot, \cdot))\)</span>. We denote the observed data as <span class="math notranslate nohighlight">\(X \in \mathbb{R}^n\)</span>, and the goal is to predict future observations <span class="math notranslate nohighlight">\(X^* \in \mathbb{R}^{n^*}\)</span>. By defintion, the combination of these data points should follow a multivariate normal distribution:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\begin{bmatrix}
+f(X)\\
+f(X^*)
+\end{bmatrix}
+\sim \mathcal{N}_{n+n^*}\left(
+\begin{bmatrix}
+\mu_1\\
+\mu_2
+\end{bmatrix}
+,
+\begin{bmatrix}
+\Sigma_{11} &amp; \Sigma_{12}\\
+\Sigma_{21} &amp; \Sigma_{22}
+\end{bmatrix}
+\right)\\
+\end{align*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+&amp;\mu_1 = m(X)\\
+&amp;\mu_2 = m(X^*)\\
+&amp;\Sigma_{11} = k(X,X)\\
+&amp;\Sigma_{12} = k(X,X^*)\\
+&amp;\Sigma_{21} = k(X^*,X)\\
+&amp;\Sigma_{22} = k(X^*,X^*)
+\end{align*}\]</div>
+<p>Note that <span class="math notranslate nohighlight">\(\Sigma_{12} = \Sigma_{21}^T\)</span>.</p>
+<p>The posterior predictive <span class="math notranslate nohighlight">\(f(X^*)|f(X)\)</span> could be viewed as the conditional distribution of the multivariate normal distribution:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+f(X^*)|f(X) \sim \mathcal{N}_{n^*}(\mu_{2|1}, \Sigma_{2|1})
+\end{align*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\mu_{2|1} &amp;= \mu_2 + \Sigma_{21}\Sigma_{11}^{-1}(f(x) - \mu_1) \\
+&amp;= m(X^*) + k(X^*,X)k(X,X)^{-1}(f(x) - m(X)) \\
+\end{align*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\Sigma_{2|1} &amp;= \Sigma_{22} - \Sigma_{21}\Sigma_{11}^{-1}\Sigma_{12} \\
+&amp;= k(X^*, X^*) - k(X^*,X)k(X,X)^{-1}k(X,X^*)
+\end{align*}\]</div>
+<p><strong>Example. GPR with white-noised data:</strong> If the observed data contains noise <span class="math notranslate nohighlight">\(y_i = f(x_i) + \sigma_i\)</span>, where the noise is white noise <span class="math notranslate nohighlight">\(\sigma_i \sim \mathcal{N}(0, \sigma^2)\)</span> with i.i.d. Then the joint distribution for current observations <span class="math notranslate nohighlight">\(y\)</span> and future observations <span class="math notranslate nohighlight">\(y^*\)</span> is:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\begin{bmatrix}
+y\\
+y^*
+\end{bmatrix}
+\sim \mathcal{N}_{n+n^*}\left(
+\begin{bmatrix}
+\mu_1'\\
+\mu_2'
+\end{bmatrix}
+,
+\begin{bmatrix}
+\Sigma_{11}' &amp; \Sigma_{12}'\\
+\Sigma_{21}' &amp; \Sigma_{22}'
+\end{bmatrix}
+\right)\\
+\end{align*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+&amp;\mu_1' = m(X)\\
+&amp;\mu_2' = m(X^*)\\
+&amp;\Sigma_{11}' = k(X,X)+\sigma^2I_n\\
+&amp;\Sigma_{12}' = k(X,X^*)\\
+&amp;\Sigma_{21}' = k(X^*,X)\\
+&amp;\Sigma_{22}' = k(X^*, X^*)+\sigma^2I_{n^*}
+\end{align*}\]</div>
+<p>The posterior predictive <span class="math notranslate nohighlight">\(y^*|y\)</span> is:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+y^*|y \sim \mathcal{N}_{n^*}(\mu_{2|1}', \Sigma_{2|1}')
+\end{align*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\mu_{2|1}' &amp;= \mu_2' + \Sigma_{21}'\Sigma_{11}'^{-1}(y - \mu_1') \\
+&amp;= m(X^*) + k(X^*,X)(k(X,X)+\sigma^2I_n)^{-1}(y - m(X)) \\
+\end{align*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\Sigma_{2|1}' &amp;= \Sigma_{22}' - \Sigma_{21}'\Sigma_{11}'^{-1}\Sigma_{12}' \\
+&amp;= (k(X^*, X^*)+\sigma^2I_{n^*}) - k(X^*,X)(k(X,X)+\sigma^2I_n)^{-1}k(X,X^*)
+\end{align*}\]</div>
+</section>
+</section>
+<section id="dirichlet-process">
+<h3>Dirichlet Process<a class="headerlink" href="#dirichlet-process" title="Permalink to this headline">#</a></h3>
+<p>Intuition: A general methodology for clustering, with unlimited number of clusters.</p>
+<section id="multinomial-distribution">
+<h4>Multinomial Distribution<a class="headerlink" href="#multinomial-distribution" title="Permalink to this headline">#</a></h4>
+<p>Multinomial distribution is the generalization of binomial distribution to higher dimension. Suppose we have some observations distributed to <span class="math notranslate nohighlight">\(K\)</span> categories <span class="math notranslate nohighlight">\(p = (p_1,p_2,...p_K)\)</span> given <span class="math notranslate nohighlight">\(\sum_{i=1}^K p_i = 1\)</span>, the number of occurence for category <span class="math notranslate nohighlight">\(i\)</span> is denoted as <span class="math notranslate nohighlight">\(n_i\)</span>, thus the total observations <span class="math notranslate nohighlight">\(n = \sum_{i=1}^K n_i\)</span>. For instance, the experiment resembles tossing a K-side coin n times.</p>
+<p>Probability mass function(pdf in discrete form): giving <span class="math notranslate nohighlight">\(\Gamma(n) = (n-1)!\)</span></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(n_1,n_2,...,n_K \mid p_1,p_2,...p_K) &amp;= \frac{n!}{n_1!n_2!...n_K!} p_1^{n_1}p_2^{n_2}...p_K^{n_K} \\
+&amp; = \frac{\Gamma(n+1)}{\prod_{i=1}^K \Gamma(n_i+1)} \prod_{i=1}^K p_i^{n_i}
+\end{align*}\]</div>
+</section>
+<section id="beta-distribution">
+<h4>Beta Distribution<a class="headerlink" href="#beta-distribution" title="Permalink to this headline">#</a></h4>
+<p>Beta Distribution is a continuous distribution defined on <span class="math notranslate nohighlight">\([0, 1]\)</span>, with two positive parameters <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>. The distribution is widely used as the prior for Bernoulli, (Negative)Binomial and Geometric distributed data because of conjugacy.</p>
+<p>Probability density function:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(x \mid \alpha,\beta) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1}(1-x)^{\beta-1}
+\end{align*}\]</div>
+</section>
+<section id="dirichlet-distribution">
+<h4>Dirichlet Distribution<a class="headerlink" href="#dirichlet-distribution" title="Permalink to this headline">#</a></h4>
+<p>Dirichlet distribution is the generalization of beta distribution to higher dimension. Likewise, suppose we have some observations distributed to <span class="math notranslate nohighlight">\(K\)</span> categorites, the concentration parameters is defined as <span class="math notranslate nohighlight">\(Dir (\alpha_1,\alpha_2,...\alpha_K)\)</span>. Note that the sum of <span class="math notranslate nohighlight">\(\alpha_i\)</span> is not required to be 1, e.g. <span class="math notranslate nohighlight">\(Dir(0.1,0.1)\)</span> is a valid distribution.</p>
+<p>Probability density function:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(x_1,x_2,...,x_k \mid \alpha_1,\alpha_2,...\alpha_K) = \frac{\Gamma(\sum_{i=1}^K \alpha_i)}{\prod_{i=1}^K \Gamma(\alpha_i)} \prod_{i=1}^K x_i^{\alpha_i-1}
+\end{align*}\]</div>
+<p>Similarly, dirichlet distribution is conjugate over multinomial distributed data. If we define the prior with a dirichlet distribution <span class="math notranslate nohighlight">\(p = (p_1,p_2,...,p_K) \sim Dir(\alpha_1,\alpha_2,...,\alpha_K)\)</span>, and the observed multinomial distributed data is denoted as <span class="math notranslate nohighlight">\((n_1,n_2,...,n_K)\)</span>, then the likelihood is just the probability mass function of multinomial distribution:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(n_1,n_2,...,n_K \mid p_1,p_2,...p_K) = \frac{\Gamma(n+1)}{\prod_{i=1}^K \Gamma(n_i+1)} \prod_{i=1}^K p_i^{n_i}
+\end{align*}\]</div>
+<p>And the updated posterior is also dirichlet distribution(because of conjugacy):</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\pi(p_1,p_2,...p_K \mid n_1,n_2,...,n_K) &amp;\propto P(n_1,n_2,...,n_K \mid p_1,p_2,...p_K)\pi(p_1,p_2,...p_K) \\
+&amp;\propto \frac{\Gamma(n+1)}{\prod_{i=1}^K \Gamma(n_i+1)} \prod_{i=1}^K p_i^{n_i} \frac{\Gamma(\sum_{i=1}^K \alpha_i)}{\prod_{i=1}^K \Gamma(\alpha_i)} \prod_{i=1}^K p_i^{\alpha_i-1} \\
+&amp;\propto \prod_{i=1}^K p_i^{\alpha_i+n_i-1} \\
+&amp;\sim Dir(\alpha_1+n_1,\alpha_2+n_2,...,\alpha_K+n_K)
+\end{align*}\]</div>
+<p>Comments:</p>
+<ul class="simple">
+<li><p>We could see that the update of posterior with giving training data is quite straight forward: add-in the number of occurence for each category on the prior.</p></li>
+</ul>
+<p>Properties:
+… to be continued.</p>
+</section>
+<section id="id1">
+<h4>Dirichlet Process<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h4>
+<p><strong>Def. Dirichlet Process:</strong> Let <span class="math notranslate nohighlight">\(S\)</span> be a measuable set, <span class="math notranslate nohighlight">\(\alpha\)</span> is a positive real number(NOT vector), and <span class="math notranslate nohighlight">\(G\)</span> is a base distribution. We define Dirichlet Process(DP) with parameter <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(G\)</span> as the random measure, where with any possible partition of <span class="math notranslate nohighlight">\(S = \{S_1,S_1,...S_K\}\)</span>, it would follow a dirichlet distribution with parameter <span class="math notranslate nohighlight">\(Dir(\alpha G(S_1),\alpha G(S_2),...,\alpha G(S_K))\)</span>.</p>
+<p>Comments:</p>
+<ul class="simple">
+<li><p>DP is the infinite-dimensional generalization of dirichlet distribution.</p></li>
+<li><p>By definition, we could see that the output of DP is a new distribution.</p></li>
+<li><p>Parameter <span class="math notranslate nohighlight">\(G\)</span> is the base, or “mean” of distributions generated by DP. In other words, DP draws various distribution around <span class="math notranslate nohighlight">\(G\)</span>, and <span class="math notranslate nohighlight">\(G\)</span> is the expected value of the process.</p></li>
+<li><p>Parameter <span class="math notranslate nohighlight">\(\alpha\)</span> is called the concentration parameter on two aspects:</p>
+<ul>
+<li><p>Concentration: describe how close the distributions are drawn aroun <span class="math notranslate nohighlight">\(G\)</span>.</p></li>
+<li><p>Discretization: describe how discrete the output distributions are.</p></li>
+</ul>
+</li>
+</ul>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p><span class="math notranslate nohighlight">\(\alpha\)</span> value</p></th>
+<th class="text-align:center head"><p>Concentration</p></th>
+<th class="text-align:center head"><p>Discretization</p></th>
+<th class="text-align:center head"><p>Expectation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>small</p></td>
+<td class="text-align:center"><p>far away from <span class="math notranslate nohighlight">\(G\)</span></p></td>
+<td class="text-align:center"><p>discrete, degenerate to point masses</p></td>
+<td class="text-align:center"><p>highly influenced by training data</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>large</p></td>
+<td class="text-align:center"><p>close around <span class="math notranslate nohighlight">\(G\)</span></p></td>
+<td class="text-align:center"><p>(nearly) continuous</p></td>
+<td class="text-align:center"><p>highly influenced by the prior</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -828,10 +1185,10 @@ q_i(\theta_i) = \frac{exp\{E_{q(\theta_{j \neq i})}[\ln P(D,\theta)]\}}{\int_{\t
             <p class="prev-next-title">Sampling</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="non-param_bayesian.html" title="next page">
+    <a class='right-next' id="next-link" href="normalization.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Bayesian Inference (Part-II Non-Parametric)</p>
+        <p class="prev-next-title">Normalization</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -137,11 +137,6 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../stats/non-param_bayesian.html">
-   Bayesian Inference (Part-II Non-Parametric)
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="../stats/normalization.html">
    Normalization
   </a>
@@ -149,11 +144,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../stats/markov-chain_mdp.html">
    Markov Chain &amp; Markov Decision Process
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../stats/reinforcement_learning.html">
-   Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -169,28 +159,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../math/matrix_calculus.html">
-   Matrix Calculus
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../math/integer_programming.html">
-   Integer Programming
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="../math/linear_programming.html">
-   Linear Programming
+   Linear&amp;Integer Programming
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../math/non_linear_unscontrained.html">
    Non-linear Programming (Part-II Unconstrained)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../math/non_linear_constrained.html">
-   Non-linear Programming (Part-I Unconstrained)
   </a>
  </li>
  <li class="toctree-l1">
@@ -221,28 +196,18 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../comp/reinforcement_learning.html">
+   Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../comp/neural_networks.html">
    Neural Networks
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../comp/logistic_regression.html">
-   Logistic Regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../comp/knn.html">
-   K Nearest Neighbor
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../comp/svm.html">
-   Supported Vector Machine
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../comp/decision_tree.html">
-   Decision Tree
+   Machine Learning
   </a>
  </li>
  <li class="toctree-l1">
@@ -531,11 +496,11 @@ The DBSCAN algorithm can be abstracted into the following steps: <a class="refer
 <li><p>Find the connected components of core points on the neighbor graph, ignoring all non-core points.</p></li>
 <li><p>Assign each non-core point to a nearby cluster if the cluster is an <span class="math notranslate nohighlight">\(\epsilon\)</span>-neighbor, otherwise assign it to noise.</p></li>
 </ul>
-<p>Proposed Algorithm:</p>
+<p>Comments:</p>
 <ol class="simple">
 <li><p>One-class Classification: we ONLY need non-fraud data to train a SVDD model!</p></li>
 <li><p>Sample Reduction(REDBSCAN): since SVDD is based on boundaries, the data samples could be reduced as long as the “shape” remains the same.</p></li>
-<li><p>Tune hyper-parameter based on Genectic Algorithm: NOT required, other method such as NN is also suitable.</p></li>
+<li><p>Tune hyper-parameter based on Genectic Algorithm: NOT required, other methods such as NN are also suitable.</p></li>
 </ol>
 </section>
 <section id="synchrotrap-uncovering-large-groups-of-active-malicious-accounts-in-online-social-networks">

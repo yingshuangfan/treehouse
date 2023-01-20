@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Non-linear Programming (Part-II Unconstrained) &#8212; TreeHouse</title>
+    <title>Non-linear Programming &#8212; TreeHouse</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -53,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/logo.webp"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Non-linear Programming (Part-I Unconstrained)" href="non_linear_constrained.html" />
+    <link rel="next" title="Stochastic Method" href="stochastic_method.html" />
     <link rel="prev" title="Linear Programming" href="linear_programming.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -132,12 +132,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../stats/bayesian_inference.html">
-   Bayesian Inference (Part-I Parametric)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../stats/non-param_bayesian.html">
-   Bayesian Inference (Part-II Non-Parametric)
+   Bayesian Inference
   </a>
  </li>
  <li class="toctree-l1">
@@ -148,11 +143,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../stats/markov-chain_mdp.html">
    Markov Chain &amp; Markov Decision Process
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../stats/reinforcement_learning.html">
-   Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -168,28 +158,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="matrix_calculus.html">
-   Matrix Calculus
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="integer_programming.html">
-   Integer Programming
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="linear_programming.html">
    Linear Programming
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Non-linear Programming (Part-II Unconstrained)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="non_linear_constrained.html">
-   Non-linear Programming (Part-I Unconstrained)
+   Non-linear Programming
   </a>
  </li>
  <li class="toctree-l1">
@@ -220,28 +195,18 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../comp/reinforcement_learning.html">
+   Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../comp/neural_networks.html">
    Neural Networks
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../comp/logistic_regression.html">
-   Logistic Regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../comp/knn.html">
-   K Nearest Neighbor
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../comp/svm.html">
-   Supported Vector Machine
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../comp/decision_tree.html">
-   Decision Tree
+   Machine Learning
   </a>
  </li>
  <li class="toctree-l1">
@@ -258,7 +223,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../topic/GCN.html">
-   Graphic Convolutional Network
+   Fraud Detection
   </a>
  </li>
 </ul>
@@ -418,23 +383,84 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#non-linear-programming-part-i-unconstrained">
+   Non-linear Programming (Part-I Unconstrained)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#non-linear-programming-part-ii-constrained">
+   Non-linear Programming (Part-II Constrained)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kkt-conditions">
+     KKT conditions
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Non-linear Programming (Part-II Unconstrained)</h1>
+                <h1>Non-linear Programming</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#non-linear-programming-part-i-unconstrained">
+   Non-linear Programming (Part-I Unconstrained)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#non-linear-programming-part-ii-constrained">
+   Non-linear Programming (Part-II Constrained)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kkt-conditions">
+     KKT conditions
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -442,8 +468,17 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="non-linear-programming-part-ii-unconstrained">
-<h1>Non-linear Programming (Part-II Unconstrained)<a class="headerlink" href="#non-linear-programming-part-ii-unconstrained" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="non-linear-programming">
+<h1>Non-linear Programming<a class="headerlink" href="#non-linear-programming" title="Permalink to this headline">#</a></h1>
+<section id="non-linear-programming-part-i-unconstrained">
+<h2>Non-linear Programming (Part-I Unconstrained)<a class="headerlink" href="#non-linear-programming-part-i-unconstrained" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="non-linear-programming-part-ii-constrained">
+<h2>Non-linear Programming (Part-II Constrained)<a class="headerlink" href="#non-linear-programming-part-ii-constrained" title="Permalink to this headline">#</a></h2>
+<section id="kkt-conditions">
+<h3>KKT conditions<a class="headerlink" href="#kkt-conditions" title="Permalink to this headline">#</a></h3>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -480,10 +515,10 @@ title="Print to PDF"
             <p class="prev-next-title">Linear Programming</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="non_linear_constrained.html" title="next page">
+    <a class='right-next' id="next-link" href="stochastic_method.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Non-linear Programming (Part-I Unconstrained)</p>
+        <p class="prev-next-title">Stochastic Method</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

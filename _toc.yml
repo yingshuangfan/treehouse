@@ -8,20 +8,15 @@ parts:
     - file: stats/language_model
     - file: stats/sampling
     - file: stats/bayesian_inference
-    - file: stats/non-param_bayesian
     - file: stats/normalization
     - file: stats/markov-chain_mdp
-    - file: stats/reinforcement_learning
 
   - caption: Mathematics
     numbered: False
     chapters:
     - file: math/multivariate_calculus
-    - file: math/matrix_calculus
-    - file: math/integer_programming
     - file: math/linear_programming
     - file: math/non_linear_unscontrained
-    - file: math/non_linear_constrained
     - file: math/stochastic_method
     - file: math/numerical_method
 
@@ -30,11 +25,9 @@ parts:
     chapters:
     - file: comp/data_structure
     - file: comp/search_algorithm
+    - file: comp/reinforcement_learning
     - file: comp/neural_networks
     - file: comp/logistic_regression
-    - file: comp/knn
-    - file: comp/svm
-    - file: comp/decision_tree
     - file: comp/ensemble_learning
 
   - caption: Topic

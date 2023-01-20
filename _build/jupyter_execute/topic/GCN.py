@@ -34,14 +34,11 @@
 #  - Find the connected components of core points on the neighbor graph, ignoring all non-core points.
 #  - Assign each non-core point to a nearby cluster if the cluster is an $\epsilon$-neighbor, otherwise assign it to noise.
 # 
-# Proposed Algorithm:
+# Comments:
 #  1. One-class Classification: we ONLY need non-fraud data to train a SVDD model! 
 #  2. Sample Reduction(REDBSCAN): since SVDD is based on boundaries, the data samples could be reduced as long as the "shape" remains the same. 
-#  3. Tune hyper-parameter based on Genectic Algorithm: NOT required, other method such as NN is also suitable.
+#  3. Tune hyper-parameter based on Genectic Algorithm: NOT required, other methods such as NN are also suitable.
 #  
-#  
-# 
-# 
 
 # ## SynchroTrap: Uncovering Large Groups of Active Malicious Accounts in Online Social Networks
 # 

@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# ### Search
+# # Search
 # 
-# #### Uninformed Search
+# ## Uninformed Search
 # 
-# #### Informed Search
-# 
-# to be continued..
+# ## Informed Search
