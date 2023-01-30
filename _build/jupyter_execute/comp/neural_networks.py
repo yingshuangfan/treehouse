@@ -7,4 +7,9 @@
 # 
 # ## Adaline
 # 
-# to be continued..
+# # Graph Neural Networks
+# 
+# ## Spectrum-based GNN
+# 
+# ## Spatial-based GNN
+# 
