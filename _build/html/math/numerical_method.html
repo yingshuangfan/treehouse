@@ -421,6 +421,18 @@ title="Print to PDF"
     <a class="reference internal nav-link" href="#kernel-methods">
      Kernel Methods
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#aronszajna-theorem">
+       Aronszajna Theorem
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#repoducing-kernel-hilbert-space-rkhs">
+       Repoducing Kernel Hilbert Space(RKHS)
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -457,6 +469,18 @@ title="Print to PDF"
     <a class="reference internal nav-link" href="#kernel-methods">
      Kernel Methods
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#aronszajna-theorem">
+       Aronszajna Theorem
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#repoducing-kernel-hilbert-space-rkhs">
+       Repoducing Kernel Hilbert Space(RKHS)
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -499,6 +523,10 @@ c(t) = (x * h)(t) = \int_{-\infty}^{\infty} x(u)h(t-u) \,du
 \[\begin{align*}
 c_{k} = \sum_{i=0}^k a_i b_{k-i}
 \end{align*}\]</div>
+<p>Comments:</p>
+<ul class="simple">
+<li><p>The length of two sequences can be different, we could assume that “m” in the definition is the maximum length of two sequences, where the rest elements are zeros.</p></li>
+</ul>
 <p><strong>Corollary.1-2-1 Matrix Form of 1-d Convolution for discrete sequences:</strong> If <span class="math notranslate nohighlight">\(c = (c_0,c_1,...c_{m-1})\)</span>, where <span class="math notranslate nohighlight">\(c_k\)</span> is defined as in Def.1-2, then the convolution operation could be written as matrix form:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
@@ -528,6 +556,12 @@ b_{m-1} &amp; b_{m-2} &amp; ... &amp; b_0
 S(i,j) = (I*K)(i,j) =  \sum_{k_1=0}^{m_1-1} \sum_{k_2=0}^{n_1-1} I(k_1,k_2)K(i-k_1,j-k_2)
 \end{align*}\]</div>
 <p>Reference: WIKI: “Multidimensional convolution with one-dimensional convolution methods”</p>
+<p><strong>Def.1-5 2-d Convolution for matrices in Cross-Correlation Form:</strong> The convolution operation defined in 1-4 where we flipped the kernel w.r.t the input is useful for writing proofs. On the other hand, the so-called “Cross-Correlation” version of operation is most implemented for DNN in practice. The main reason is that the size of kernal is much smaller compared to real-world dataset, thus the output size is also more compact by the later definition.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+S(i,j) = (I*K)(i,j) =  \sum_{k_1=0}^{m_2-1} \sum_{k_2=0}^{n_2-1} I(i+k_1,j+k_2)K(k_1,k_2)
+\end{align*}\]</div>
+<p>Comments: Notice that the size of output <span class="math notranslate nohighlight">\(S \in \mathcal{R}^{(m_1-m_2+1)\times(n_1-n_2+1)}\)</span> is smaller than the definition in Def.1-4. However, if we assume that the size of input is close to infinite(big dataset), then the difference could be ignored.</p>
 <p><strong>Corollary.1-4-1 Matrix Form of 2-d Convolution for matrices:</strong> For <span class="math notranslate nohighlight">\(S \in \mathcal{R}^{(m_1+m_2-1)\times(n_1+n_2-1)}\)</span> as defined in Def.1-4, the convolution operation could be written as matrix form, where <span class="math notranslate nohighlight">\(T \in \mathcal{R}^{(m_1+m_2-1)\times(n_1+n_2-1)}\)</span>:</p>
 <ol class="simple">
 <li><p>Let <span class="math notranslate nohighlight">\(T_k \in \mathcal{R}^{(n_1+n_2-1)\times n_1}\)</span> be the k-th (sub)block of matrix <span class="math notranslate nohighlight">\(T\)</span>, where <span class="math notranslate nohighlight">\(k=1,2,...,n_1\)</span>. <span class="math notranslate nohighlight">\(T_k\)</span> is a Toeplitz matrix constructed by the k-th row of matrix <span class="math notranslate nohighlight">\(H\)</span>:</p></li>
@@ -582,6 +616,7 @@ S^* = T I^*
 </section>
 <section id="kernel-methods">
 <h3>Kernel Methods<a class="headerlink" href="#kernel-methods" title="Permalink to this headline">#</a></h3>
+<p>Intuition: Develop a vasetile algorithm without making any assumptions on the training dataset. (Recall the intuition for non-parametric bayesian)</p>
 <p><strong>Def.2-1 Positive Definitive(PD) Kernels:</strong> A positive kernel defined on set <span class="math notranslate nohighlight">\(\mathcal{X}\)</span> should satisfied:</p>
 <ul>
 <li><p>symmetric: <span class="math notranslate nohighlight">\(K(x,x') = K(x,x')\)</span>.</p></li>
@@ -592,27 +627,67 @@ S^* = T I^*
     \end{align*}\]</div>
 </li>
 </ul>
-<p>Example:</p>
+<p><strong>Corollary.2-1-1 Proof of PD Kernels by PSD matrix:</strong> Let the similarity matrix K be defined as <span class="math notranslate nohighlight">\([K]_{ij} = K(x^i,x^j)\)</span>, then the kernel is positive definite if and only if its similarity matrix is <strong>positive semi-definite</strong>.</p>
+<p>Example: since symmetry is very easy to observe, we only illustrate the proof of non-negativity.</p>
 <ul>
 <li><p><span class="math notranslate nohighlight">\(\mathcal{X} = \mathcal{R}\)</span>, <span class="math notranslate nohighlight">\(K(x,x')=xx'\)</span>. Proof:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
-    \sum_{i=1}^N \sum_{j=1}^N a_i a_j x^{(i)}x^{(j)} = \sum_{i=1}^N a_i x^{(i)} (\sum_{j=1}^N  a_j x^{(j)})= (\sum_{i=1}^N a_i x^{(i)})^2 \ge 0
+    &amp;\sum_{i=1}^N \sum_{j=1}^N a_i a_j x^i x^j \\
+    &amp;= \sum_{i=1}^N a_i x^i (\sum_{j=1}^N  a_j x^j) \\
+    &amp;= (\sum_{i=1}^N a_i x^i)^2 \ge 0
     \end{align*}\]</div>
 </li>
 <li><p><span class="math notranslate nohighlight">\(\mathcal{X} = \mathcal{R}^d\)</span>, <span class="math notranslate nohighlight">\(K(x,x')=\langle x,x'\rangle \)</span>. Proof:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
-    \sum_{i=1}^N \sum_{j=1}^N a_i a_j \langle x^{(i)},x^{(j)} \rangle = \sum_{i=1}^N \sum_{j=1}^N a_i a_j \sum_{k=1}^d x_k^{(i)}x_k^{(j)} = \sum_{k=1}^d \sum_{i=1}^N a_i x_k^{(i)}(\sum_{j=1}^N a_j x_k^{(j)}) = \sum_{k=1}^d (\sum_{i=1}^N a_i x_k^{(i)})^2 \ge 0
+    &amp;\sum_{i=1}^N \sum_{j=1}^N a_i a_j \langle x^i,x^j \rangle \\
+    &amp;= \sum_{i=1}^N \sum_{j=1}^N \langle a_i x^i,a_j x^j \rangle \\
+    &amp;= \langle \sum_{i=1}^N a_i x^i, \sum_{j=1}^N a_j x^j \rangle \\
+    &amp;= \| \sum_{i=1}^N a_i x^i \|_d^2  \ge 0
     \end{align*}\]</div>
 </li>
 <li><p><span class="math notranslate nohighlight">\(\mathcal{X}\)</span> ia ANY set, <span class="math notranslate nohighlight">\(\phi: \mathcal{X}^2 \to \mathcal{R}^d\)</span>, <span class="math notranslate nohighlight">\(K(x,x')=\langle \phi(x),\phi(x')\rangle\)</span>. Proof:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
-    \sum_{i=1}^N \sum_{j=1}^N a_i a_j \langle \phi(x^{(i)}),\phi(x^{(j)}) \rangle = \sum_{i=1}^N \sum_{j=1}^N a_i a_j \sum_{k=1}^d \phi(x^{(i)})_k \phi(x^{(j)})_k = \sum_{k=1}^d \sum_{i=1}^N a_i \phi(x^{(i)})_k(\sum_{j=1}^N a_j \phi(x^{(j)})_k )= \sum_{k=1}^d (\sum_{i=1}^N a_i \phi(x^{(i)})_k)^2 \ge 0
+    &amp;\sum_{i=1}^N \sum_{j=1}^N a_i a_j \langle \phi(x^{(i)}),\phi(x^{(j)}) \rangle \\
+    &amp;= \sum_{i=1}^N \sum_{j=1}^N \langle a_i\phi(x^{(i)}),a_j\phi(x^{(j)}) \rangle \\
+    &amp;= \langle \sum_{i=1}^N a_i\phi(x^{(i)}),\sum_{j=1}^N a_j\phi(x^{(j)}) \rangle \\
+    &amp;= \| \sum_{i=1}^N a_i\phi(x^{(i)}) \|_d^2 \ge 0
     \end{align*}\]</div>
 </li>
 </ul>
+<section id="aronszajna-theorem">
+<h4>Aronszajna Theorem<a class="headerlink" href="#aronszajna-theorem" title="Permalink to this headline">#</a></h4>
+<p>Kernel K is PD if and only if we could find:</p>
+<ol class="simple">
+<li><p>a Hilbert Space <span class="math notranslate nohighlight">\(\mathcal{H}\)</span>.</p></li>
+<li><p>a mapping <span class="math notranslate nohighlight">\(\phi: \mathcal{X} \to \mathcal{H}\)</span>.</p></li>
+</ol>
+<p>such that for any pair of <span class="math notranslate nohighlight">\(x,x' \in \mathcal{X}\)</span>, we have the kernel value equals to the inner product of mapping vectors:
+\begin{align*}
+K(x,x’) = \langle \phi(x),\phi(x’) \rangle_\mathcal{H}
+\end{align*}</p>
+<p>Comments:</p>
+<ul class="simple">
+<li><p>The inner product is defined by the Hilbert Space we proposed.</p></li>
+<li><p>The proof of theorem is complicated when the dimension of dataset <span class="math notranslate nohighlight">\(\mathcal{X}\)</span> is not limited. Thus we introduce the idea of RKHS to help us simplify the procedure.</p></li>
+<li><p>In fact, the RKHS and kernel are uniquely determined to each other.</p></li>
+</ul>
+</section>
+<section id="repoducing-kernel-hilbert-space-rkhs">
+<h4>Repoducing Kernel Hilbert Space(RKHS)<a class="headerlink" href="#repoducing-kernel-hilbert-space-rkhs" title="Permalink to this headline">#</a></h4>
+<p><strong>Def.2-2 Reproducing Kernel:</strong> The function <span class="math notranslate nohighlight">\(K: \mathcal{X}^2 \to \mathcal{R}\)</span> is called a repoducing kernel of hilbert space <span class="math notranslate nohighlight">\(\mathcal{H}\)</span> if it satisfies:</p>
+<ul>
+<li><p>If we fixed point <span class="math notranslate nohighlight">\(x\)</span> for kernel function <span class="math notranslate nohighlight">\(K(x,x')\)</span>, then all functions <span class="math notranslate nohighlight">\(K_x: \mathcal{X} \to \mathcal{R}\)</span> are contained in <span class="math notranslate nohighlight">\(\mathcal{H}\)</span>.</p></li>
+<li><p>For every point <span class="math notranslate nohighlight">\(x\)</span> and every function <span class="math notranslate nohighlight">\(f\)</span> in <span class="math notranslate nohighlight">\(\mathcal{H}\)</span>, the repoducing property holds:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+    f(x) = \langle f,K_x \rangle_\mathcal{X}
+    \end{align*}\]</div>
+</li>
+</ul>
+</section>
 </section>
 </section>
 </section>
