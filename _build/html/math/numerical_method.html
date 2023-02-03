@@ -228,6 +228,11 @@ const thebe_selector_output = ".output, .cell_output"
    Fraud Detection
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../topic/CV.html">
+   Computer Vision
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -678,7 +683,7 @@ K(x,x’) = \langle \phi(x),\phi(x’) \rangle_\mathcal{H}
 <section id="repoducing-kernel-hilbert-space-rkhs">
 <h4>Repoducing Kernel Hilbert Space(RKHS)<a class="headerlink" href="#repoducing-kernel-hilbert-space-rkhs" title="Permalink to this headline">#</a></h4>
 <p><strong>Def.2-2 Reproducing Kernel:</strong> The function <span class="math notranslate nohighlight">\(K: \mathcal{X}^2 \to \mathcal{R}\)</span> is called a repoducing kernel of hilbert space <span class="math notranslate nohighlight">\(\mathcal{H}\)</span> if it satisfies:</p>
-<ul>
+<ol>
 <li><p>If we fixed point <span class="math notranslate nohighlight">\(x\)</span> for kernel function <span class="math notranslate nohighlight">\(K(x,x')\)</span>, then all functions <span class="math notranslate nohighlight">\(K_x: \mathcal{X} \to \mathcal{R}\)</span> are contained in <span class="math notranslate nohighlight">\(\mathcal{H}\)</span>.</p></li>
 <li><p>For every point <span class="math notranslate nohighlight">\(x\)</span> and every function <span class="math notranslate nohighlight">\(f\)</span> in <span class="math notranslate nohighlight">\(\mathcal{H}\)</span>, the repoducing property holds:</p>
 <div class="amsmath math notranslate nohighlight">
@@ -686,6 +691,10 @@ K(x,x’) = \langle \phi(x),\phi(x’) \rangle_\mathcal{H}
     f(x) = \langle f,K_x \rangle_\mathcal{X}
     \end{align*}\]</div>
 </li>
+</ol>
+<p>Comments:</p>
+<ul class="simple">
+<li><p>How to understand the inner-product of two functions <span class="math notranslate nohighlight">\(f,K_x\)</span> in space <span class="math notranslate nohighlight">\(\mathcal{X}\)</span>?</p></li>
 </ul>
 </section>
 </section>

@@ -34,4 +34,4 @@ parts:
     numbered: False
     chapters:
     - file: topic/GCN
-    
+    - file: topic/CV 

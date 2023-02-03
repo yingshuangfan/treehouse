@@ -183,8 +183,12 @@
 # #### Repoducing Kernel Hilbert Space(RKHS)
 #  
 # **Def.2-2 Reproducing Kernel:** The function $K: \mathcal{X}^2 \to \mathcal{R}$ is called a repoducing kernel of hilbert space $\mathcal{H}$ if it satisfies:
-#  - If we fixed point $x$ for kernel function $K(x,x')$, then all functions $K_x: \mathcal{X} \to \mathcal{R}$ are contained in $\mathcal{H}$.
-#  - For every point $x$ and every function $f$ in $\mathcal{H}$, the repoducing property holds: 
+#  1. If we fixed point $x$ for kernel function $K(x,x')$, then all functions $K_x: \mathcal{X} \to \mathcal{R}$ are contained in $\mathcal{H}$.
+#  2. For every point $x$ and every function $f$ in $\mathcal{H}$, the repoducing property holds: 
 #     \begin{align*}
 #     f(x) = \langle f,K_x \rangle_\mathcal{X}
 #     \end{align*}
+#     
+# Comments:
+#  - How to understand the inner-product of two functions $f,K_x$ in space $\mathcal{X}$?
+#  
